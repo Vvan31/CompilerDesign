@@ -42,7 +42,9 @@ namespace Falak {
         CHAR,
         NEWLINE,
         WHITESPACE,
-        OTHER
+        OTHER,
+        EOF,
+        ILLEGAL_CHAR
         
     }
 }

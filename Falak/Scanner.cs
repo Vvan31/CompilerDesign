@@ -11,7 +11,7 @@ namespace Falak {
         static readonly Regex regex = new Regex(
             @"
                 
-                (?<Multi-lineComment>    <#([\s\S]*?)#> )
+                (?<MultilineComment>    <#([\s\S]*?)#> )
               | (?<Comment>    [#]       )
               | (?<Newline>    \n        )
               | (?<WhiteSpace> \s        )     # Must go after Newline.
@@ -49,9 +49,11 @@ namespace Falak {
               | (?<Exclamation> [!]      )
               | (?<Bool>       bool\b    )
               | (?<Int>        int\b     )
-              | (?<Other>       .        )
               | (?<Identifier> [a-zA-Z][a-zA-Z0-9_]+ )     # Must go after all keywords
               | (?<Char>     ""([^""\n\\]|\\([nrt\\'""]|u[0-9a-fA-F]{6}))*"" )
+              | (?<Other>       .        )
+            
+              
             ",
             RegexOptions.IgnorePatternWhitespace
                 | RegexOptions.Compiled
@@ -60,7 +62,7 @@ namespace Falak {
 
         static readonly IDictionary<string, TokenCategory> tokenMap =
             new Dictionary<string, TokenCategory>() {
-                {"Multi-lineComment", TokenCategory.MULTILINECOMMENT},
+                {"MultilineComment", TokenCategory.MULTILINECOMMENT},
                 {"Comment", TokenCategory.COMMENT},
                 {"Break", TokenCategory.BREAK},
                 {"Dec", TokenCategory.DEC},
