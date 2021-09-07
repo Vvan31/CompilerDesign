@@ -11,10 +11,8 @@ namespace Falak {
         static readonly Regex regex = new Regex(
             @"
                 
-                (?<MultilineComment>    <#([\s\S]*?)#> )
-              | (?<Comment>    [#]       )
-              | (?<Newline>    \n        )
-              | (?<WhiteSpace> \s        )     # Must go after Newline.
+                (?<MultilineComment>    <\#([\s\S]*?)\#> )
+              | (?<Comment>    \#.*       )
               | (?<Break>      break\b   )
               | (?<Dec>        dec\b     )
               | (?<Do>         do\b      )
@@ -47,9 +45,10 @@ namespace Falak {
               | (?<Slash>      [/]       )
               | (?<Percent>    [%]       )
               | (?<Exclamation> [!]      )
-              | (?<Bool>       bool\b    )
-              | (?<Int>        int\b     )
               | (?<Identifier> [a-zA-Z][a-zA-Z0-9_]+ )     # Must go after all keywords
+              | (?<Int>        int\b     )
+              | (?<Newline>    \n        )
+              | (?<WhiteSpace> \s        )     # Must go after Newline.
               | (?<Char>     ""([^""\n\\]|\\([nrt\\'""]|u[0-9a-fA-F]{6}))*"" )
               | (?<Other>       .        )
             
@@ -62,8 +61,8 @@ namespace Falak {
 
         static readonly IDictionary<string, TokenCategory> tokenMap =
             new Dictionary<string, TokenCategory>() {
-                {"MultilineComment", TokenCategory.MULTILINECOMMENT},
-                {"Comment", TokenCategory.COMMENT},
+                //{"MultilineComment", TokenCategory.MULTILINECOMMENT},
+                //{"Comment", TokenCategory.COMMENT},
                 {"Break", TokenCategory.BREAK},
                 {"Dec", TokenCategory.DEC},
                 {"Do", TokenCategory.DO},
@@ -80,7 +79,7 @@ namespace Falak {
                 {"Startparenthesis", TokenCategory.STARTPARENTHESIS},
                 {"Endparenthesis", TokenCategory.ENDPARENTHESIS},
                 {"Startcurlbraces", TokenCategory.STARTCURLYBRACES},
-                {"Endtcurlbraces", TokenCategory.ENDCURLYBRACES},
+                {"Endcurlbraces", TokenCategory.ENDCURLYBRACES},
                 {"Or", TokenCategory.OR},
                 {"Circumflex", TokenCategory.CIRCUMFLEX},
                 {"And", TokenCategory.AND},
@@ -100,6 +99,7 @@ namespace Falak {
                 {"Int", TokenCategory.INT},
                 {"Newline", TokenCategory.NEWLINE},
                 {"WhiteSpace", TokenCategory.WHITESPACE},
+                {"Char", TokenCategory.CHAR},
                 {"Other", TokenCategory.OTHER},
 
             };
@@ -122,7 +122,7 @@ namespace Falak {
                     columnStart = m.Index + m.Length;
 
                 } else if (m.Groups["WhiteSpace"].Success
-                    || m.Groups["Comment"].Success) {
+                    || m.Groups["Comment"].Success || m.Groups["MultilineComment"].Success)  {
 
                     // Skip white space and comments.
 

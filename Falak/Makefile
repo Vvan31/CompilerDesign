@@ -7,7 +7,7 @@
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful,
+# This program is distributed in the hope that it will be u6                    seful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -16,10 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-buttercup.exe: Driver.cs Scanner.cs Token.cs TokenCategory.cs
+falak.exe: Driver.cs Scanner.cs Token.cs TokenCategory.cs
 
-	mcs -out:buttercup.exe Driver.cs Scanner.cs Token.cs TokenCategory.cs
+	mcs -out:falak.exe Driver.cs Scanner.cs Token.cs TokenCategory.cs
 
 clean:
 
-	rm -f buttercup.exe
+	rm -f falak.exe
