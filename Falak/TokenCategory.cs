@@ -2,8 +2,8 @@
 namespace Falak {
 
     enum TokenCategory {
-        MULTILINECOMMENT,
-        COMMENT,
+        //MULTILINECOMMENT,
+        //COMMENT,
         BREAK,
         DEC,
         DO,
@@ -42,7 +42,9 @@ namespace Falak {
         CHAR,
         NEWLINE,
         WHITESPACE,
-        OTHER
+        OTHER,
+        EOF,
+        ILLEGAL_CHAR
         
     }
 }
