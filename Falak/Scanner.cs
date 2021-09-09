@@ -125,6 +125,7 @@ namespace Falak {
                 } else if (m.Groups["WhiteSpace"].Success
                     || m.Groups["Comment"].Success || m.Groups["MultilineComment"].Success)  {
                     if (m.Groups["MultilineComment"].Success){ 
+                        //Aniade los saltos de todo el multilinea y el multilinea, por eso el -1.
                         int numLines = m.Value.Split('\n').Length - 1;
                         row += numLines;
                         //Console.WriteLine(numLines);
