@@ -29,14 +29,14 @@ namespace Falak {
               | (?<Startparenthesis> [(] )
               | (?<Endparenthesis>   [)] )
               | (?<Startcurlbraces>  [{] )
-              | (?<Endcurlbraces>    [{] )
-              | (?<Or>         [||]      )
+              | (?<Endcurlbraces>    [}] )
+              | (?<Or>         [|][|]    )
               | (<Circumflex>  [^]       )
-              | (<And>         [&&]      )
-              | (<Equals>      [==]      )
-              | (<DifEqual>    [!=]      )
-              | (?<Lessthanequal>   [<=] )
-              | (?<Greaterthanequal> [>=])
+              | (<And>         [&][&]      )
+              | (<Equals>      [=][=]      )
+              | (<DifEqual>    [!][=]      )
+              | (?<Lessthanequal>   [<][=] )
+              | (?<Greaterthanequal> [>][=])
               | (?<Lessthan>   [<]       )
               | (?<Greaterthan> [>]      )
               | (?<Plus>       [+]       )
@@ -51,6 +51,7 @@ namespace Falak {
               | (?<WhiteSpace> \s        )     # Must go after Newline.
               | (?<Char>     ""([^""\n\\]|\\([nrt\\'""]|u[0-9a-fA-F]{6}))*"" )
               | (?<Other>       .        )
+              
             
               
             ",
@@ -78,17 +79,17 @@ namespace Falak {
                 {"Semicolon", TokenCategory.SEMICOLON},
                 {"Startparenthesis", TokenCategory.STARTPARENTHESIS},
                 {"Endparenthesis", TokenCategory.ENDPARENTHESIS},
-                {"Startcurlbraces", TokenCategory.STARTCURLYBRACES},
-                {"Endcurlbraces", TokenCategory.ENDCURLYBRACES},
+                {"Startcurlbraces", TokenCategory.STARTCURLBRACES},
+                {"Endcurlbraces", TokenCategory.ENDCURLBRACES},
                 {"Or", TokenCategory.OR},
                 {"Circumflex", TokenCategory.CIRCUMFLEX},
                 {"And", TokenCategory.AND},
                 {"Equals", TokenCategory.EQUALS},
                 {"DifEqual", TokenCategory.DIFEQUAL},
-                {"Lessthan", TokenCategory.LESSTHAN},
                 {"Lessthanequal", TokenCategory.LESSTHANEQUAL},
+                {"Greaterthanequal", TokenCategory.GREATERTHANEQUAL},
+                {"Lessthan", TokenCategory.LESSTHAN},
                 {"Greaterthan", TokenCategory.GREATERTHAN},
-                {"Greatenthanequal", TokenCategory.GREATERTHANEQUAL},
                 {"Plus", TokenCategory.PLUS},
                 {"Minus", TokenCategory.MINUS},
                 {"Multiplication", TokenCategory.MULTIPLICATION},
@@ -101,7 +102,7 @@ namespace Falak {
                 {"WhiteSpace", TokenCategory.WHITESPACE},
                 {"Char", TokenCategory.CHAR},
                 {"Other", TokenCategory.OTHER},
-
+             
             };
 
         public Scanner(string input) {
@@ -123,7 +124,15 @@ namespace Falak {
 
                 } else if (m.Groups["WhiteSpace"].Success
                     || m.Groups["Comment"].Success || m.Groups["MultilineComment"].Success)  {
-
+                    if (m.Groups["MultilineComment"].Success){ 
+                        int numLines = m.Value.Split('\n').Length - 1;
+                        row += numLines;
+                        //Console.WriteLine(numLines);
+                        //var num = CountNewLine(m.Value); row += num; 
+                        }
+                        
+                    
+                    
                     // Skip white space and comments.
 
                 } else if (m.Groups["Other"].Success) {
