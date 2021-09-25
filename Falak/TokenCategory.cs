@@ -22,7 +22,7 @@ namespace Falak {
         STARTCURLBRACES,
         ENDCURLBRACES,
         OR,
-        CIRCUMFLEX,
+        CIRCUMFLEX,   //XOR
         AND,
         EQUALS,
         DIFEQUAL,
