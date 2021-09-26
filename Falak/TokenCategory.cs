@@ -35,9 +35,10 @@ namespace Falak {
         MULTIPLICATION,
         SLASH,
         PERCENT,
-        EXCLAMATION,
+        EXCLAMATION, //////////////
         IDENTIFIER,
         INT,
+        BOOL,
         NEWLINE,
         WHITESPACE,
         CHAR,
