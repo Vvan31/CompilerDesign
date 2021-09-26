@@ -47,6 +47,7 @@ namespace Falak {
               | (?<Exclamation> [!]      )
               | (?<Identifier> [a-zA-Z][a-zA-Z0-9_]+ )     # Must go after all keywords
               | (?<Int>        int\b     )
+              | (?<Bool>        bool\b   )
               | (?<Newline>    \n        )
               | (?<WhiteSpace> \s        )     # Must go after Newline.
               | (?<Char>     ""([^""\n\\]|\\([nrt\\'""]|u[0-9a-fA-F]{6}))*"" )
@@ -98,6 +99,7 @@ namespace Falak {
                 {"Exclamation", TokenCategory.EXCLAMATION},
                 {"Identifier", TokenCategory.IDENTIFIER},
                 {"Int", TokenCategory.INT},
+                {"Bool", TokenCategory.BOOL},
                 {"Newline", TokenCategory.NEWLINE},
                 {"WhiteSpace", TokenCategory.WHITESPACE},
                 {"Char", TokenCategory.CHAR},
