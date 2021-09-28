@@ -354,7 +354,7 @@ namespace Falak {
                 case TokenCategory.CHAR:
                     Expect(TokenCategory.CHAR);
                     break;
-                case TokenCategory.STARTBRACES:
+                case TokenCategory.STR:
                     Expect(TokenCategory.STR);
                     break;
             }
