@@ -323,9 +323,11 @@ namespace Falak {
         public void Expression_primary(){
             switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
-                    Expect(TokenCategory.IDENTIFIER);
-                    Expect(TokenCategory.STARTPARENTHESIS);
-                    Expression();
+                Expect(TokenCategory.IDENTIFIER);
+                    while(firstOfSimpleExpression.Contains){
+                        Expect(TokenCategory.STARTPARENTHESIS);
+                        Expression();
+                    }
                     break;
                 case TokenCategory.STARTBRACES:
                     Expect(TokenCategory.STARTBRACES);
@@ -359,6 +361,5 @@ namespace Falak {
                     break;
             }
         }
-        
     }
 }
