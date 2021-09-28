@@ -324,7 +324,7 @@ namespace Falak {
             switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
                 Expect(TokenCategory.IDENTIFIER);
-                    while(firstOfSimpleExpression.Contains){
+                    while(firstOfSimpleExpression.Contains(CurrentToken)){
                         Expect(TokenCategory.STARTPARENTHESIS);
                         Expression();
                     }
@@ -337,7 +337,7 @@ namespace Falak {
                     Expect(TokenCategory.STARTPARENTHESIS);
                     Expression();
                     break;
-                case firstOfDeflist.Contains:
+                case firstOfDeflist.Contains(CurrentToken):
                     Lit();
                     break;
                 default:
@@ -359,6 +359,9 @@ namespace Falak {
                 case TokenCategory.STR:
                     Expect(TokenCategory.STR);
                     break;
+                default:
+                    throw new SyntaxError(firstOfStatement,
+                                        tokenStream.Current);
             }
         }
     }
