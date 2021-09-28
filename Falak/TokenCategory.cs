@@ -17,10 +17,13 @@ namespace Falak {
         VAR,
         WHILE,
         SEMICOLON,
+        COMA,
         STARTPARENTHESIS,
-        ENDPARENTHESIS,
+        ENDPARENTHESIS,///END////
         STARTCURLBRACES,
-        ENDCURLBRACES,
+        ENDCURLBRACES,////END/////
+        STARTBRACES,
+        ENDBRACES,////END/////
         OR,
         CIRCUMFLEX,   //XOR
         AND,
@@ -39,8 +42,8 @@ namespace Falak {
         IDENTIFIER,
         INT,
         BOOL,
-        NEWLINE,
-        WHITESPACE,
+        NEWLINE,//////n/////////
+        WHITESPACE,////////
         CHAR,
         OTHER,
         EOF,
