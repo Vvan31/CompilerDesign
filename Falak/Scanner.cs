@@ -26,10 +26,13 @@ namespace Falak {
               | (?<Var>        var\b     )
               | (?<While>      while\b   )
               | (?<Semicolon>  [;]       )
+              | (?<Coma>       [,]       )
               | (?<Startparenthesis> [(] )
               | (?<Endparenthesis>   [)] )
               | (?<Startcurlbraces>  [{] )
               | (?<Endcurlbraces>    [}] )
+              | (?<Startbraces>  [[]     )
+              | (?<Endbraces>    []]     )
               | (?<Or>         [|][|]    )
               | (<Circumflex>  [^]       )
               | (<And>         [&][&]      )
@@ -48,6 +51,8 @@ namespace Falak {
               | (?<Identifier> [a-zA-Z][a-zA-Z0-9_]+ )     # Must go after all keywords
               | (?<Int>        int\b     )
               | (?<Bool>        bool\b   )
+              | (?<Char>        char\b   )
+              | (?<Str>         str\b    )
               | (?<Newline>    \n        )
               | (?<WhiteSpace> \s        )     # Must go after Newline.
               | (?<Char>     ""([^""\n\\]|\\([nrt\\'""]|u[0-9a-fA-F]{6}))*"" )
@@ -78,10 +83,13 @@ namespace Falak {
                 {"Var", TokenCategory.VAR},
                 {"While", TokenCategory.WHILE},
                 {"Semicolon", TokenCategory.SEMICOLON},
+                {"Coma", TokenCategory.COMA},
                 {"Startparenthesis", TokenCategory.STARTPARENTHESIS},
                 {"Endparenthesis", TokenCategory.ENDPARENTHESIS},
                 {"Startcurlbraces", TokenCategory.STARTCURLBRACES},
                 {"Endcurlbraces", TokenCategory.ENDCURLBRACES},
+                {"Startbraces", TokenCategory.STARTBRACES},
+                {"Endbraces", TokenCategory.ENDBRACES},
                 {"Or", TokenCategory.OR},
                 {"Circumflex", TokenCategory.CIRCUMFLEX},
                 {"And", TokenCategory.AND},
