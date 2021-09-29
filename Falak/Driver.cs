@@ -6,7 +6,7 @@ namespace Falak {
 
     public class Driver {
 
-        const string VERSION = "0.1";
+        const string VERSION = "0.2";
 
         //-----------------------------------------------------------
         static readonly string[] ReleaseIncludes = {
@@ -56,7 +56,15 @@ namespace Falak {
                 var count = 1;
                 foreach (var tok in new Scanner(input).Scan()) {
                     Console.WriteLine($"[{count++}] {tok}");
+                //var parser = new Parser(
+                    //new Scanner(input).Scan().GetEnumerator());
+                //parser.Program();
+                //Console.WriteLine("Syntax OK.");
                 }
+                var parser = new Parser(
+                    new Scanner(input).Scan().GetEnumerator());
+                parser.Program();
+                Console.WriteLine("Syntax OK.");
 
             } catch (FileNotFoundException e) {
                 Console.Error.WriteLine(e.Message);

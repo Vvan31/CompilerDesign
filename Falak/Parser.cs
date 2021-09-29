@@ -140,13 +140,14 @@ namespace Falak {
                     Fun_def();
                     break;
                 default:
-                    throw new SyntaxError(firstOfStatement,
+                    throw new SyntaxError(firstOfDeflist,
                                         tokenStream.Current);
             }
         }
         public void Var_def(){
             Expect(TokenCategory.VAR);
             Id_list(); 
+            Expect(TokenCategory.SEMICOLON);
         }
         public void Id_list(){
             Expect(TokenCategory.IDENTIFIER);
@@ -158,14 +159,18 @@ namespace Falak {
         public void Fun_def(){
             Expect(TokenCategory.IDENTIFIER);
             Expect(TokenCategory.STARTPARENTHESIS);
-            Id_list();
+            if (CurrentToken == TokenCategory.IDENTIFIER){
+                Id_list();
+            }
+            Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.STARTCURLBRACES);
-            while(firstOfDeflist.Contains(CurrentToken)){
+            while(CurrentToken == TokenCategory.VAR){
                 Var_def();
             }
             while(firstOfStmtlist.Contains(CurrentToken)){
                 Statement();
             }
+            Expect(TokenCategory.ENDCURLBRACES);
         }
         public void Statement(){
             while(firstOfStmtlist.Contains(CurrentToken)){
@@ -203,7 +208,7 @@ namespace Falak {
                     Expect(TokenCategory.SEMICOLON);
                     break;
                 default:
-                    throw new SyntaxError(firstOfStatement,
+                    throw new SyntaxError(firstOfStmtlist,
                                         tokenStream.Current);
                 }
             }
@@ -220,6 +225,7 @@ namespace Falak {
                 Expect(TokenCategory.COMA);
                 Expression();
             }
+            Expect(TokenCategory.ENDPARENTHESIS);
         }
         public void stmt_incr(){
             Expect(TokenCategory.INC);
@@ -235,16 +241,20 @@ namespace Falak {
             Expect(TokenCategory.IF);
             Expect(TokenCategory.STARTPARENTHESIS);
             Expression();
+            Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.STARTCURLBRACES);
             Statement();
+            Expect(TokenCategory.ENDCURLBRACES);
             while (firstofIf.Contains(CurrentToken)) {
                 switch (CurrentToken) {
                     case TokenCategory.ELSEIF:
                         Expect(TokenCategory.ELSEIF);
                         Expect(TokenCategory.STARTPARENTHESIS);
                         Expression();
+                        Expect(TokenCategory.ENDPARENTHESIS);
                         Expect(TokenCategory.STARTCURLBRACES);
                         Statement();
+                        Expect(TokenCategory.ENDCURLBRACES);
                         break;
 
                     case TokenCategory.ELSE:
@@ -262,16 +272,20 @@ namespace Falak {
              Expect(TokenCategory.WHILE);
              Expect(TokenCategory.STARTPARENTHESIS);
              Expression();
+             Expect(TokenCategory.ENDPARENTHESIS);
              Expect(TokenCategory.STARTCURLBRACES);
              Statement();
+             Expect(TokenCategory.ENDCURLBRACES);
         }
         public void DoWhile(){
             Expect(TokenCategory.DO);
             Expect(TokenCategory.STARTCURLBRACES);
             Statement();
+            Expect(TokenCategory.ENDCURLBRACES);
             Expect(TokenCategory.WHILE);
             Expect(TokenCategory.STARTPARENTHESIS);
             Expression();
+            Expect(TokenCategory.ENDPARENTHESIS);
         }
         public void Break(){
             Expect(TokenCategory.BREAK);
@@ -306,8 +320,8 @@ namespace Falak {
                     Expect(TokenCategory.EQUALS);
                     Expression_rel();
                     break;
-                case TokenCategory.DIFEQUALS:
-                    Expect(TokenCategory.DIFEQUALS);
+                case TokenCategory.DIFEQUAL:
+                    Expect(TokenCategory.DIFEQUAL);
                     Expression_rel();
                     break;
                 default:
@@ -357,7 +371,7 @@ namespace Falak {
                     Expression_mul();
                     break;
                 default:
-                    throw new SyntaxError(TokenCategory.PLUS,TokenCategory.MINUS,
+                    throw new SyntaxError(TokenCategory.PLUS,
                                         tokenStream.Current);
                 }  
             }
@@ -412,24 +426,39 @@ namespace Falak {
             switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
                     Expect(TokenCategory.IDENTIFIER);
-                        while(CurrentToken == TokenCategory.STARTPARENTHESIS){
+                        if(CurrentToken == TokenCategory.STARTPARENTHESIS){
                             Expect(TokenCategory.STARTPARENTHESIS);
                             Expression();
+                            Expect(TokenCategory.ENDPARENTHESIS);
                         }
                     break;
                 case TokenCategory.STARTBRACES:
                     Expect(TokenCategory.STARTBRACES);
                     Expression();
+                    Expect(TokenCategory.ENDBRACES);
                     break;
                 case TokenCategory.STARTPARENTHESIS:
                     Expect(TokenCategory.STARTPARENTHESIS);
                     Expression();
+                    Expect(TokenCategory.ENDPARENTHESIS);
                     break;
-                case firstofliteral.Contains(CurrentToken):
+                case TokenCategory.INT:
+                    Lit();
+                    break;
+                case TokenCategory.STR:
+                    Lit();
+                    break;
+                case TokenCategory.CHAR:
+                    Lit();
+                    break;
+                case TokenCategory.TRUE:
+                    Lit();
+                    break;
+                case TokenCategory.FALSE:
                     Lit();
                     break;
                 default:
-                    throw new SyntaxError(firstOfSimpleExpression,firstofliteral,
+                    throw new SyntaxError(firstOfSimpleExpression,
                                         tokenStream.Current);
             }
         }
