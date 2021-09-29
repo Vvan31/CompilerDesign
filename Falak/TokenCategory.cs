@@ -27,18 +27,21 @@ namespace Falak {
         CIRCUMFLEX,   //XOR
         AND,
         EQUALS,
+        ASSIGNMENT,
+
         DIFEQUAL,
         LESSTHANEQUAL,
         GREATERTHANEQUAL,
         LESSTHAN,
         GREATERTHAN,
+        INT,
+
         PLUS,
         MINUS,
         MULTIPLICATION,
         SLASH,
         PERCENT,
         EXCLAMATION, //////////////
-        INT,
         CHAR,
         NEWLINE,//////n/////////
         WHITESPACE,////////

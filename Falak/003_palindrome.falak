@@ -1,0 +1,41 @@
+<# File: 003_palindrome.falak
+   Determines if a string is a palindrome.
+   (C) 2021 Ariel Ortiz, ITESM CEM.
+#>
+
+# Returns true if str is a palindrome, false otherwise.
+is_palindrome(str) {
+    var start, finish;
+    start = 0;
+    finish = size(str) - 1;
+    while (start < finish) {
+        if (get(str, start) != get(str, finish)) {
+            return false;
+        }
+        inc start;
+        dec finish;
+    }
+    return true;
+}
+
+main() {
+    var str, option;
+    do {
+        prints("Input a string: ");
+        str = reads();
+        prints("The string \"");
+        prints(str);
+        prints("\" is ");
+        if (!is_palindrome(str)) {
+            prints("NOT ");
+        }
+        prints("a palindrome.\n");
+        prints("Check another string? ");
+        option = reads();
+        if (size(option) == 0) {
+            option = 'N';
+        } else {
+            option = get(option, 0);
+        }
+    } while (option == 'Y' || option == 'y');
+}

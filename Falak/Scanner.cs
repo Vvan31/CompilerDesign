@@ -33,27 +33,28 @@ namespace Falak {
               | (?<Startbraces>  [[]     )
               | (?<Endbraces>    []]     )
               | (?<Or>         [|][|]    )
-              | (?<Circumflex>  [^]       )
-              | (?<And>         [&][&]      )
+              | (?<Circumflex>  \^       )
+              | (?<And>        [&][&] )
               | (?<Equals>      [=][=]      )
+              | (?<Assignment>  [=]      )
               | (?<DifEqual>    [!][=]      )
               | (?<Lessthanequal>   [<][=] )
               | (?<Greaterthanequal> [>][=])
               | (?<Lessthan>   [<]       )
               | (?<Greaterthan> [>]      )
+              | (?<Int>        [+-]?\d+     )
               | (?<Plus>       [+]       )
               | (?<Minus>      [-]       )
               | (?<Multiplication> [*]   )
               | (?<Slash>      [/]       )
               | (?<Percent>    [%]       )
               | (?<Exclamation> [!]      )
-              | (?<Int>        \d+     )
-              | (?<Char>        ([']((.?)|([0-9A-F]{6})|(\r)|(\n)|(\\)|(\t)|(\"")|(\d))['])   )
+              | (?<Char>       ('\\'')|'((.?)|(\\u[0-9A-F]{6})|(\\r)|(\\n)|(\\\\)|(\\t)|(\\"")|(\d))' )
               | (?<Newline>    \n        )
               | (?<WhiteSpace> \s        )     # Must go after Newline.
               | (?<Str>     ""([^""\n\\]|\\([nrt\\'""]|u[0-9a-fA-F]{6}))*"" )
               | (?<Return>    return\b )
-              | (?<Identifier> [a-zA-Z][a-zA-Z0-9_]+ )     # Must go after all keywords
+              | (?<Identifier> [a-zA-Z]*[a-zA-Z0-9_]+ )     # Must go after all keywords
               | (?<Other>       .        )
               
             
@@ -91,18 +92,19 @@ namespace Falak {
                 {"Circumflex", TokenCategory.CIRCUMFLEX},
                 {"And", TokenCategory.AND},
                 {"Equals", TokenCategory.EQUALS},
+                {"Assignment", TokenCategory.ASSIGNMENT},
                 {"DifEqual", TokenCategory.DIFEQUAL},
                 {"Lessthanequal", TokenCategory.LESSTHANEQUAL},
                 {"Greaterthanequal", TokenCategory.GREATERTHANEQUAL},
                 {"Lessthan", TokenCategory.LESSTHAN},
                 {"Greaterthan", TokenCategory.GREATERTHAN},
+                {"Int", TokenCategory.INT},
                 {"Plus", TokenCategory.PLUS},
                 {"Minus", TokenCategory.MINUS},
                 {"Multiplication", TokenCategory.MULTIPLICATION},
                 {"Slash", TokenCategory.SLASH},
                 {"Percent", TokenCategory.PERCENT},
                 {"Exclamation", TokenCategory.EXCLAMATION},
-                {"Int", TokenCategory.INT},
                 {"Char", TokenCategory.CHAR},
                 {"Newline", TokenCategory.NEWLINE},
                 {"WhiteSpace", TokenCategory.WHITESPACE},
