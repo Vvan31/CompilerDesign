@@ -41,7 +41,6 @@ namespace Falak {
         EXCLAMATION, //////////////
         IDENTIFIER,
         INT,
-        BOOL,
         NEWLINE,//////n/////////
         WHITESPACE,////////
         CHAR,
