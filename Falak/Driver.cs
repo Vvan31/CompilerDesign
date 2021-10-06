@@ -15,6 +15,7 @@ namespace Falak {
 
         //-----------------------------------------------------------
         void PrintAppHeader() {
+            /*
             Console.WriteLine("Falak compiler, version " + VERSION);
             Console.WriteLine(
                 "Copyright \u00A9 2013-2021 by A. Ortiz, ITESM CEM. ft Vivana Osorio, Oscar Zuniga and Fernando Sebastian");
@@ -23,6 +24,7 @@ namespace Falak {
             Console.WriteLine("the GNU General Public License version 3 or "
                 + "later.");
             Console.WriteLine("This program has absolutely no warranty.");
+            */
         }
 
         //-----------------------------------------------------------
@@ -50,7 +52,7 @@ namespace Falak {
             try {
                 var inputPath = args[0];
                 var input = File.ReadAllText(inputPath);
-
+                /*
                 Console.WriteLine(
                     $"===== Tokens from: \"{inputPath}\" =====");
                 var count = 1;
@@ -60,15 +62,19 @@ namespace Falak {
                     //new Scanner(input).Scan().GetEnumerator());
                 //parser.Program();
                 //Console.WriteLine("Syntax OK.");
-                }
+                }*/
                 var parser = new Parser(
                     new Scanner(input).Scan().GetEnumerator());
                 parser.Program();
                 Console.WriteLine("Syntax OK.");
 
-            } catch (FileNotFoundException e) {
-                Console.Error.WriteLine(e.Message);
-                Environment.Exit(1);
+            } catch (Exception e) {
+                if(e is FileNotFoundException || e is SyntaxError){
+                    Console.Error.WriteLine(e.Message);
+                    Environment.Exit(1);
+                }
+
+                throw;
             }
         }
 

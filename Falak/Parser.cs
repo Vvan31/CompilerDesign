@@ -17,14 +17,6 @@
                                   stmt-return | stmt-empty
         stmt-assign         ::= "="‹expr›";"
  */
-//TERMINAR SETS DE TOKENS Y ACTUALIZAR DEPENDENCIAS 
-//CREAR SWITCHCASE EN LUGAR DE OR EXPECT
-//PASAR CONTEXTO AL DEFAULT CASE PARA EL ERROR 
-//CREAR REGEX PARA CHAR,STRING, INT 
-//ELIMINAR TOKENS EXTRA (CHAR, BOOL) 
-//VERIFICAR ORDEN DE TOKENS 
-//VERIFICAR QUE SE HACE EXPECT EN EL 
-    //CURRENTTOKEN PARA PASAR AL SIGUIENTE
 using System;
 using System.Collections.Generic;
 
@@ -233,17 +225,7 @@ namespace Falak {
             Expression();
             Expect(TokenCategory.SEMICOLON);
         }
-        /*
-        public void stmt_fun_call(){
-            Expect(TokenCategory.STARTPARENTHESIS);
-            Expression();
-            while(CurrentToken == TokenCategory.COMA){
-                Expect(TokenCategory.COMA);
-                Expression();
-            }
-            Expect(TokenCategory.ENDPARENTHESIS);
-        }
-        */
+      
         public void stmt_fun_call(){
             Expect(TokenCategory.STARTPARENTHESIS);
             ExpressionList();
@@ -251,8 +233,6 @@ namespace Falak {
             Expect(TokenCategory.SEMICOLON);
         }
         public void ExpressionList(){
-            //opcional
-            //if expression.
             if (firstOfExpr.Contains(CurrentToken)){
                 Expression();
                 while(CurrentToken == TokenCategory.COMA){
@@ -335,15 +315,6 @@ namespace Falak {
             Expect(TokenCategory.SEMICOLON);
         }
       
-        /*
-        public void Expression() {
-            Expression_and();
-            while (firstofOr.Contains(CurrentToken)) {
-                Expect(TokenCategory.OR|TokenCategory.CIRCUMFLEX);
-                Expression_and();
-            }
-        }
-        */
         public void Expression() {
             Expression_and();
             while (firstofOr.Contains(CurrentToken)) {
@@ -485,48 +456,6 @@ namespace Falak {
             }
         }
 
-        /*
-        public void Expression_primary(){
-            switch (CurrentToken) {
-                case TokenCategory.IDENTIFIER:
-                    Expect(TokenCategory.IDENTIFIER);
-                        if(CurrentToken == TokenCategory.STARTPARENTHESIS){
-                            Expect(TokenCategory.STARTPARENTHESIS);
-                            Expression();
-                            Expect(TokenCategory.ENDPARENTHESIS);
-                        }
-                    break;
-                case TokenCategory.STARTBRACES:
-                    Expect(TokenCategory.STARTBRACES);
-                    Expression();
-                    Expect(TokenCategory.ENDBRACES);
-                    break;
-                case TokenCategory.STARTPARENTHESIS:
-                    Expect(TokenCategory.STARTPARENTHESIS);
-                    Expression();
-                    Expect(TokenCategory.ENDPARENTHESIS);
-                    break;
-                case TokenCategory.INT:
-                    Lit();
-                    break;
-                case TokenCategory.STR:
-                    Lit();
-                    break;
-                case TokenCategory.CHAR:
-                    Lit();
-                    break;
-                case TokenCategory.TRUE:
-                    Lit();
-                    break;
-                case TokenCategory.FALSE:
-                    Lit();
-                    break;
-                default:
-                    throw new SyntaxError(firstOfSimpleExpression,
-                                        tokenStream.Current);
-            }
-        }
-        */
         public void Expression_primary(){
             switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
