@@ -9,8 +9,10 @@ namespace Falak {
         const string VERSION = "0.2";
 
         //-----------------------------------------------------------
-        static readonly string[] ReleaseIncludes = {
-            "Lexical analysis"
+       static readonly string[] ReleaseIncludes = {
+            "Lexical analysis",
+            "Syntactic analysis",
+            "AST construction"
         };
 
         //-----------------------------------------------------------
@@ -52,21 +54,10 @@ namespace Falak {
             try {
                 var inputPath = args[0];
                 var input = File.ReadAllText(inputPath);
-                /*
-                Console.WriteLine(
-                    $"===== Tokens from: \"{inputPath}\" =====");
-                var count = 1;
-                foreach (var tok in new Scanner(input).Scan()) {
-                    Console.WriteLine($"[{count++}] {tok}");
-                //var parser = new Parser(
-                    //new Scanner(input).Scan().GetEnumerator());
-                //parser.Program();
-                //Console.WriteLine("Syntax OK.");
-                }*/
                 var parser = new Parser(
                     new Scanner(input).Scan().GetEnumerator());
-                parser.Program();
-                Console.WriteLine("Syntax OK.");
+                var program = parser.Program();
+                Console.Write(program.ToStringTree());
 
             } catch (Exception e) {
                 if(e is FileNotFoundException || e is SyntaxError){
