@@ -1,0 +1,16 @@
+;-----------------------
+; Buttercup program 1.
+;-----------------------
+
+int x      ; Declare int variable
+bool b     ; Declare bool variable
+
+b = 1 < 5 & #f & #t
+x = 1
+if x < (10 + x) & ((-x + 20 * 500) < -100) & b then
+    print x
+    print b
+end
+print b & (1 < 2) & #t
+
+; End of file
