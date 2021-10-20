@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Buttercup {
+namespace Falak {
 
     class Node: IEnumerable<Node> {
 

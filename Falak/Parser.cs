@@ -127,7 +127,7 @@ namespace Falak {
             }
         }
 
-        public node Program() {
+        public Node Program() {
             var varDefList = Def_list();
             Expect(TokenCategory.EOF);
 
@@ -138,13 +138,10 @@ namespace Falak {
 
 
         public Node Def_list() {
-            //var decList = new 
-
-            var varDefList = new DefList();
-
+            var varDefList = new Def_list();
             while(firstOfDeflist.Contains(CurrentToken)){
                 varDefList.Add(Def());
-            }
+            } 
             return varDefList;
         }
         public Node Def() {
@@ -165,7 +162,7 @@ namespace Falak {
             return varDef;
         }
         public Node Var_def(){
-            var varIdentifier = new Var_identifier(){
+            var varIdentifier = new Var_def(){
                 AnchorToken = Expect(TokenCategory.VAR)
                 }; 
             varIdentifier.Add(Id_list());
@@ -175,15 +172,20 @@ namespace Falak {
             return varIdentifier;
         }
         public Node Id_list(){
-            var idList = new Id_list(){
+            var idList = new Var_Param_identifier(){
                 AnchorToken = Expect(TokenCategory.IDENTIFIER)
             };
 
             while(CurrentToken == TokenCategory.COMA){
                 Expect(TokenCategory.COMA);
+                var expr2 = new Var_Param_identifier(){
+                    AnchorToken =Expect(TokenCategory.IDENTIFIER)
+                };
 
-                idList.Add(Expect(TokenCategory.IDENTIFIER));
+                expr2.Add(idList);
+                idList = expr2;
             }
+            
 
             return idList;
         }
@@ -199,6 +201,7 @@ namespace Falak {
             Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.STARTCURLBRACES);
             while(CurrentToken == TokenCategory.VAR){
+                //param list????
                 funDef.Add(Var_def());
             }
             while(firstOfStmtlist.Contains(CurrentToken)){
@@ -211,38 +214,38 @@ namespace Falak {
             var statementVar = new Stm_list();
             
             while(firstOfStmtlist.Contains(CurrentToken)){
+                var stmIdentifier = new Stm_identifier();
                 switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
-                    var stmIdentifier = new Stm_identifier(){
+                    stmIdentifier = new Stm_identifier(){
                         AnchorToken = Expect(TokenCategory.IDENTIFIER)
                     };
                     if(CurrentToken == TokenCategory.ASSIGNMENT){
-                        stmt_assign();
+                        stmIdentifier.Add(stmt_assign());
                     }else{
-                        stmt_fun_call();
+                        stmIdentifier.Add(stmt_fun_call());
                     }
                     break;
                 case TokenCategory.INC:
-                
-                    stmt_incr();
+                    stmIdentifier.Add(stmt_incr());
                     break;
                 case TokenCategory.DEC:
-                    stmt_decr();
+                    stmIdentifier.Add(stmt_decr());
                     break;
                 case TokenCategory.IF:
-                    If();
+                     stmIdentifier.Add(If());
                     break;
                 case TokenCategory.WHILE:
-                    While();
+                    stmIdentifier.Add(While());
                     break;
                 case TokenCategory.DO:
-                    DoWhile();
+                    stmIdentifier.Add(DoWhile());
                     break;
                 case TokenCategory.BREAK:
-                    Break();
+                    stmIdentifier.Add(Break());
                     break;
                 case TokenCategory.RETURN:
-                    Return();
+                    stmIdentifier.Add(Return());
                     break;
                 case TokenCategory.SEMICOLON:
                     Expect(TokenCategory.SEMICOLON);
@@ -252,27 +255,36 @@ namespace Falak {
                                         tokenStream.Current);
                 }
             }
+            return statementVar;
         }
-        public void stmt_assign() {
-            Expect(TokenCategory.ASSIGNMENT);
-            Expression();
+        public Node stmt_assign() {
+            var stmAssgn = new Stm_asign (){
+                AnchorToken = Expect(TokenCategory.ASSIGNMENT)
+            };
+            stmAssgn.Add(Expression());
             Expect(TokenCategory.SEMICOLON);
+            return stmAssgn;
         }
       
-        public void stmt_fun_call(){
-            Expect(TokenCategory.STARTPARENTHESIS);
-            ExpressionList();
+        public Node stmt_fun_call(){
+            var stmFunCall = new Stm_funcall (){
+                AnchorToken = Expect(TokenCategory.STARTPARENTHESIS)
+            };
+            stmFunCall.Add(ExpressionList());
             Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.SEMICOLON);
+            return stmFunCall;
         }
-        public void ExpressionList(){
+        public Node ExpressionList(){
+            var exprlist = new Stm_funcall_Exprlist ();
             if (firstOfExpr.Contains(CurrentToken)){
-                Expression();
+                exprlist.Add(Expression());
                 while(CurrentToken == TokenCategory.COMA){
                     Expect(TokenCategory.COMA);
-                    Expression();
+                    exprlist.Add(Expression());
                 }
-            }        
+            }      
+            return exprlist;  
         }
 
 
@@ -288,7 +300,7 @@ namespace Falak {
             
             return stmInc;
         }
-        public void stmt_decr(){
+        public Node stmt_decr(){
             var stmDec = new Stm_dec(){
                 AnchorToken =  Expect(TokenCategory.DEC)
             };
@@ -300,289 +312,389 @@ namespace Falak {
             
             return stmDec;            
         }
-        public void If() {
-            Expect(TokenCategory.IF);
+        public Node If() {
+            var ifNode = new If(){
+                AnchorToken = Expect(TokenCategory.IF)
+            }; /////////Expression
             Expect(TokenCategory.STARTPARENTHESIS);
-            Expression();
+            ifNode.Add(Expression());
             Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.STARTCURLBRACES);
-            Statement();
+             ifNode.Add(Statement());
             Expect(TokenCategory.ENDCURLBRACES);
+
             while (firstofIf.Contains(CurrentToken)) {
+                var elseiflistnode = new Elseif_list();
+                ifNode.Add(elseiflistnode);
+
                 switch (CurrentToken) {
                     case TokenCategory.ELSEIF:
-                        Expect(TokenCategory.ELSEIF);
+                        var elseifnode = new Elseif(){
+                            AnchorToken = Expect(TokenCategory.ELSEIF)
+                        };
+                        elseiflistnode.Add(elseifnode);
                         Expect(TokenCategory.STARTPARENTHESIS);
-                        Expression();
+                        elseifnode.Add(Expression());
                         Expect(TokenCategory.ENDPARENTHESIS);
                         Expect(TokenCategory.STARTCURLBRACES);
-                        Statement();
+                        elseifnode.Add(Statement());
                         Expect(TokenCategory.ENDCURLBRACES);
+                        //return elseifnode;
                         break;
 
                     case TokenCategory.ELSE:
-                        Expect(TokenCategory.ELSE);
+                        var elseNode =  new Else(){
+                            AnchorToken = Expect(TokenCategory.ELSE)
+                        };
+                        ifNode.Add(elseNode);
                         Expect(TokenCategory.STARTCURLBRACES);
-                        Statement();
+                        elseNode.Add(Statement());
                         Expect(TokenCategory.ENDCURLBRACES);
-
+                        //return elseNode;
                         break;
                     default:
                         throw new SyntaxError(firstofIf,
                                             tokenStream.Current);
                     }
+                //return elseiflistnode;
             }
+            return ifNode;
         }
-        public void While (){
-             Expect(TokenCategory.WHILE);
+        public Node While (){
+            var whileNode = new While(){
+                AnchorToken = Expect(TokenCategory.WHILE)
+            };
              Expect(TokenCategory.STARTPARENTHESIS);
-             Expression();
+             whileNode.Add(Expression());
              Expect(TokenCategory.ENDPARENTHESIS);
              Expect(TokenCategory.STARTCURLBRACES);
-             Statement();
+             whileNode.Add(Statement());
              Expect(TokenCategory.ENDCURLBRACES);
+             return whileNode;
         }
-        public void DoWhile(){
-            Expect(TokenCategory.DO);
+        public Node DoWhile(){
+            var doNode = new Do (){
+                AnchorToken = Expect(TokenCategory.DO)
+            };
             Expect(TokenCategory.STARTCURLBRACES);
-            Statement();
+            doNode.Add(Statement());
             Expect(TokenCategory.ENDCURLBRACES);
             Expect(TokenCategory.WHILE);
             Expect(TokenCategory.STARTPARENTHESIS);
-            Expression();
+            doNode.Add(Expression());
             Expect(TokenCategory.ENDPARENTHESIS);
+            return doNode;
         }
-        public void Break(){
-            Expect(TokenCategory.BREAK);
+        public Node Break(){
+            var breakNode = new Break(){
+                AnchorToken =  Expect(TokenCategory.BREAK)
+            };
             Expect(TokenCategory.SEMICOLON);
+            return breakNode;
         }
-        public void Return(){
-            Expect(TokenCategory.RETURN);
-            Expression();
+        public Node Return(){
+            var returnNode = new Return(){
+                AnchorToken =  Expect(TokenCategory.RETURN)
+            };
+            returnNode.Add(Expression());
             Expect(TokenCategory.SEMICOLON);
+            return returnNode;
         }
       
-        public void Expression() {
-            Expression_and();
+        public Node Expression() {
+            var expr = Expression_and();
             while (firstofOr.Contains(CurrentToken)) {
+                var exprOr = new Or();
                 switch (CurrentToken){
                 case TokenCategory.OR:
-                    Expect(TokenCategory.OR);
-                    Expression_and();
+                    exprOr = new Or(){
+                        AnchorToken = Expect(TokenCategory.OR)
+                    };
+                    exprOr.Add(expr);
+                    exprOr.Add(Expression_and());
+                    expr = exprOr;
                     break;
+
                 case TokenCategory.CIRCUMFLEX:
-                    Expect(TokenCategory.CIRCUMFLEX);
-                    Expression_and();
+                    exprOr = new Or(){
+                           AnchorToken = Expect(TokenCategory.CIRCUMFLEX)
+                    };
+                    exprOr.Add(expr);
+                    exprOr.Add(Expression_and());
+                    expr = exprOr;
                     break;
+                    
                 default:
                     throw new SyntaxError(firstofOr,
                                         tokenStream.Current);
                 } 
                
             }
+            return expr;
         }
-        public void Expression_and(){
-            Expression_comp();
+        public Node Expression_and(){
+            var exprComp = Expression_comp();
             while (CurrentToken == TokenCategory.AND) {
-                Expect(TokenCategory.AND);
-                Expression_comp();
+                var exp2 = new AND(){
+                    AnchorToken = Expect(TokenCategory.AND)
+                };
+                exp2.Add(exprComp);
+                exp2.Add(Expression_comp());
+                exprComp = exp2;
             }
+            return exprComp;
         }
 
-        public void Expression_comp(){
-            Expression_rel();
+        public Node Expression_comp(){
+            var exprel = Expression_rel();
             while (firstofEquals.Contains(CurrentToken)) {
+                var expr2 = new Node();
                 switch (CurrentToken){
                 case TokenCategory.EQUALS:
-                    Expect(TokenCategory.EQUALS);
-                    Expression_rel();
+                        expr2 = new Equals(){
+                        AnchorToken = Expect(TokenCategory.EQUALS)
+                    };
                     break;
+                    
                 case TokenCategory.DIFEQUAL:
-                    Expect(TokenCategory.DIFEQUAL);
-                    Expression_rel();
+                        expr2 = new Difequals(){
+                        AnchorToken = Expect(TokenCategory.DIFEQUAL)
+                    };
                     break;
                 default:
                     throw new SyntaxError(firstofEquals,
                                         tokenStream.Current);
-                }        
+                }
+                expr2.Add(exprel);  
+                expr2.Add(Expression_rel());     
+                exprel = expr2;
             }
+            return exprel;
         }
 
-        public void Expression_rel(){
-            Expression_add();
+        public Node Expression_rel(){
+            var expadd = Expression_add();
             while (firstofGreaterLess.Contains(CurrentToken)) {
+                var expr2 = new Node();
                 switch (CurrentToken){
                 case TokenCategory.GREATERTHAN:
-                    Expect(TokenCategory.GREATERTHAN);
-                    Expression_add();
+                        expr2 = new Greaterthan(){
+                        AnchorToken = Expect(TokenCategory.GREATERTHAN)
+                    };
                     break;
+                   
                 case TokenCategory.GREATERTHANEQUAL:
-                    Expect(TokenCategory.GREATERTHANEQUAL);
-                    Expression_add();
+                        expr2 = new GreaterthanEquals(){
+                        AnchorToken = Expect(TokenCategory.GREATERTHANEQUAL)
+                    };
                     break;
+
                 case TokenCategory.LESSTHAN:
-                    Expect(TokenCategory.LESSTHAN);
-                    Expression_add();
+                        expr2 = new Lessthan(){
+                        AnchorToken = Expect(TokenCategory.LESSTHAN)
+                    };
                     break;
+
                 case TokenCategory.LESSTHANEQUAL:
-                    Expect(TokenCategory.LESSTHANEQUAL);
-                    Expression_add();
+                        expr2 = new LessThanEquals(){
+                        AnchorToken = Expect(TokenCategory.LESSTHANEQUAL)
+                    };
                     break;
+
                 default:
                     throw new SyntaxError(firstofGreaterLess,
                                         tokenStream.Current);
-                }  
+                }
+                expr2.Add(expadd);  
+                expr2.Add(Expression_add());     
+                expadd = expr2;  
             }
+            return expadd;
         }
 
-        public void Expression_add(){
-            Expression_mul();
-            while (CurrentToken == TokenCategory.PLUS || CurrentToken == TokenCategory.MINUS) {
+        public Node Expression_add(){
+            var exprmul = Expression_mul();
+            while (CurrentToken == TokenCategory.PLUS || 
+                   CurrentToken == TokenCategory.MINUS) {
+                var expr2 = new  Node();
                 switch (CurrentToken){
                 case TokenCategory.PLUS:
-                    Expect(TokenCategory.PLUS);
-                    Expression_mul();
-                    break;
+                    expr2 = new Plus(){
+                    AnchorToken = Expect(TokenCategory.PLUS)
+                };
+                break;
                 case TokenCategory.MINUS:
-                    Expect(TokenCategory.MINUS);
-                    Expression_mul();
+                        expr2 = new Minus(){ 
+                        AnchorToken = Expect(TokenCategory.MINUS)
+                    };
                     break;
                 default:
                     throw new SyntaxError(TokenCategory.PLUS,
                                         tokenStream.Current);
                 }  
+                expr2.Add(exprmul);  
+                expr2.Add(Expression_mul());     
+                exprmul = expr2;
             }
+            return exprmul;
         }
 
-        public void Expression_mul(){
-            Expression_unary();
+        public Node Expression_mul(){
+            var expunary = Expression_unary();
             while (firstofMul.Contains(CurrentToken)) {
+                var expr2 = new Node();
                 switch (CurrentToken){
                 case TokenCategory.MULTIPLICATION:
-                    Expect(TokenCategory.MULTIPLICATION);
-                    Expression_unary();
+                        expr2 = new Multiplication(){
+                        AnchorToken = Expect(TokenCategory.MULTIPLICATION)
+                    };
                     break;
+
                 case TokenCategory.SLASH:
-                    Expect(TokenCategory.SLASH);
-                    Expression_unary();
+                        expr2 = new Division(){
+                        AnchorToken = Expect(TokenCategory.SLASH)
+                    };
                     break;
+                    
                 case TokenCategory.PERCENT:
-                    Expect(TokenCategory.PERCENT);
-                    Expression_unary();
+                        expr2 = new Percent(){
+                        AnchorToken = Expect(TokenCategory.PERCENT)
+                    };
                     break;
+                    
                 default:
                     throw new SyntaxError(firstofMul,
                                         tokenStream.Current);
                 }  
+                expr2.Add(expunary);  
+                expr2.Add(Expression_unary());     
+                expunary = expr2;
             }
+            return expunary;
         }
-        public void Expression_unary(){
-            
+        ///////aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah!
+        public Node Expression_unary(){
             if (firstOfUnary.Contains(CurrentToken)) {
+                var expr2 = new Node();
                switch (CurrentToken){
                 case TokenCategory.PLUS:
-                    Expect(TokenCategory.PLUS);
-                    Expression_unary();
+                        expr2 = new Positive(){ 
+                        AnchorToken = Expect(TokenCategory.PLUS)
+                    };
                     break;
+                    
                 case TokenCategory.MINUS:
-                    Expect(TokenCategory.MINUS);
-                    Expression_unary();
+                        expr2 = new Negative(){
+                        AnchorToken = Expect(TokenCategory.MINUS)
+                    };
                     break;
+                    
                 case TokenCategory.EXCLAMATION:
-                    Expect(TokenCategory.EXCLAMATION);
-                    Expression_unary();
+                        expr2 = new Not(){
+                        AnchorToken =  Expect(TokenCategory.EXCLAMATION)
+                    };
                     break;
+                    
                 default:
                     throw new SyntaxError(firstOfUnary,
                                         tokenStream.Current);
                 }  
+                expr2.Add(Expression_unary());     
+                return expr2;
             }
             else{
-                Expression_primary();
+                return Expression_primary();
 
             }
         }
 
-        public void Expression_primary(){
+        public Node Expression_primary(){
+            var expr = new Node();
             switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
-                    Expect(TokenCategory.IDENTIFIER);
+                    expr = new Expr_primary_identifier(){
+                        AnchorToken = Expect(TokenCategory.IDENTIFIER)
+                    };
                         if(CurrentToken == TokenCategory.STARTPARENTHESIS){
                             Expect(TokenCategory.STARTPARENTHESIS);
-                            ExpressionList();
-
+                            expr.Add(ExpressionList());
                             Expect(TokenCategory.ENDPARENTHESIS);
                         }
-                    break;
+                    return expr;
+                    
                 case TokenCategory.STARTBRACES:
-                    Expect(TokenCategory.STARTBRACES);
-                    ExpressionList();
-
+                    expr = new Expr_primary_list(){
+                        AnchorToken = Expect(TokenCategory.STARTBRACES)
+                    };
+                    expr.Add(ExpressionList());
                     Expect(TokenCategory.ENDBRACES);
-                    break;
+                    return expr;
+
                 case TokenCategory.STARTPARENTHESIS:
-                    Expect(TokenCategory.STARTPARENTHESIS);
-                    Expression();
-
+                    expr = new Expr_primary_expr(){
+                        AnchorToken = Expect(TokenCategory.STARTPARENTHESIS)
+                    };
+                    expr.Add(Expression());
                     Expect(TokenCategory.ENDPARENTHESIS);
-                    break;
-                case TokenCategory.INT:
-                    Lit();
-                    break;
-                case TokenCategory.STR:
-                    Lit();
-                    break;
-                case TokenCategory.CHAR:
-                    Lit();
-                    break;
-                case TokenCategory.TRUE:
-                    Lit();
-                    break;
+                    return expr;
 
-                    Expect(TokenCategory.ENDPARENTHESIS);
-                    break;
                 case TokenCategory.INT:
-                    Lit();
-                    break;
+                    expr.Add(Lit());
+                    return expr;
+
                 case TokenCategory.STR:
-                    Lit();
-                    break;
+                    expr.Add(Lit());
+                    return expr;
+
                 case TokenCategory.CHAR:
-                    Lit();
-                    break;
+                    expr.Add(Lit());
+                    return expr;
+
                 case TokenCategory.TRUE:
-                    Lit();
-                    break;
+                    expr.Add(Lit());
+                    return expr;
 
                 case TokenCategory.FALSE:
-                    Lit();
-                    break;                    
+                    expr.Add(Lit());
+                    return expr;                   
                 default:
                     throw new SyntaxError(firstOfSimpleExpression,
                                         tokenStream.Current);
             }
+            return expr;
         }
-        public void Lit(){
+        public Node Lit(){
+            var litNode = new Node(); 
             switch (CurrentToken){
                 case TokenCategory.TRUE:
-                    Expect(TokenCategory.TRUE);
-                    break;
+                    return litNode = new Lit_true(){
+                        AnchorToken = Expect(TokenCategory.TRUE)
+                    };
+
                 case TokenCategory.FALSE:
-                    Expect(TokenCategory.FALSE);
-                    break;
+                    return litNode = new Lit_false(){
+                        AnchorToken = Expect(TokenCategory.FALSE)
+                    };
+                    
                 case TokenCategory.INT:
-                    Expect(TokenCategory.INT);
-                    break;
+                    return litNode = new Lit_int(){
+                        AnchorToken = Expect(TokenCategory.INT)
+                    };
+
                 case TokenCategory.CHAR:
-                    Expect(TokenCategory.CHAR);
-                    break;
+                    return litNode = new Lit_char(){
+                        AnchorToken =  Expect(TokenCategory.CHAR)
+                    };
+
                 case TokenCategory.STR:
-                    Expect(TokenCategory.STR);
-                    break;
+                    return litNode = new Lit_str(){
+                        AnchorToken = Expect(TokenCategory.STR)
+                    };
                 default:
                     throw new SyntaxError(firstofliteral,
                                         tokenStream.Current);
             }
+            return litNode;
         }
     }
 }
