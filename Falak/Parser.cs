@@ -119,7 +119,6 @@ namespace Falak {
         }
 
         public Token Expect(TokenCategory category) {
-
             if (CurrentToken == category) {
                 Token current = tokenStream.Current;
                 tokenStream.MoveNext();
@@ -133,7 +132,8 @@ namespace Falak {
             Def_list();
             Expect(TokenCategory.EOF);
         }
-        public void Def_list() {
+        public Node Def_list() {
+            //var decList = new 
             while(firstOfDeflist.Contains(CurrentToken)){
                 Def();
             }
@@ -463,17 +463,20 @@ namespace Falak {
                         if(CurrentToken == TokenCategory.STARTPARENTHESIS){
                             Expect(TokenCategory.STARTPARENTHESIS);
                             ExpressionList();
+
                             Expect(TokenCategory.ENDPARENTHESIS);
                         }
                     break;
                 case TokenCategory.STARTBRACES:
                     Expect(TokenCategory.STARTBRACES);
                     ExpressionList();
+
                     Expect(TokenCategory.ENDBRACES);
                     break;
                 case TokenCategory.STARTPARENTHESIS:
                     Expect(TokenCategory.STARTPARENTHESIS);
                     Expression();
+
                     Expect(TokenCategory.ENDPARENTHESIS);
                     break;
                 case TokenCategory.INT:
@@ -488,6 +491,22 @@ namespace Falak {
                 case TokenCategory.TRUE:
                     Lit();
                     break;
+
+                    Expect(TokenCategory.ENDPARENTHESIS);
+                    break;
+                case TokenCategory.INT:
+                    Lit();
+                    break;
+                case TokenCategory.STR:
+                    Lit();
+                    break;
+                case TokenCategory.CHAR:
+                    Lit();
+                    break;
+                case TokenCategory.TRUE:
+                    Lit();
+                    break;
+
                 case TokenCategory.FALSE:
                     Lit();
                     break;                    

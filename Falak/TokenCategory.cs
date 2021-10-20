@@ -12,7 +12,6 @@ namespace Falak {
         FALSE,
         IF,
         INC,
-        RETURN,
         TRUE,
         VAR,
         WHILE,
@@ -28,25 +27,32 @@ namespace Falak {
         CIRCUMFLEX,   //XOR
         AND,
         EQUALS,
+        ASSIGNMENT,
+
         DIFEQUAL,
         LESSTHANEQUAL,
         GREATERTHANEQUAL,
         LESSTHAN,
         GREATERTHAN,
+        INT,
+
         PLUS,
         MINUS,
         MULTIPLICATION,
         SLASH,
         PERCENT,
         EXCLAMATION, //////////////
-        IDENTIFIER,
-        INT,
+        CHAR,
         NEWLINE,//////n/////////
         WHITESPACE,////////
-        CHAR,
+        STR,
+        RETURN,
+        IDENTIFIER,
+
         OTHER,
         EOF,
         ILLEGAL_CHAR
+        
         
     }
 }

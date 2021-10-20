@@ -21,7 +21,6 @@ namespace Falak {
               | (?<False>      false\b   )
               | (?<If>         if\b      )
               | (?<Inc>        inc\b     )
-              | (?<Return>     retrurn\b )
               | (?<True>       true\b    )
               | (?<Var>        var\b     )
               | (?<While>      while\b   )
@@ -34,26 +33,28 @@ namespace Falak {
               | (?<Startbraces>  [[]     )
               | (?<Endbraces>    []]     )
               | (?<Or>         [|][|]    )
-              | (<Circumflex>  [^]       )
-              | (<And>         [&][&]      )
-              | (<Equals>      [=][=]      )
-              | (<DifEqual>    [!][=]      )
+              | (?<Circumflex>  \^       )
+              | (?<And>        [&][&] )
+              | (?<Equals>      [=][=]      )
+              | (?<Assignment>  [=]      )
+              | (?<DifEqual>    [!][=]      )
               | (?<Lessthanequal>   [<][=] )
               | (?<Greaterthanequal> [>][=])
               | (?<Lessthan>   [<]       )
               | (?<Greaterthan> [>]      )
+              | (?<Int>        [+-]?\d+     )
               | (?<Plus>       [+]       )
               | (?<Minus>      [-]       )
               | (?<Multiplication> [*]   )
               | (?<Slash>      [/]       )
               | (?<Percent>    [%]       )
               | (?<Exclamation> [!]      )
-              | (?<Identifier> [a-zA-Z][a-zA-Z0-9_]+ )     # Must go after all keywords
-              | (?<Int>        int\b     )
-              | (?<Char>        ([']((.?)|(\u[0-9A-F]{6})|(\r)|(\n)|(\\)|(\t)|(\"")|(\d))['])   )
+              | (?<Char>       ('\\'')|'((.?)|(\\u[0-9A-F]{6})|(\\r)|(\\n)|(\\\\)|(\\t)|(\\"")|(\d))' )
               | (?<Newline>    \n        )
               | (?<WhiteSpace> \s        )     # Must go after Newline.
               | (?<Str>     ""([^""\n\\]|\\([nrt\\'""]|u[0-9a-fA-F]{6}))*"" )
+              | (?<Return>    return\b )
+              | (?<Identifier> [a-zA-Z]*[a-zA-Z0-9_]+ )     # Must go after all keywords
               | (?<Other>       .        )
               
             
@@ -76,7 +77,6 @@ namespace Falak {
                 {"False", TokenCategory.FALSE},
                 {"If", TokenCategory.IF},
                 {"Inc", TokenCategory.INC},
-                {"Return", TokenCategory.RETURN},
                 {"True", TokenCategory.TRUE},
                 {"Var", TokenCategory.VAR},
                 {"While", TokenCategory.WHILE},
@@ -92,22 +92,25 @@ namespace Falak {
                 {"Circumflex", TokenCategory.CIRCUMFLEX},
                 {"And", TokenCategory.AND},
                 {"Equals", TokenCategory.EQUALS},
+                {"Assignment", TokenCategory.ASSIGNMENT},
                 {"DifEqual", TokenCategory.DIFEQUAL},
                 {"Lessthanequal", TokenCategory.LESSTHANEQUAL},
                 {"Greaterthanequal", TokenCategory.GREATERTHANEQUAL},
                 {"Lessthan", TokenCategory.LESSTHAN},
                 {"Greaterthan", TokenCategory.GREATERTHAN},
+                {"Int", TokenCategory.INT},
                 {"Plus", TokenCategory.PLUS},
                 {"Minus", TokenCategory.MINUS},
                 {"Multiplication", TokenCategory.MULTIPLICATION},
                 {"Slash", TokenCategory.SLASH},
                 {"Percent", TokenCategory.PERCENT},
                 {"Exclamation", TokenCategory.EXCLAMATION},
-                {"Identifier", TokenCategory.IDENTIFIER},
-                {"Int", TokenCategory.INT},
+                {"Char", TokenCategory.CHAR},
                 {"Newline", TokenCategory.NEWLINE},
                 {"WhiteSpace", TokenCategory.WHITESPACE},
-                {"Char", TokenCategory.CHAR},
+                {"Str", TokenCategory.STR},
+                {"Return", TokenCategory.RETURN},
+                {"Identifier", TokenCategory.IDENTIFIER},
                 {"Other", TokenCategory.OTHER},
              
             };

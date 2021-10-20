@@ -1,15 +1,33 @@
+/*
+  Buttercup compiler - Program driver.
+  Copyright (C) 2013-2021 Ariel Ortiz, ITESM CEM
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 using System;
 using System.IO;
 using System.Text;
 
-namespace Falak {
+namespace Buttercup {
 
     public class Driver {
 
-        const string VERSION = "0.2";
+        const string VERSION = "0.3";
 
         //-----------------------------------------------------------
-       static readonly string[] ReleaseIncludes = {
+        static readonly string[] ReleaseIncludes = {
             "Lexical analysis",
             "Syntactic analysis",
             "AST construction"
@@ -17,16 +35,14 @@ namespace Falak {
 
         //-----------------------------------------------------------
         void PrintAppHeader() {
-            /*
-            Console.WriteLine("Falak compiler, version " + VERSION);
+            Console.WriteLine("Buttercup compiler, version " + VERSION);
             Console.WriteLine(
-                "Copyright \u00A9 2013-2021 by A. Ortiz, ITESM CEM. ft Vivana Osorio, Oscar Zuniga and Fernando Sebastian");
+                "Copyright \u00A9 2013-2021 by A. Ortiz, ITESM CEM.");
             Console.WriteLine("This program is free software; you may "
                 + "redistribute it under the terms of");
             Console.WriteLine("the GNU General Public License version 3 or "
                 + "later.");
             Console.WriteLine("This program has absolutely no warranty.");
-            */
         }
 
         //-----------------------------------------------------------
@@ -60,7 +76,8 @@ namespace Falak {
                 Console.Write(program.ToStringTree());
 
             } catch (Exception e) {
-                if(e is FileNotFoundException || e is SyntaxError){
+
+                if (e is FileNotFoundException || e is SyntaxError) {
                     Console.Error.WriteLine(e.Message);
                     Environment.Exit(1);
                 }
