@@ -17,20 +17,27 @@
                                   stmt-return | stmt-empty
         stmt-assign         ::= "="‹expr›";"
  */
-//TERMINAR SETS DE TOKENS Y ACTUALIZAR DEPENDENCIAS 
-//CREAR SWITCHCASE EN LUGAR DE OR EXPECT
-//PASAR CONTEXTO AL DEFAULT CASE PARA EL ERROR 
-//CREAR REGEX PARA CHAR,STRING, INT 
-//ELIMINAR TOKENS EXTRA (CHAR, BOOL) 
-//VERIFICAR ORDEN DE TOKENS 
-//VERIFICAR QUE SE HACE EXPECT EN EL 
-    //CURRENTTOKEN PARA PASAR AL SIGUIENTE
 using System;
 using System.Collections.Generic;
 
 namespace Falak {
 
     class Parser {
+
+        static readonly ISet<TokenCategory> firstOfExpr =
+            new HashSet<TokenCategory>() {
+                TokenCategory.IDENTIFIER,
+                TokenCategory.PLUS,
+                TokenCategory.MINUS,
+                TokenCategory.EXCLAMATION,
+                TokenCategory.STARTPARENTHESIS,
+                TokenCategory.STARTBRACES,
+                TokenCategory.CHAR,
+                TokenCategory.TRUE,
+                TokenCategory.FALSE,
+                TokenCategory.STR,
+                TokenCategory.INT
+            };
 
         static readonly ISet<TokenCategory> firstOfDeflist =
             new HashSet<TokenCategory>() {
@@ -140,13 +147,14 @@ namespace Falak {
                     Fun_def();
                     break;
                 default:
-                    throw new SyntaxError(firstOfStatement,
+                    throw new SyntaxError(firstOfDeflist,
                                         tokenStream.Current);
             }
         }
         public void Var_def(){
             Expect(TokenCategory.VAR);
             Id_list(); 
+            Expect(TokenCategory.SEMICOLON);
         }
         public void Id_list(){
             Expect(TokenCategory.IDENTIFIER);
@@ -158,21 +166,25 @@ namespace Falak {
         public void Fun_def(){
             Expect(TokenCategory.IDENTIFIER);
             Expect(TokenCategory.STARTPARENTHESIS);
-            Id_list();
+            if (CurrentToken == TokenCategory.IDENTIFIER){
+                Id_list();
+            }
+            Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.STARTCURLBRACES);
-            while(firstOfDeflist.Contains(CurrentToken)){
+            while(CurrentToken == TokenCategory.VAR){
                 Var_def();
             }
             while(firstOfStmtlist.Contains(CurrentToken)){
                 Statement();
             }
+            Expect(TokenCategory.ENDCURLBRACES);
         }
         public void Statement(){
             while(firstOfStmtlist.Contains(CurrentToken)){
                 switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
                     Expect(TokenCategory.IDENTIFIER);
-                    if(CurrentToken == TokenCategory.EQUALS){
+                    if(CurrentToken == TokenCategory.ASSIGNMENT){
                         stmt_assign();
                     }else{
                         stmt_fun_call();
@@ -203,24 +215,34 @@ namespace Falak {
                     Expect(TokenCategory.SEMICOLON);
                     break;
                 default:
-                    throw new SyntaxError(firstOfStatement,
+                    throw new SyntaxError(firstOfStmtlist,
                                         tokenStream.Current);
                 }
             }
         }
         public void stmt_assign() {
-            Expect(TokenCategory.EQUALS);
+            Expect(TokenCategory.ASSIGNMENT);
             Expression();
             Expect(TokenCategory.SEMICOLON);
         }
+      
         public void stmt_fun_call(){
             Expect(TokenCategory.STARTPARENTHESIS);
-            Expression();
-            while(CurrentToken == TokenCategory.COMA){
-                Expect(TokenCategory.COMA);
-                Expression();
-            }
+            ExpressionList();
+            Expect(TokenCategory.ENDPARENTHESIS);
+            Expect(TokenCategory.SEMICOLON);
         }
+        public void ExpressionList(){
+            if (firstOfExpr.Contains(CurrentToken)){
+                Expression();
+                while(CurrentToken == TokenCategory.COMA){
+                    Expect(TokenCategory.COMA);
+                    Expression();
+                }
+            }        
+        }
+
+
         public void stmt_incr(){
             Expect(TokenCategory.INC);
             Expect(TokenCategory.IDENTIFIER);
@@ -235,22 +257,28 @@ namespace Falak {
             Expect(TokenCategory.IF);
             Expect(TokenCategory.STARTPARENTHESIS);
             Expression();
+            Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.STARTCURLBRACES);
             Statement();
+            Expect(TokenCategory.ENDCURLBRACES);
             while (firstofIf.Contains(CurrentToken)) {
                 switch (CurrentToken) {
                     case TokenCategory.ELSEIF:
                         Expect(TokenCategory.ELSEIF);
                         Expect(TokenCategory.STARTPARENTHESIS);
                         Expression();
+                        Expect(TokenCategory.ENDPARENTHESIS);
                         Expect(TokenCategory.STARTCURLBRACES);
                         Statement();
+                        Expect(TokenCategory.ENDCURLBRACES);
                         break;
 
                     case TokenCategory.ELSE:
                         Expect(TokenCategory.ELSE);
                         Expect(TokenCategory.STARTCURLBRACES);
                         Statement();
+                        Expect(TokenCategory.ENDCURLBRACES);
+
                         break;
                     default:
                         throw new SyntaxError(firstofIf,
@@ -262,16 +290,20 @@ namespace Falak {
              Expect(TokenCategory.WHILE);
              Expect(TokenCategory.STARTPARENTHESIS);
              Expression();
+             Expect(TokenCategory.ENDPARENTHESIS);
              Expect(TokenCategory.STARTCURLBRACES);
              Statement();
+             Expect(TokenCategory.ENDCURLBRACES);
         }
         public void DoWhile(){
             Expect(TokenCategory.DO);
             Expect(TokenCategory.STARTCURLBRACES);
             Statement();
+            Expect(TokenCategory.ENDCURLBRACES);
             Expect(TokenCategory.WHILE);
             Expect(TokenCategory.STARTPARENTHESIS);
             Expression();
+            Expect(TokenCategory.ENDPARENTHESIS);
         }
         public void Break(){
             Expect(TokenCategory.BREAK);
@@ -286,8 +318,20 @@ namespace Falak {
         public void Expression() {
             Expression_and();
             while (firstofOr.Contains(CurrentToken)) {
-                Expect(TokenCategory.OR|TokenCategory.CIRCUMFLEX);
-                Expression_and();
+                switch (CurrentToken){
+                case TokenCategory.OR:
+                    Expect(TokenCategory.OR);
+                    Expression_and();
+                    break;
+                case TokenCategory.CIRCUMFLEX:
+                    Expect(TokenCategory.CIRCUMFLEX);
+                    Expression_and();
+                    break;
+                default:
+                    throw new SyntaxError(firstofOr,
+                                        tokenStream.Current);
+                } 
+               
             }
         }
         public void Expression_and(){
@@ -306,8 +350,8 @@ namespace Falak {
                     Expect(TokenCategory.EQUALS);
                     Expression_rel();
                     break;
-                case TokenCategory.DIFEQUALS:
-                    Expect(TokenCategory.DIFEQUALS);
+                case TokenCategory.DIFEQUAL:
+                    Expect(TokenCategory.DIFEQUAL);
                     Expression_rel();
                     break;
                 default:
@@ -357,7 +401,7 @@ namespace Falak {
                     Expression_mul();
                     break;
                 default:
-                    throw new SyntaxError(TokenCategory.PLUS,TokenCategory.MINUS,
+                    throw new SyntaxError(TokenCategory.PLUS,
                                         tokenStream.Current);
                 }  
             }
@@ -386,25 +430,29 @@ namespace Falak {
             }
         }
         public void Expression_unary(){
-            Expression_primary();
-            while (firstOfUnary.Contains(CurrentToken)) {
+            
+            if (firstOfUnary.Contains(CurrentToken)) {
                switch (CurrentToken){
                 case TokenCategory.PLUS:
                     Expect(TokenCategory.PLUS);
-                    Expression_primary();
+                    Expression_unary();
                     break;
                 case TokenCategory.MINUS:
                     Expect(TokenCategory.MINUS);
-                    Expression_primary();
+                    Expression_unary();
                     break;
                 case TokenCategory.EXCLAMATION:
                     Expect(TokenCategory.EXCLAMATION);
-                    Expression_primary();
+                    Expression_unary();
                     break;
                 default:
                     throw new SyntaxError(firstOfUnary,
                                         tokenStream.Current);
                 }  
+            }
+            else{
+                Expression_primary();
+
             }
         }
 
@@ -412,24 +460,39 @@ namespace Falak {
             switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
                     Expect(TokenCategory.IDENTIFIER);
-                        while(CurrentToken == TokenCategory.STARTPARENTHESIS){
+                        if(CurrentToken == TokenCategory.STARTPARENTHESIS){
                             Expect(TokenCategory.STARTPARENTHESIS);
-                            Expression();
+                            ExpressionList();
+                            Expect(TokenCategory.ENDPARENTHESIS);
                         }
                     break;
                 case TokenCategory.STARTBRACES:
                     Expect(TokenCategory.STARTBRACES);
-                    Expression();
+                    ExpressionList();
+                    Expect(TokenCategory.ENDBRACES);
                     break;
                 case TokenCategory.STARTPARENTHESIS:
                     Expect(TokenCategory.STARTPARENTHESIS);
                     Expression();
+                    Expect(TokenCategory.ENDPARENTHESIS);
                     break;
-                case firstofliteral.Contains(CurrentToken):
+                case TokenCategory.INT:
                     Lit();
                     break;
+                case TokenCategory.STR:
+                    Lit();
+                    break;
+                case TokenCategory.CHAR:
+                    Lit();
+                    break;
+                case TokenCategory.TRUE:
+                    Lit();
+                    break;
+                case TokenCategory.FALSE:
+                    Lit();
+                    break;                    
                 default:
-                    throw new SyntaxError(firstOfSimpleExpression,firstofliteral,
+                    throw new SyntaxError(firstOfSimpleExpression,
                                         tokenStream.Current);
             }
         }
