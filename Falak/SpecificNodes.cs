@@ -43,34 +43,57 @@ namespace Falak {
 
                 class Return:Node{}
                 class Expr_return:Node{}
+//--------------------Expr-------------------------------------------
+    class Expr : Node{}
+        class OR : Node {}
+        class Expr_and : Node {}
+            class AND : Node {}
+            class Expr_comp :Node {}
+                class Equals : Node {}
+                class Difequals : Node {}
+                class Expr_rel : Node {}
+                    class Lessthan : Node {}
+                    class LessThanEquals : Node {}
+                    class Greaterthan : Node {}
+                    class GreaterthanEquals : Node {}
+                    class Expr_add : Node {}
+                        class Plus : Node {}
+                        class Minus : Node {}
+                        class Expr_mul : Node {}
+                            class Multiplication : Node {}
+                            class Division : Node {}
+                            class Percent : Node {}
+                            class Expr_unary : Node {}
+                                class Positive : Node {}
+                                class Negative : Node {}
+                                class Not : Node {}
+                                class Expr_primary : Node {}
+                                    class Expr_primary_identifier : Node {}
+                                    class Expr_primary_expr : Node {}
+                                    class Lit_bool : Node {}
+                                    class Lit_int : Node {}
+                                    class Lit_char : Node {}
+                                    class Lit_str : Node {}
 
 
-                
 
-
-
-
-
-
-                    
-
-
-    class Print: Node {}
-    
-
-    class IntLiteral: Node {}
-
-    class True: Node {}
-
-    class False: Node {}
-
-    class Neg: Node {}
-
-    class And: Node {}
-
-    class Less: Node {}
-
-    class Plus: Node {}
-
-    class Mul: Node {}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
