@@ -119,7 +119,6 @@ namespace Falak {
         }
 
         public Token Expect(TokenCategory category) {
-
             if (CurrentToken == category) {
                 Token current = tokenStream.Current;
                 tokenStream.MoveNext();
@@ -133,7 +132,8 @@ namespace Falak {
             Def_list();
             Expect(TokenCategory.EOF);
         }
-        public void Def_list() {
+        public Node Def_list() {
+            //var decList = new 
             while(firstOfDeflist.Contains(CurrentToken)){
                 Def();
             }
