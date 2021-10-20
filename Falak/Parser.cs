@@ -19,7 +19,6 @@
  */
 using System;
 using System.Collections.Generic;
-
 namespace Falak {
 
     class Parser {
@@ -128,62 +127,95 @@ namespace Falak {
             }
         }
 
-        public void Program() {
-            Def_list();
+        public node Program() {
+            var varDefList = Def_list();
             Expect(TokenCategory.EOF);
+
+            return new Program(){
+                varDefList
+            };
         }
+
+
         public Node Def_list() {
             //var decList = new 
+
+            var varDefList = new DefList();
+
             while(firstOfDeflist.Contains(CurrentToken)){
-                Def();
+                varDefList.Add(Def());
             }
+            return varDefList;
         }
-        public void Def() {
+        public Node Def() {
+
+            var varDef = new Def();
+
             switch (CurrentToken) {
                 case TokenCategory.VAR:
-                    Var_def();
+                    varDef.Add(Var_def());
                     break;
                 case TokenCategory.IDENTIFIER:
-                    Fun_def();
+                    varDef.Add(Fun_def());
                     break;
                 default:
                     throw new SyntaxError(firstOfDeflist,
                                         tokenStream.Current);
             }
+            return varDef;
         }
-        public void Var_def(){
-            Expect(TokenCategory.VAR);
-            Id_list(); 
+        public Node Var_def(){
+            var varIdentifier = new Var_identifier(){
+                AnchorToken = Expect(TokenCategory.VAR)
+                }; 
+            varIdentifier.Add(Id_list());
+           
             Expect(TokenCategory.SEMICOLON);
+
+            return varIdentifier;
         }
-        public void Id_list(){
-            Expect(TokenCategory.IDENTIFIER);
+        public Node Id_list(){
+            var idList = new Id_list(){
+                AnchorToken = Expect(TokenCategory.IDENTIFIER)
+            };
+
             while(CurrentToken == TokenCategory.COMA){
                 Expect(TokenCategory.COMA);
-                Expect(TokenCategory.IDENTIFIER);
+
+                idList.Add(Expect(TokenCategory.IDENTIFIER));
             }
+
+            return idList;
         }
-        public void Fun_def(){
-            Expect(TokenCategory.IDENTIFIER);
+        public Node Fun_def(){
+            var funDef = new Fun_def(){
+                AnchorToken = Expect(TokenCategory.IDENTIFIER)
+            };
+
             Expect(TokenCategory.STARTPARENTHESIS);
             if (CurrentToken == TokenCategory.IDENTIFIER){
-                Id_list();
+                funDef.Add(Id_list());
             }
             Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.STARTCURLBRACES);
             while(CurrentToken == TokenCategory.VAR){
-                Var_def();
+                funDef.Add(Var_def());
             }
             while(firstOfStmtlist.Contains(CurrentToken)){
-                Statement();
+                funDef.Add(Statement());
             }
             Expect(TokenCategory.ENDCURLBRACES);
+            return funDef;
         }
-        public void Statement(){
+        public Node Statement(){    //stm-list
+            var statementVar = new Stm_list();
+            
             while(firstOfStmtlist.Contains(CurrentToken)){
                 switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
-                    Expect(TokenCategory.IDENTIFIER);
+                    var stmIdentifier = new Stm_identifier(){
+                        AnchorToken = Expect(TokenCategory.IDENTIFIER)
+                    };
                     if(CurrentToken == TokenCategory.ASSIGNMENT){
                         stmt_assign();
                     }else{
@@ -191,6 +223,7 @@ namespace Falak {
                     }
                     break;
                 case TokenCategory.INC:
+                
                     stmt_incr();
                     break;
                 case TokenCategory.DEC:
@@ -243,15 +276,29 @@ namespace Falak {
         }
 
 
-        public void stmt_incr(){
-            Expect(TokenCategory.INC);
-            Expect(TokenCategory.IDENTIFIER);
+        public Node stmt_incr(){
+            var stmInc = new Stm_Inc(){
+                AnchorToken =  Expect(TokenCategory.INC)
+            };
+
+            stmInc.Add(new Inc_identifier(){
+                AnchorToken = Expect(TokenCategory.IDENTIFIER)
+            });
             Expect(TokenCategory.SEMICOLON);
+            
+            return stmInc;
         }
         public void stmt_decr(){
-            Expect(TokenCategory.DEC);
-            Expect(TokenCategory.IDENTIFIER);
+            var stmDec = new Stm_dec(){
+                AnchorToken =  Expect(TokenCategory.DEC)
+            };
+
+            stmDec.Add(new Dec_identifier(){
+                AnchorToken = Expect(TokenCategory.IDENTIFIER)
+            });
             Expect(TokenCategory.SEMICOLON);
+            
+            return stmDec;            
         }
         public void If() {
             Expect(TokenCategory.IF);
