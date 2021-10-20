@@ -77,43 +77,23 @@ namespace Falak {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    class Print: Node {}
-    
-
-    class IntLiteral: Node {}
-
-    class True: Node {}
-
-    class False: Node {}
-
-    class Neg: Node {}
-
-    class And: Node {}
-
-    class Less: Node {}
-
-    class Plus: Node {}
-
-    class Mul: Node {}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
