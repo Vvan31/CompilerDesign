@@ -463,38 +463,20 @@ namespace Falak {
                         if(CurrentToken == TokenCategory.STARTPARENTHESIS){
                             Expect(TokenCategory.STARTPARENTHESIS);
                             ExpressionList();
-                            /*
-                            while (CurrentToken == TokenCategory.COMA){
-                                Console.WriteLine("ASDFASDF");
-                                Console.WriteLine(CurrentToken);
-                                Expect(TokenCategory.COMA);
-                                Expression();
-                    }
-                    */
+
                             Expect(TokenCategory.ENDPARENTHESIS);
                         }
                     break;
                 case TokenCategory.STARTBRACES:
                     Expect(TokenCategory.STARTBRACES);
                     ExpressionList();
-                    /*
-                    while (CurrentToken == TokenCategory.COMA){
-                        Expect(TokenCategory.COMA);
-                        Expression();
-                    }
-                    */
 
                     Expect(TokenCategory.ENDBRACES);
                     break;
                 case TokenCategory.STARTPARENTHESIS:
                     Expect(TokenCategory.STARTPARENTHESIS);
                     Expression();
-                    /*
-                    while (CurrentToken == TokenCategory.COMA){
-                        Expect(TokenCategory.COMA);
-                        Expression();
-                    }
-                    */
+
                     Expect(TokenCategory.ENDPARENTHESIS);
                     break;
                 case TokenCategory.INT:
@@ -509,6 +491,22 @@ namespace Falak {
                 case TokenCategory.TRUE:
                     Lit();
                     break;
+
+                    Expect(TokenCategory.ENDPARENTHESIS);
+                    break;
+                case TokenCategory.INT:
+                    Lit();
+                    break;
+                case TokenCategory.STR:
+                    Lit();
+                    break;
+                case TokenCategory.CHAR:
+                    Lit();
+                    break;
+                case TokenCategory.TRUE:
+                    Lit();
+                    break;
+
                 case TokenCategory.FALSE:
                     Lit();
                     break;                    
