@@ -1,4 +1,3 @@
-
 namespace Falak {
 
     class Program: Node {} //NO ANCHOR TOKEN
@@ -31,6 +30,23 @@ namespace Falak {
                     class Else:Node{}
                         class Stm_list_else:Node{}
 
+                class While:Node{}
+                    class Expr_while:Node{}
+                    class stm_list_while:Node{}
+                
+                class Do:Node{}
+                    class stm_list_do:Node{}
+                    class While_do:Node{}
+                    class Expr_do:Node{}
+
+                class Break:Node{}
+
+                class Return:Node{}
+                class Expr_return:Node{}
+
+
+                
+
 
 
 
@@ -39,12 +55,7 @@ namespace Falak {
                     
 
 
-    class Assignment: Node {}
-
     class Print: Node {}
-
-    class If: Node {}
-
     
 
     class IntLiteral: Node {}
