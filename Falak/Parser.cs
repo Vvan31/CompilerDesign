@@ -172,23 +172,21 @@ namespace Falak {
             return varIdentifier;
         }
         public Node Id_list(){
-            var idList = new Var_Param_identifier(){
+            var idList = new Var_identifier(){
                 AnchorToken = Expect(TokenCategory.IDENTIFIER)
             };
-
             while(CurrentToken == TokenCategory.COMA){
                 Expect(TokenCategory.COMA);
-                var expr2 = new Var_Param_identifier(){
+                var expr2 = new Var_identifier(){
                     AnchorToken =Expect(TokenCategory.IDENTIFIER)
                 };
 
                 expr2.Add(idList);
                 idList = expr2;
             }
-            
-
             return idList;
         }
+
         public Node Fun_def(){
             var funDef = new Fun_def(){
                 AnchorToken = Expect(TokenCategory.IDENTIFIER)
@@ -196,7 +194,7 @@ namespace Falak {
 
             Expect(TokenCategory.STARTPARENTHESIS);
             if (CurrentToken == TokenCategory.IDENTIFIER){
-                funDef.Add(Id_list());
+                funDef.Add(Param_list());
             }
             Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.STARTCURLBRACES);
@@ -209,6 +207,21 @@ namespace Falak {
             }
             Expect(TokenCategory.ENDCURLBRACES);
             return funDef;
+        }
+        public Node Param_list(){
+            var Param_list_Node = new Param_list_identifier();
+            Param_list_Node.Add(IdParam());
+            while(CurrentToken == TokenCategory.COMA){
+                Expect(TokenCategory.COMA);
+                Param_list_Node.Add(IdParam());
+            }
+            return Param_list_Node;
+        }
+        public Node IdParam(){
+            var id_Node = new Param_identifier(){
+                AnchorToken = Expect(TokenCategory.IDENTIFIER)
+            };
+            return id_Node;
         }
         public Node Statement(){    //stm-list
             var statementVar = new Stm_list();
@@ -254,6 +267,7 @@ namespace Falak {
                     throw new SyntaxError(firstOfStmtlist,
                                         tokenStream.Current);
                 }
+                statementVar.Add(stmIdentifier);
             }
             return statementVar;
         }
@@ -448,7 +462,7 @@ namespace Falak {
         public Node Expression_comp(){
             var exprel = Expression_rel();
             while (firstofEquals.Contains(CurrentToken)) {
-                var expr2 = new Node();
+                Node expr2;
                 switch (CurrentToken){
                 case TokenCategory.EQUALS:
                         expr2 = new Equals(){
@@ -475,7 +489,7 @@ namespace Falak {
         public Node Expression_rel(){
             var expadd = Expression_add();
             while (firstofGreaterLess.Contains(CurrentToken)) {
-                var expr2 = new Node();
+                Node expr2;
                 switch (CurrentToken){
                 case TokenCategory.GREATERTHAN:
                         expr2 = new Greaterthan(){
@@ -516,7 +530,7 @@ namespace Falak {
             var exprmul = Expression_mul();
             while (CurrentToken == TokenCategory.PLUS || 
                    CurrentToken == TokenCategory.MINUS) {
-                var expr2 = new  Node();
+                Node expr2;
                 switch (CurrentToken){
                 case TokenCategory.PLUS:
                     expr2 = new Plus(){
@@ -542,7 +556,7 @@ namespace Falak {
         public Node Expression_mul(){
             var expunary = Expression_unary();
             while (firstofMul.Contains(CurrentToken)) {
-                var expr2 = new Node();
+                Node expr2;
                 switch (CurrentToken){
                 case TokenCategory.MULTIPLICATION:
                         expr2 = new Multiplication(){
@@ -575,7 +589,7 @@ namespace Falak {
         ///////aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah!
         public Node Expression_unary(){
             if (firstOfUnary.Contains(CurrentToken)) {
-                var expr2 = new Node();
+               Node expr2;
                switch (CurrentToken){
                 case TokenCategory.PLUS:
                         expr2 = new Positive(){ 
@@ -609,7 +623,7 @@ namespace Falak {
         }
 
         public Node Expression_primary(){
-            var expr = new Node();
+            Node expr;
             switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
                     expr = new Expr_primary_identifier(){
@@ -639,24 +653,12 @@ namespace Falak {
                     return expr;
 
                 case TokenCategory.INT:
-                    expr.Add(Lit());
-                    return expr;
-
                 case TokenCategory.STR:
-                    expr.Add(Lit());
-                    return expr;
-
                 case TokenCategory.CHAR:
-                    expr.Add(Lit());
-                    return expr;
-
                 case TokenCategory.TRUE:
-                    expr.Add(Lit());
-                    return expr;
-
                 case TokenCategory.FALSE:
-                    expr.Add(Lit());
-                    return expr;                   
+                    return Lit();
+                                      
                 default:
                     throw new SyntaxError(firstOfSimpleExpression,
                                         tokenStream.Current);
@@ -664,7 +666,7 @@ namespace Falak {
             return expr;
         }
         public Node Lit(){
-            var litNode = new Node(); 
+            Node litNode; 
             switch (CurrentToken){
                 case TokenCategory.TRUE:
                     return litNode = new Lit_true(){
