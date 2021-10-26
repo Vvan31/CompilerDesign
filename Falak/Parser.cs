@@ -172,17 +172,19 @@ namespace Falak {
             return varIdentifier;
         }
         public Node Id_list(){
-            var idList = new Var_identifier(){
+            var idList = new Var_list_identifier();
+
+            var id = new Var_identifier(){
                 AnchorToken = Expect(TokenCategory.IDENTIFIER)
             };
+            idList.Add(id);
             while(CurrentToken == TokenCategory.COMA){
                 Expect(TokenCategory.COMA);
                 var expr2 = new Var_identifier(){
                     AnchorToken =Expect(TokenCategory.IDENTIFIER)
                 };
 
-                expr2.Add(idList);
-                idList = expr2;
+                idList.Add(expr2);
             }
             return idList;
         }

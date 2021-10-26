@@ -5,6 +5,7 @@ namespace Falak {
         class Def : Node {}
         class Var_def: Node {}
             class Var_identifier : Node {}
+            class Var_list_identifier : Node {}
             class Param_list_identifier :Node {}
             class Param_identifier : Node {}
         class Fun_def: Node {}
