@@ -59,8 +59,21 @@ namespace Falak {
                 var program = parser.Program();
                 Console.Write(program.ToStringTree());
 
+                var semantic = new SemanticVisitor();
+                semantic.Visit((dynamic) program);
+
+                Console.WriteLine("Semantics OK.");
+                Console.WriteLine();
+                Console.WriteLine("Symbol Table");
+                Console.WriteLine("============");
+                foreach (var entry in semantic.Table) {
+                    Console.WriteLine(entry);
+                }
+
             } catch (Exception e) {
-                if(e is FileNotFoundException || e is SyntaxError){
+                if(e is FileNotFoundException 
+                || e is SyntaxError
+                || e is SemanticError){
                     Console.Error.WriteLine(e.Message);
                     Environment.Exit(1);
                 }
