@@ -1,6 +1,6 @@
 using System;
 
-namespace Buttercup {
+namespace Falak {
 
     class SemanticError: Exception {
 

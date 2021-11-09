@@ -13,7 +13,7 @@ namespace Falak {
             int arity;
             List<string> refLst;   
         }
-        public IDictionary<string, struct> FGST_Table{ get; private set; }
+        public IDictionary<string, FGST_struct> FGST_Table{ get; private set; }
 
         //--------------------------------------------------------------
         public  IDictionary<string,string> VGST{ get; private set; }
@@ -24,7 +24,7 @@ namespace Falak {
         }
 
         public SemanticFunctionVisitor(){
-            FGST_Table = new SortedDictionary<string,struct>();
+            FGST_Table = new SortedDictionary<string,FGST_struct>();
             FGST_Table["printc"] = structManaegrAPI("printc", 1);
             FGST_Table["prints"] = structManaegrAPI("prints", 1);
             FGST_Table["printi"] = structManaegrAPI("printi", 1);
@@ -39,7 +39,7 @@ namespace Falak {
         }
 
         public structManaegrAPI(string nombre, int ari){
-            FGST newFGST = new FGST();
+            FGST newFGST = new FGST_struct();
             newFGST.name = nombre;
             newFGST.isPrimitive = true;
             newFGST.arity = ari;
@@ -47,7 +47,7 @@ namespace Falak {
             return newFGST;
         }
          public structManaegr(string nombre,int ari){
-            FGST newFGST = new FGST();
+            FGST newFGST = new FGST_struct();
             newFGST.name = nombre;
             newFGST.isPrimitive = false;
             newFGST.arity = ari;
@@ -90,7 +90,7 @@ namespace Falak {
                     "Duplicated variable: " + variableName, 
                     node[0].AnchorToken);
             } else{
-                VGST[variableName] = 'var';
+                VGST[variableName] = "var";
             }
             return Type.VOID;
         }
@@ -99,10 +99,11 @@ namespace Falak {
             var functionName = node[0].AnchorToken.Lexeme;
             fun_name = functionName;
             if(FGST_Table.ContainsKey(functionName)){
+                throw new SemanticError(
                 "Duplicated Function: " + functionName,
                 node[0].AnchorToken);
             } else {
-                FGST_Table[functionName] = structManaegr(functionName, 0)
+                FGST_Table[functionName] = structManaegr(functionName, 0);
             }
             return Type.VOID;
         }
