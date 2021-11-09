@@ -5,22 +5,54 @@ using System.Collections.Generic;
 namespace Falak {
 
     class SemanticVisitor {
+        public string fun_name;
 
-        //-----------------------------------------------------------
-        static readonly IDictionary<TokenCategory, Type> typeMapper =
-            new Dictionary<TokenCategory, Type>() {
-                { TokenCategory.INT, Type.INT }
-            };
+        struct FGST_struct {
+            string name;
+            bool isPrimitive;
+            int arity;
+            List<string> refLst;   
+        }
+        public IDictionary<string, struct> FGST_Table{ get; private set; }
 
-        //-----------------------------------------------------------
-        public IDictionary<string, Type> Table {
-            get;
-            private set;
+        //--------------------------------------------------------------
+        public  IDictionary<string,string> VGST{ get; private set; }
+
+        //--------------------------------------------------------------
+        public SemanticVariableVisitor() {
+            VGST = new SortedDictionary<string,string>();
         }
 
-        //-----------------------------------------------------------
-        public SemanticVisitor() {
-            Table = new SortedDictionary<string, Type>();
+        public SemanticFunctionVisitor(){
+            FGST_Table = new SortedDictionary<string,struct>();
+            FGST_Table["printc"] = structManaegrAPI("printc", 1);
+            FGST_Table["prints"] = structManaegrAPI("prints", 1);
+            FGST_Table["printi"] = structManaegrAPI("printi", 1);
+            FGST_Table["println"] = structManaegrAPI("println", 0);
+            FGST_Table["readi"] = structManaegrAPI("readi", 0);
+            FGST_Table["reads"] = structManaegrAPI("reads", 0);
+            FGST_Table["new"] = structManaegrAPI("new", 1);
+            FGST_Table["size"] = structManaegrAPI("size", 1);
+            FGST_Table["add"] = structManaegrAPI("add", 2);
+            FGST_Table["get"] = structManaegrAPI("add", 2);
+            FGST_Table["set"] = structManaegrAPI("set", 3); 
+        }
+
+        public structManaegrAPI(string nombre, int ari){
+            FGST newFGST = new FGST();
+            newFGST.name = nombre;
+            newFGST.isPrimitive = true;
+            newFGST.arity = ari;
+            newFGST.refLst = null; 
+            return newFGST;
+        }
+         public structManaegr(string nombre,int ari){
+            FGST newFGST = new FGST();
+            newFGST.name = nombre;
+            newFGST.isPrimitive = false;
+            newFGST.arity = ari;
+            newFGST.refLst = null; 
+            return newFGST; 
         }
 
         //-----------------------------------------------------------
@@ -50,47 +82,40 @@ namespace Falak {
             VisitChildren(node);
             return Type.VOID;
         }
-         //-----------iiiishhhhhhhh----------------------------------
+         //----------------------------------------------------------
         public Type Visit(Var_identifier node) {
-            var variableName = node.AnchorToken.Lexeme;
-
-            if (Table.ContainsKey(variableName)) {
-                return Table[variableName];
+            var variableName = node[0].AnchorToken.Lexeme;
+            if(VGST.ContainsKey(variableName)){
+                throw new SemanticError(
+                    "Duplicated variable: " + variableName, 
+                    node[0].AnchorToken);
+            } else{
+                VGST[variableName] = 'var';
             }
-
-            throw new SemanticError(
-                $"Undeclared variable: {variableName}",
-                node.AnchorToken);
             return Type.VOID;
         }
         //-----------------------------------------------------------
         public Type Visit(Fun_def node) {
-            VisitChildren(node);
+            var functionName = node[0].AnchorToken.Lexeme;
+            fun_name = functionName;
+            if(FGST_Table.ContainsKey(functionName)){
+                "Duplicated Function: " + functionName,
+                node[0].AnchorToken);
+            } else {
+                FGST_Table[functionName] = structManaegr(functionName, 0)
+            }
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Param_list_identifier node) {
-            var variableName = node.AnchorToken.Lexeme;
+            var paramListSize = node.size();
+            fun_name.arity = paramListSize; 
 
-            if (Table.ContainsKey(variableName)) {
-                return Table[variableName];
-            }
-
-            throw new SemanticError(
-                $"Undeclared variable: {variableName}",
-                node.AnchorToken);
+            VisitChildren(node);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Param_identifier node) {
-            var variableName = node.AnchorToken.Lexeme;
-
-            if (Table.ContainsKey(variableName)) {
-                return Table[variableName];
-            }
-            throw new SemanticError(
-                $"Undeclared variable: {variableName}",
-                node.AnchorToken);
             return Type.VOID;
         }
          //-----------------------------------------------------------
@@ -101,14 +126,12 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Stm_identifier node) {
             var variableName = node.AnchorToken.Lexeme;
-
-            if (Table.ContainsKey(variableName)) {
-                return Table[variableName];
+            //ver si la variable esta en la lista de variables dentro de la funcion o global 
+            if (!(VGST.ContainsKey(variableName)) || !(FGST_Table.ContainsKey(variableName))) {
+                throw new SemanticError(
+                    "Undeclared variable: " + variableName,
+                    node.AnchorToken);
             }
-
-            throw new SemanticError(
-                $"Undeclared variable: {variableName}",
-                node.AnchorToken);
             return Type.VOID;
         }
          //-----------------------------------------------------------
@@ -135,14 +158,12 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Inc_identifier node) {
             var variableName = node.AnchorToken.Lexeme;
-
-            if (Table.ContainsKey(variableName)) {
-                return Table[variableName];
+            //ver si la variable esta en la lista de variables dentro de la funcion o global 
+            if (!(VGST.ContainsKey(variableName)) || !(FGST_Table[fun_name].refLst.ContainsKey(variableName))) {
+                throw new SemanticError(
+                    "Undeclared variable: " + variableName,
+                    node.AnchorToken);
             }
-
-            throw new SemanticError(
-                $"Undeclared variable: {variableName}",
-                node.AnchorToken);
             return Type.VOID;
         }
          //-----------------------------------------------------------
@@ -153,14 +174,12 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Dec_identifier node) {
             var variableName = node.AnchorToken.Lexeme;
-
-            if (Table.ContainsKey(variableName)) {
-                return Table[variableName];
+            //ver si la variable esta en la lista de variables dentro de la funcion o global 
+            if (!(VGST.ContainsKey(variableName)) || !(FGST_Table[fun_name].refLst.ContainsKey(variableName))) {
+                throw new SemanticError(
+                    "Undeclared variable: " + variableName,
+                    node.AnchorToken);
             }
-
-            throw new SemanticError(
-                $"Undeclared variable: {variableName}",
-                node.AnchorToken);
             return Type.VOID;
         }
          //-----------------------------------------------------------

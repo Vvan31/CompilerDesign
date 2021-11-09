@@ -28,7 +28,7 @@ namespace Buttercup {
             new Dictionary<TokenCategory, Type>() {
                 { TokenCategory.BOOL, Type.BOOL },
                 { TokenCategory.INT, Type.INT }
-            };
+            }; 
 
         //-----------------------------------------------------------
         public IDictionary<string, Type> Table {
