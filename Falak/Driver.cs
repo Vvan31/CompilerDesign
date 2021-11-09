@@ -66,7 +66,7 @@ namespace Falak {
                 Console.WriteLine();
                 Console.WriteLine("Symbol Table");
                 Console.WriteLine("============");
-                foreach (var entry in semantic.Table) {
+                foreach (var entry in semantic.FGST_Table) {
                     Console.WriteLine(entry);
                 }
 

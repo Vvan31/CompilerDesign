@@ -7,11 +7,11 @@ namespace Falak {
     class SemanticVisitor {
         public string fun_name;
 
-        struct FGST_struct {
-            string name;
-            bool isPrimitive;
-            int arity;
-            List<string> refLst;   
+        public struct FGST_struct {
+            public string name;
+            public bool isPrimitive;
+            public int arity;
+            public List<string> refLst;   
         }
         public IDictionary<string, FGST_struct> FGST_Table{ get; private set; }
 
@@ -19,11 +19,11 @@ namespace Falak {
         public  IDictionary<string,string> VGST{ get; private set; }
 
         //--------------------------------------------------------------
-        public SemanticVariableVisitor() {
+        public void SemanticVariableVisitor() {
             VGST = new SortedDictionary<string,string>();
         }
 
-        public SemanticFunctionVisitor(){
+        public void SemanticFunctionVisitor(){
             FGST_Table = new SortedDictionary<string,FGST_struct>();
             FGST_Table["printc"] = structManaegrAPI("printc", 1);
             FGST_Table["prints"] = structManaegrAPI("prints", 1);
@@ -38,16 +38,16 @@ namespace Falak {
             FGST_Table["set"] = structManaegrAPI("set", 3); 
         }
 
-        public structManaegrAPI(string nombre, int ari){
-            FGST newFGST = new FGST_struct();
+        public FGST_struct structManaegrAPI(string nombre, int ari){
+            FGST_struct newFGST = new FGST_struct();
             newFGST.name = nombre;
             newFGST.isPrimitive = true;
             newFGST.arity = ari;
             newFGST.refLst = null; 
             return newFGST;
         }
-         public structManaegr(string nombre,int ari){
-            FGST newFGST = new FGST_struct();
+         public FGST_struct structManaegr(string nombre,int ari){
+            FGST_struct newFGST = new FGST_struct();
             newFGST.name = nombre;
             newFGST.isPrimitive = false;
             newFGST.arity = ari;
@@ -110,7 +110,11 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Param_list_identifier node) {
             var paramListSize = node.size();
-            fun_name.arity = paramListSize; 
+
+            var function_structure = FGST_Table[fun_name];
+            function_structure.arity = paramListSize;
+             
+
 
             VisitChildren(node);
             return Type.VOID;
@@ -159,8 +163,10 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Inc_identifier node) {
             var variableName = node.AnchorToken.Lexeme;
+
+
             //ver si la variable esta en la lista de variables dentro de la funcion o global 
-            if (!(VGST.ContainsKey(variableName)) || !(FGST_Table[fun_name].refLst.ContainsKey(variableName))) {
+            if (!(VGST.ContainsKey(variableName)) || !(FGST_Table[fun_name].refLst.Contains(variableName))) {
                 throw new SemanticError(
                     "Undeclared variable: " + variableName,
                     node.AnchorToken);
@@ -175,8 +181,9 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Dec_identifier node) {
             var variableName = node.AnchorToken.Lexeme;
+
             //ver si la variable esta en la lista de variables dentro de la funcion o global 
-            if (!(VGST.ContainsKey(variableName)) || !(FGST_Table[fun_name].refLst.ContainsKey(variableName))) {
+            if (!(VGST.ContainsKey(variableName)) || !(FGST_Table[fun_name].refLst.Contains(variableName))) {
                 throw new SemanticError(
                     "Undeclared variable: " + variableName,
                     node.AnchorToken);
@@ -245,7 +252,7 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Greaterthan node) {
-            VisitBinaryOperator('>', node, Type.INT);
+            VisitBinaryOperator(">", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
@@ -255,7 +262,7 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Lessthan node) {
-            VisitBinaryOperator('<', node, Type.INT);
+            VisitBinaryOperator("<", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
@@ -265,54 +272,45 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Plus node) {
-            VisitBinaryOperator('+', node, Type.INT);
+            VisitBinaryOperator("+", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Minus node) {
-            VisitBinaryOperator('-', node, Type.INT);
+            VisitBinaryOperator("-", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Multiplication node) {
-            VisitBinaryOperator('*', node, Type.INT);
+            VisitBinaryOperator("*", node, Type.INT);
             return Type.VOID; // int? aaaa 
         }
          //-----------------------------------------------------------
         public Type Visit(Division node) {
-            VisitBinaryOperator('/', node, Type.INT);
+            VisitBinaryOperator("/", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Percent node) {
-            VisitBinaryOperator('%', node, Type.INT);
+            VisitBinaryOperator("%", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Positive node) {
-            VisitBinaryOperator('+', node, Type.INT);
+            VisitBinaryOperator("+", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Negative node) {
-            VisitBinaryOperator('-', node, Type.INT);
+            VisitBinaryOperator("-", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Not node) {
-            VisitBinaryOperator('!', node, Type.INT);
+            VisitBinaryOperator("!", node, Type.INT);
             return Type.VOID;
         } //-----------------------------------------------------------
         public Type Visit(Expr_primary_identifier node) {
-            var variableName = node.AnchorToken.Lexeme;
-
-            if (Table.ContainsKey(variableName)) {
-                return Table[variableName];
-            }
-
-            throw new SemanticError(
-                $"Undeclared variable: {variableName}",
-                node.AnchorToken);
             return Type.VOID;
         } //-----------------------------------------------------------
         public Type Visit(Expr_primary_list node) {

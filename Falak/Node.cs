@@ -65,5 +65,10 @@ namespace Falak {
                 TreeTraversal(child, indent + "  ", sb);
             }
         }
+
+
+        public int size(){
+            return children.Count;
+        }
     }
 }
