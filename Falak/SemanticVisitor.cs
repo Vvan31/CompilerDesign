@@ -99,7 +99,7 @@ namespace Falak {
             var functionName = node[0].AnchorToken.Lexeme;
             fun_name = functionName;
 
-            var pram_list = node.children[0].size();
+            var param_list = node.children[0].size();
            
             if(FGST_Table.ContainsKey(functionName)){
                 throw new SemanticError(
