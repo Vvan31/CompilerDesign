@@ -98,12 +98,15 @@ namespace Falak {
         public Type Visit(Fun_def node) {
             var functionName = node[0].AnchorToken.Lexeme;
             fun_name = functionName;
+
+            var pram_list = node.children[0].size();
+           
             if(FGST_Table.ContainsKey(functionName)){
                 throw new SemanticError(
                 "Duplicated Function: " + functionName,
                 node[0].AnchorToken);
             } else {
-                FGST_Table[functionName] = structManaegr(functionName, 0);
+                FGST_Table[functionName] = structManaegr(functionName, param_list);
             }
             return Type.VOID;
         }
@@ -113,14 +116,13 @@ namespace Falak {
 
             var function_structure = FGST_Table[fun_name];
             function_structure.arity = paramListSize;
-             
-
-
+      
             VisitChildren(node);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Param_identifier node) {
+
             return Type.VOID;
         }
          //-----------------------------------------------------------
