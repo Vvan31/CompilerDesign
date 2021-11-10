@@ -62,6 +62,10 @@ namespace Falak {
                 var semantic = new SemanticVisitor();
                 semantic.Visit((dynamic) program);
 
+                semantic.segundaVuelta = true;
+                semantic.Visit((dynamic) program);
+
+                
                 Console.WriteLine("Semantics OK.");
                 Console.WriteLine();
                 Console.WriteLine("Symbol Table");

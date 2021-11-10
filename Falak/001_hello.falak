@@ -1,15 +1,9 @@
 <# File: 001_hello.falak
-    The classical "hello, world" program.
-    (C) 2021 Ariel Ortiz, ITESM CEM.
-#>
-#test
-<# File: 001_hello.falak
-    The classical "hello, world" program.
-    (C) 2021 Ariel Ortiz, ITESM CEM.
+   The classical "hello, world" program.
+   (C) 2021 Ariel Ortiz, ITESM CEM.
 #>
 
-main(aa) {
-    aa = 1 ==2;
-    prints("hello, world\n");
-    return 42;
+main() {
+    prints("hello, world\n");;;
+    return 42;;;
 }
