@@ -138,7 +138,14 @@ namespace Falak {
                 Def();
             }
         }
+<<<<<<< Updated upstream
         public void Def() {
+=======
+        public Node Def() {
+
+            var varDef = new Def(); 
+
+>>>>>>> Stashed changes
             switch (CurrentToken) {
                 case TokenCategory.VAR:
                     Var_def();
