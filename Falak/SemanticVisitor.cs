@@ -8,6 +8,12 @@ namespace Falak {
         public string fun_name;
         public bool segundaVuelta = false;
 
+        public int counterWhile = 0;
+
+        public int counterDo = 0;
+
+        public int counterBreak = 0;
+
         public struct FGST_struct {
             public string name;
             public bool isPrimitive;
@@ -100,12 +106,6 @@ namespace Falak {
             var functionName = node.AnchorToken.Lexeme;
             fun_name = functionName;
 
-            Console.WriteLine(functionName);
-            Console.WriteLine("fgsttable");
-            Console.WriteLine(FGST_Table.Keys);
-            Console.WriteLine("fgsttable");
-
-
             var param_list = node.children[0].size();
            
             if(FGST_Table.ContainsKey(functionName)){
@@ -142,21 +142,20 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_identifier node) {
-                var functionName = node.AnchorToken.Lexeme;
+           var functionName = node.AnchorToken.Lexeme;
 
-            //ver si la variable esta en la lista de variables dentro de la funcion o global 
-            var param_list = node.children[0].size();
-
-           
             if(FGST_Table.ContainsKey(functionName)){
-                throw new SemanticError(
-                "Duplicated Function: " + functionName,
-                node.AnchorToken);
+                VisitChildren(node);
+                return Type.VOID;
+
             } else {
-                FGST_Table[functionName] = structManaegr(functionName, param_list);
+                throw new SemanticError(
+                "Undeclared Function: " + functionName,
+                node.AnchorToken);
             }
 
             return Type.VOID;
+
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_asign node) {
@@ -170,7 +169,18 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_funcall_Exprlist node) {
-            VisitChildren(node);
+            var functionName = node.AnchorToken.Lexeme;
+
+            var param_list = node.size();
+
+            if (FGST_Table[functionName].arity != param_list){
+                throw new SemanticError(
+                "Bad arity: " + functionName,
+                node.AnchorToken);
+            }else{
+                VisitChildren(node);
+            }
+            
             return Type.VOID;
         }
          //-----------------------------------------------------------
@@ -231,17 +241,24 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(While node) {
-        
+            counterWhile += 1;
+            VisitChildren(node);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Do node) {
-        
+            counterDo += 1;
+            VisitChildren(node);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Break node) {
-        
+            counterBreak += 1;
+            if (counterWhile <= 0){
+                throw new SemanticError(
+                    "Breaking Bad: ",
+                    node.AnchorToken);
+            }
             return Type.VOID;
         }
          //-----------------------------------------------------------
