@@ -227,9 +227,10 @@ namespace Falak {
         }
         public Node Statement(){    //stm-list
             var statementVar = new Stm_list();
-            
+            Node stmIdentifier = null; 
+
             while(firstOfStmtlist.Contains(CurrentToken)){
-                Node stmIdentifier;
+
                 switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
                         stmIdentifier = new Stm_identifier(){
@@ -242,25 +243,25 @@ namespace Falak {
                     }
                     break;
                 case TokenCategory.INC:
-                    stmIdentifier.Add(stmt_incr());
+                    stmIdentifier = stmt_incr();
                     break;
                 case TokenCategory.DEC:
-                    stmIdentifier.Add(stmt_decr());
+                    stmIdentifier = stmt_decr();
                     break;
                 case TokenCategory.IF:
-                     stmIdentifier.Add(If());
+                     stmIdentifier = If();
                     break;
                 case TokenCategory.WHILE:
-                    stmIdentifier.Add(While());
+                    stmIdentifier = While();
                     break;
                 case TokenCategory.DO:
-                    stmIdentifier.Add(DoWhile());
+                    stmIdentifier = DoWhile();
                     break;
                 case TokenCategory.BREAK:
-                    stmIdentifier.Add(Break());
+                    stmIdentifier = Break();
                     break;
                 case TokenCategory.RETURN:
-                    stmIdentifier.Add(Return());
+                    stmIdentifier = Return();
                     break;
                 case TokenCategory.SEMICOLON:
                     Expect(TokenCategory.SEMICOLON);
