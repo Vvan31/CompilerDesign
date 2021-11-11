@@ -229,10 +229,10 @@ namespace Falak {
             var statementVar = new Stm_list();
             
             while(firstOfStmtlist.Contains(CurrentToken)){
-                var stmIdentifier = new Stm_identifier();
+                Node stmIdentifier;
                 switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
-                    stmIdentifier = new Stm_identifier(){
+                        stmIdentifier = new Stm_identifier(){
                         AnchorToken = Expect(TokenCategory.IDENTIFIER)
                     };
                     if(CurrentToken == TokenCategory.ASSIGNMENT){

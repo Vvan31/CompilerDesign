@@ -14,6 +14,8 @@ namespace Falak {
 
         public int counterBreak = 0;
 
+        public String fun_name_stmt;
+
         public struct FGST_struct {
             public string name;
             public bool isPrimitive;
@@ -142,7 +144,10 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_identifier node) {
-           var functionName = node.AnchorToken.Lexeme;
+            Console.WriteLine("asdfasdf: ", node.AnchorToken.Lexeme);
+            var functionName = node.AnchorToken.Lexeme;
+            fun_name_stmt = functionName;
+            Console.WriteLine("stm_identifier: ", fun_name_stmt);
 
             if(FGST_Table.ContainsKey(functionName)){
                 VisitChildren(node);
@@ -169,13 +174,18 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_funcall_Exprlist node) {
-            var functionName = node.AnchorToken.Lexeme;
+            Console.WriteLine("asdfasdfasdf");
+            Console.WriteLine(node.size());
+
+            Console.WriteLine("funname  ", fun_name_stmt);
 
             var param_list = node.size();
 
-            if (FGST_Table[functionName].arity != param_list){
+            Console.WriteLine("PARAMLIST: " , param_list);
+
+            if (FGST_Table[fun_name_stmt].arity != param_list){
                 throw new SemanticError(
-                "Bad arity: " + functionName,
+                "Bad arity: " + fun_name_stmt,
                 node.AnchorToken);
             }else{
                 VisitChildren(node);
@@ -192,7 +202,7 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Inc_identifier node) {
             var variableName = node.AnchorToken.Lexeme;
-
+    
 
             //ver si la variable esta en la lista de variables dentro de la funcion o global 
             if (!(VGST.ContainsKey(variableName)) || !(FGST_Table[fun_name].refLst.Contains(variableName))) {

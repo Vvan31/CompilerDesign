@@ -77,8 +77,10 @@ namespace Falak {
             } catch (Exception e) {
                 if(e is FileNotFoundException 
                 || e is SyntaxError
-                || e is SemanticError){
+                || e is SemanticError
+                || e is NullReferenceException){
                     Console.Error.WriteLine(e.Message);
+                    Console.Error.WriteLine(e);
                     Environment.Exit(1);
                 }
 
