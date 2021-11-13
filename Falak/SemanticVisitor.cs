@@ -57,6 +57,7 @@ namespace Falak {
         }
          public FGST_struct structManaegr(string nombre,int ari){
             FGST_struct newFGST = new FGST_struct();
+
             newFGST.name = nombre;
             newFGST.isPrimitive = false;
             newFGST.arity = ari;
@@ -66,59 +67,92 @@ namespace Falak {
 
         //-----------------------------------------------------------
         public Type Visit(Program node) {
+            if(segundaVuelta){
+                return Type.VOID;
+            }else{
             VisitChildren(node);
             return Type.VOID;
+            }
         }
         //-----------------------------------------------------------
         public Type Visit(Def_list node) {
+            if(segundaVuelta){
+                return Type.VOID;
+            }else{
             VisitChildren(node);
             return Type.VOID;
+            }
         }
 
         //-----------------------------------------------------------
         public Type Visit(Def node) {
+            if(segundaVuelta){
+                return Type.VOID;
+            }else{
             VisitChildren(node);
             return Type.VOID;
+            }
         }
         //-----------------------------------------------------------
         public Type Visit(Var_def node) {
+             if(segundaVuelta){
+                return Type.VOID;
+            }else{
             VisitChildren(node);
             return Type.VOID;
+            }
         }
 
         //-----------------------------------------------------------
         public Type Visit(Var_list_identifier node) {
+            if(segundaVuelta){
+                return Type.VOID;
+            }else{
             VisitChildren(node);
             return Type.VOID;
+            }
         }
          //----------------------------------------------------------
         public Type Visit(Var_identifier node) {
-            var variableName = node[0].AnchorToken.Lexeme;
-            if(VGST.ContainsKey(variableName)){
-                throw new SemanticError(
+             if(segundaVuelta){
+                return Type.VOID;
+            }else{
+                var variableName = node.AnchorToken.Lexeme;
+                if(VGST.ContainsKey(variableName)){
+                    throw new SemanticError(
                     "Duplicated variable: " + variableName, 
-                    node[0].AnchorToken);
-            } else{
-                VGST[variableName] = "var";
+                    node.AnchorToken);
+                } else{
+                    VGST[variableName] = "var";
+                    }
+                return Type.VOID;
             }
-            return Type.VOID;
         }
         //-----------------------------------------------------------
         public Type Visit(Fun_def node) {
-            var functionName = node.AnchorToken.Lexeme;
-            fun_name = functionName;
 
-            var param_list = node.children[0].size();
-           
-            if(FGST_Table.ContainsKey(functionName)){
-                throw new SemanticError(
-                "Duplicated Function: " + functionName,
-                node.AnchorToken);
-            } else {
-                FGST_Table[functionName] = structManaegr(functionName, param_list);
+            if (segundaVuelta){
+                return Type.VOID;
+            } else{
+                var functionName = node.AnchorToken.Lexeme;
+                fun_name = functionName;
+
+                var param_list = node.children[0].size();
+            
+                if(FGST_Table.ContainsKey(functionName)){
+                    throw new SemanticError(
+                    "Duplicated Function: " + functionName,
+                    node.AnchorToken);
+                } else {
+                    FGST_Table[functionName] = structManaegr(functionName, param_list);
+                }
+                VisitChildren(node);
+                return Type.VOID;
             }
-            VisitChildren(node);
-            return Type.VOID;
+
+
+
+           
         }
          //-----------------------------------------------------------
         public Type Visit(Param_list_identifier node) {
@@ -144,10 +178,8 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_identifier node) {
-            Console.WriteLine("asdfasdf: ", node.AnchorToken.Lexeme);
             var functionName = node.AnchorToken.Lexeme;
             fun_name_stmt = functionName;
-            Console.WriteLine("stm_identifier: ", fun_name_stmt);
 
             if(FGST_Table.ContainsKey(functionName)){
                 VisitChildren(node);
@@ -174,14 +206,7 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_funcall_Exprlist node) {
-            Console.WriteLine("asdfasdfasdf");
-            Console.WriteLine(node.size());
-
-            Console.WriteLine("funname  ", fun_name_stmt);
-
             var param_list = node.size();
-
-            Console.WriteLine("PARAMLIST: " , param_list);
 
             if (FGST_Table[fun_name_stmt].arity != param_list){
                 throw new SemanticError(
