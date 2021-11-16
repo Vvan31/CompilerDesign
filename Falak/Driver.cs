@@ -62,8 +62,22 @@ namespace Falak {
                 var semantic = new SemanticVisitor();
                 semantic.Visit((dynamic) program);
 
-                semantic.segundaVuelta = true;
+
+               Console.WriteLine("PRIMERA");
+               foreach (var entry in semantic.FGST_Table) {
+                    Console.WriteLine(entry);
+                }
+
+                
+                var semantic2 = new SemanticVisitor();
+                semantic2.FGST_Table = semantic.FGST_Table;
+                semantic2.VGST = semantic2.VGST;
                 semantic.Visit((dynamic) program);
+            
+               Console.WriteLine("SEGUNDA");
+                foreach (var entry in semantic2.FGST_Table) {
+                    Console.WriteLine(entry);
+                }
 
                 
                 Console.WriteLine("Semantics OK.");

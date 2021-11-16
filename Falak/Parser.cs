@@ -233,14 +233,14 @@ namespace Falak {
 
                 switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
-                        stmIdentifier = new Stm_identifier(){
-                        AnchorToken = Expect(TokenCategory.IDENTIFIER)
-                    };
-                    if(CurrentToken == TokenCategory.ASSIGNMENT){
-                        stmIdentifier.Add(stmt_assign());
+                    var token = Expect(TokenCategory.IDENTIFIER);
+
+                   if(CurrentToken == TokenCategory.ASSIGNMENT){
+                        stmIdentifier = stmt_assign(token);
                     }else{
-                        stmIdentifier.Add(stmt_fun_call());
+                        stmIdentifier = stmt_fun_call(token);
                     }
+
                     break;
                 case TokenCategory.INC:
                     stmIdentifier = stmt_incr();
@@ -274,18 +274,21 @@ namespace Falak {
             }
             return statementVar;
         }
-        public Node stmt_assign() {
+        public Node stmt_assign(Token token) {
+            Expect(TokenCategory.ASSIGNMENT);
+
             var stmAssgn = new Stm_asign (){
-                AnchorToken = Expect(TokenCategory.ASSIGNMENT)
+                AnchorToken = token
             };
             stmAssgn.Add(Expression());
             Expect(TokenCategory.SEMICOLON);
             return stmAssgn;
         }
       
-        public Node stmt_fun_call(){
+        public Node stmt_fun_call(Token token){
+            Expect(TokenCategory.STARTPARENTHESIS);
             var stmFunCall = new Stm_funcall (){
-                AnchorToken = Expect(TokenCategory.STARTPARENTHESIS)
+                AnchorToken = token
             };
             stmFunCall.Add(ExpressionList());
             Expect(TokenCategory.ENDPARENTHESIS);

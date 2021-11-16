@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 namespace Falak {
 
-    class SemanticVisitor {
+    class SemanticVisitorSecondPass {
         public string fun_name;
+        public bool segundaVuelta = false;
+
         public int counterWhile = 0;
 
         public int counterDo = 0;
@@ -21,16 +23,18 @@ namespace Falak {
             public List<string> refLst;   
             
         }
-        public IDictionary<string, FGST_struct> FGST_Table{ get;  set; }
 
-        //--------------------------------------------------------------
-        public  IDictionary<string,string> VGST{ get;  set; }
+
+       
+        public IDictionary<string, FGST_struct> FGST_Table{  get;  protected set; }
 
         
-
+        //--------------------------------------------------------------
+        public  IDictionary<string,string> VGST{ get; protected set; }
 
         //--------------------------------------------------------------
-        public  SemanticVisitor() {
+        
+        public  SemanticVisitorSecondPass() {
             VGST = new SortedDictionary<string,string>();
             FGST_Table = new SortedDictionary<string,FGST_struct>();
             FGST_Table["printc"] = structManaegrAPI("printc", 1);
@@ -46,8 +50,7 @@ namespace Falak {
             FGST_Table["set"] = structManaegrAPI("set", 3); 
         }
         
-
-      
+    
         public FGST_struct structManaegrAPI(string nombre, int ari){
             FGST_struct newFGST = new FGST_struct();
             newFGST.name = nombre;
@@ -99,42 +102,17 @@ namespace Falak {
         }
          //----------------------------------------------------------
         public Type Visit(Var_identifier node) {
-                var variableName = node.AnchorToken.Lexeme;
-                if(VGST.ContainsKey(variableName)){
-                    throw new SemanticError(
-                    "Duplicated variable: " + variableName, 
-                    node.AnchorToken);
-                } else{
-                    VGST[variableName] = "var";
-                    }
-                return Type.VOID;
-            
+           VisitChildren(node);
+            return Type.VOID;
         }
         //-----------------------------------------------------------
         public Type Visit(Fun_def node) {
-
-                var functionName = node.AnchorToken.Lexeme;
-                fun_name = functionName;
-
-                var param_list = node.children[0].size();
-            
-                if(FGST_Table.ContainsKey(functionName)){
-                    throw new SemanticError(
-                    "Duplicated Function: " + functionName,
-                    node.AnchorToken);
-                } else {
-                    FGST_Table[functionName] = structManaegr(functionName, param_list);
-                }
-                VisitChildren(node);
-                return Type.VOID;  
+             VisitChildren(node);
+            return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Param_list_identifier node) {
-            var paramListSize = node.size();
-
-            var function_structure = FGST_Table[fun_name];
-            function_structure.arity = paramListSize;
-      
+            VisitChildren(node);
             return Type.VOID;
         }
          //-----------------------------------------------------------
@@ -144,143 +122,247 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_list node) {
+            VisitChildren(node);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         
          //-----------------------------------------------------------
         public Type Visit(Stm_asign node) {
+            var functionName = node.AnchorToken.Lexeme;
+            fun_name_stmt = functionName;
+
+            if(VGST.ContainsKey(functionName)){
+                VisitChildren(node);
+                return Type.VOID;
+
+            } else {
+                throw new SemanticError(
+                "Undeclared Variable: " + functionName,
+                node.AnchorToken);
+            }
+
             return Type.VOID;
 
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_funcall node) {
+            var functionName = node.AnchorToken.Lexeme;
+            fun_name_stmt = functionName;
+
+            if(FGST_Table.ContainsKey(functionName)){
+                VisitChildren(node);
+                return Type.VOID;
+
+            } else {
+                throw new SemanticError(
+                "Undeclared Function: " + functionName,
+                node.AnchorToken);
+            }
+
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_funcall_Exprlist node) {
+            var param_list = node.size();
+
+            if (FGST_Table[fun_name_stmt].arity != param_list){
+                throw new SemanticError(
+                "Bad arity: " + fun_name_stmt,
+                node.AnchorToken);
+            }else{
+                VisitChildren(node);
+            }
+            
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_Inc node) {
+            VisitChildren(node);
             return Type.VOID;
         }
 
          //-----------------------------------------------------------
         public Type Visit(Inc_identifier node) {
+            var variableName = node.AnchorToken.Lexeme;
+    
+
+            //ver si la variable esta en la lista de variables dentro de la funcion o global 
+            if (!(VGST.ContainsKey(variableName)) || !(FGST_Table[fun_name].refLst.Contains(variableName))) {
+                throw new SemanticError(
+                    "Undeclared variable: " + variableName,
+                    node.AnchorToken);
+            }
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_dec node) {
+            VisitChildren(node);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Dec_identifier node) {
+            var variableName = node.AnchorToken.Lexeme;
+
+            //ver si la variable esta en la lista de variables dentro de la funcion o global 
+            if (!(VGST.ContainsKey(variableName)) || !(FGST_Table[fun_name].refLst.Contains(variableName))) {
+                throw new SemanticError(
+                    "Undeclared variable: " + variableName,
+                    node.AnchorToken);
+            }
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(If node) {
+        
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Elseif_list node) {
+        
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Elseif node) {
+        
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Else node) {
+        
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(While node) {
+            counterWhile += 1;
+            VisitChildren(node);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Do node) {
+            counterDo += 1;
+            VisitChildren(node);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Break node) {
+            counterBreak += 1;
+            if (counterWhile <= 0){
+                throw new SemanticError(
+                    "Breaking Bad: ",
+                    node.AnchorToken);
+            }
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Return node) {
+
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Or node) {
+            VisitBinaryOperator("||", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(AND node) {
+            VisitBinaryOperator("&&", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Equals node) { 
+
+            VisitBinaryOperator("==", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Difequals node) {
+            VisitBinaryOperator("!=", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Greaterthan node) {
+            VisitBinaryOperator(">", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(GreaterthanEquals node) {
+            VisitBinaryOperator(">=", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Lessthan node) {
+            VisitBinaryOperator("<", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(LessThanEquals node) {
+            VisitBinaryOperator("<=", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Plus node) {
+            VisitBinaryOperator("+", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Minus node) {
+            VisitBinaryOperator("-", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Multiplication node) {
+            VisitBinaryOperator("*", node, Type.INT);
             return Type.VOID; // int? aaaa 
         }
          //-----------------------------------------------------------
         public Type Visit(Division node) {
+            VisitBinaryOperator("/", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Percent node) {
+            VisitBinaryOperator("%", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Positive node) {
+            VisitBinaryOperator("+", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Negative node) {
+            VisitBinaryOperator("-", node, Type.INT);
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Not node) {
+            VisitBinaryOperator("!", node, Type.INT);
             return Type.VOID;
         } //-----------------------------------------------------------
         public Type Visit(Expr_primary_identifier node) {
+            var functionName = node.AnchorToken.Lexeme;
+
+            //ver si la variable esta en la lista de variables dentro de la funcion o global 
+            var param_list = node.children[0].size();
+
+           
+            if(FGST_Table.ContainsKey(functionName)){
+                throw new SemanticError(
+                "Duplicated Function: " + functionName,
+                node.AnchorToken);
+            } else {
+                FGST_Table[functionName] = structManaegr(functionName, param_list);
+            }
+
             return Type.VOID;
         } //-----------------------------------------------------------
         public Type Visit(Expr_primary_list node) {
+        
             return Type.VOID;
         } //-----------------------------------------------------------
         public Type Visit(Expr_primary_expr node) {
+        
             return Type.VOID;
         }
         //-----------------------------------------------------------
@@ -301,6 +383,16 @@ namespace Falak {
         }
         //-----------------------------------------------------------
         public Type Visit(Lit_int node) {
+
+            var intStr = node.AnchorToken.Lexeme;
+            int value;
+
+            if (!Int32.TryParse(intStr, out value)) {
+                throw new SemanticError(
+                    $"Integer literal too large: {intStr}",
+                    node.AnchorToken);
+            }
+
             return Type.VOID;
         }
         //-----------------------------------------------------------

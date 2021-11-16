@@ -18,11 +18,11 @@
 
 falak.exe:Driver.cs Scanner.cs Token.cs TokenCategory.cs Parser.cs \
 	SyntaxError.cs Node.cs SpecificNodes.cs SemanticVisitor.cs \
-	Type.cs SemanticError.cs
+	Type.cs SemanticError.cs SemanticVisitorSecondPass.cs
 
 	mcs -debug -out:falak.exe Driver.cs Scanner.cs Token.cs TokenCategory.cs \
 	Parser.cs SyntaxError.cs Node.cs SpecificNodes.cs SemanticVisitor.cs \
- 	Type.cs SemanticError.cs 
+ 	Type.cs SemanticError.cs  SemanticVisitorSecondPass.cs
 
 clean:
 
