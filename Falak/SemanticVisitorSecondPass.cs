@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Falak {
 
-    class SemanticVisitorSecondPass {
+    class SemanticVisitorSecondPass : SemanticVisitor {
         public string fun_name;
         public bool segundaVuelta = false;
 
@@ -16,38 +16,24 @@ namespace Falak {
 
         public String fun_name_stmt;
 
-        public struct FGST_struct {
-            public string name;
-            public bool isPrimitive;
-            public int arity;
-            public List<string> refLst;   
-            
-        }
+        
 
 
        
-        public IDictionary<string, FGST_struct> FGST_Table{  get;  protected set; }
+        public SortedDictionary<string, FGST_struct> FGST_Table{  get;   set; }
 
         
         //--------------------------------------------------------------
-        public  IDictionary<string,string> VGST{ get; protected set; }
+        public  SortedDictionary<string,string> VGST{ get;  set; }
 
         //--------------------------------------------------------------
         
-        public  SemanticVisitorSecondPass() {
-            VGST = new SortedDictionary<string,string>();
-            FGST_Table = new SortedDictionary<string,FGST_struct>();
-            FGST_Table["printc"] = structManaegrAPI("printc", 1);
-            FGST_Table["prints"] = structManaegrAPI("prints", 1);
-            FGST_Table["printi"] = structManaegrAPI("printi", 1);
-            FGST_Table["println"] = structManaegrAPI("println", 0);
-            FGST_Table["readi"] = structManaegrAPI("readi", 0);
-            FGST_Table["reads"] = structManaegrAPI("reads", 0);
-            FGST_Table["new"] = structManaegrAPI("new", 1);
-            FGST_Table["size"] = structManaegrAPI("size", 1);
-            FGST_Table["add"] = structManaegrAPI("add", 2);
-            FGST_Table["get"] = structManaegrAPI("add", 2);
-            FGST_Table["set"] = structManaegrAPI("set", 3); 
+        public  SemanticVisitorSecondPass(SemanticVisitor semantic) {
+            //VGST = new SortedDictionary<string,string>();
+            //FGST_Table = new SortedDictionary<string,FGST_struct>();
+
+            FGST_Table = semantic.FGST_Table;
+            VGST = semantic.VGST;
         }
         
     
@@ -132,6 +118,8 @@ namespace Falak {
             var functionName = node.AnchorToken.Lexeme;
             fun_name_stmt = functionName;
 
+            Console.WriteLine("fun_name_stmt:   ", node.AnchorToken.ToString());
+
             if(VGST.ContainsKey(functionName)){
                 VisitChildren(node);
                 return Type.VOID;
@@ -149,6 +137,7 @@ namespace Falak {
         public Type Visit(Stm_funcall node) {
             var functionName = node.AnchorToken.Lexeme;
             fun_name_stmt = functionName;
+            
 
             if(FGST_Table.ContainsKey(functionName)){
                 VisitChildren(node);
@@ -348,12 +337,11 @@ namespace Falak {
 
            
             if(FGST_Table.ContainsKey(functionName)){
-                throw new SemanticError(
-                "Duplicated Function: " + functionName,
-                node.AnchorToken);
+               VisitChildren(node);
             } else {
-                FGST_Table[functionName] = structManaegr(functionName, param_list);
-            }
+                throw new SemanticError(
+                "Undeclared Function: " + functionName,
+                node.AnchorToken);            }
 
             return Type.VOID;
         } //-----------------------------------------------------------

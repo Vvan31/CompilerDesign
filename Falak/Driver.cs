@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Falak {
 
@@ -63,23 +64,26 @@ namespace Falak {
                 semantic.Visit((dynamic) program);
 
 
+
+
                Console.WriteLine("PRIMERA");
                foreach (var entry in semantic.FGST_Table) {
                     Console.WriteLine(entry);
                 }
-
                 
-                var semantic2 = new SemanticVisitor();
-                semantic2.FGST_Table = semantic.FGST_Table;
-                semantic2.VGST = semantic2.VGST;
-                semantic.Visit((dynamic) program);
+                var semantic2 = new SemanticVisitorSecondPass(semantic);
+                
+                //semantic2.FGST_Table = semantic.FGST_Table;
+                //semantic2.VGST = semantic.VGST;
+                semantic2.Visit((dynamic) program);
             
-               Console.WriteLine("SEGUNDA");
+             
+
+                Console.WriteLine("SEGUNDA");
                 foreach (var entry in semantic2.FGST_Table) {
                     Console.WriteLine(entry);
                 }
 
-                
                 Console.WriteLine("Semantics OK.");
                 Console.WriteLine();
                 Console.WriteLine("Symbol Table");

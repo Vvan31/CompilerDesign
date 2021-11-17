@@ -21,10 +21,12 @@ namespace Falak {
             public List<string> refLst;   
             
         }
-        public IDictionary<string, FGST_struct> FGST_Table{ get;  set; }
+        public SortedDictionary<string, FGST_struct> FGST_Table{
+             get;  set; }
 
         //--------------------------------------------------------------
-        public  IDictionary<string,string> VGST{ get;  set; }
+        public  SortedDictionary<string,string> VGST{ 
+            get; set;}
 
         
 
