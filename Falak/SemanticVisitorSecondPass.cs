@@ -6,45 +6,25 @@ namespace Falak {
 
     class SemanticVisitorSecondPass : SemanticVisitor {
         public string fun_name;
-        public bool segundaVuelta = false;
 
         public int counterWhile = 0;
 
         public int counterDo = 0;
 
-        public int counterBreak = 0;
-
         public String fun_name_stmt;
 
-        
-
-
-       
         public SortedDictionary<string, FGST_struct> FGST_Table{  get;   set; }
 
-        
         //--------------------------------------------------------------
         public  SortedDictionary<string,string> VGST{ get;  set; }
 
         //--------------------------------------------------------------
         
         public  SemanticVisitorSecondPass(SemanticVisitor semantic) {
-            //VGST = new SortedDictionary<string,string>();
-            //FGST_Table = new SortedDictionary<string,FGST_struct>();
-
             FGST_Table = semantic.FGST_Table;
             VGST = semantic.VGST;
         }
-        
     
-        public FGST_struct structManaegrAPI(string nombre, int ari){
-            FGST_struct newFGST = new FGST_struct();
-            newFGST.name = nombre;
-            newFGST.isPrimitive = true;
-            newFGST.arity = ari;
-            newFGST.refLst = null; 
-            return newFGST;
-        }
          public FGST_struct structManaegr(string nombre,int ari){
             FGST_struct newFGST = new FGST_struct();
 
@@ -103,6 +83,14 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Param_identifier node) {
+             var varName = node.AnchorToken.Lexeme;
+
+            if(VGST.ContainsKey(varName)){
+               return Type.VOID;
+            } else {
+                throw new SemanticError(
+                "Undeclared Variable: " + varName,
+                node.AnchorToken);            }
 
             return Type.VOID;
         }
@@ -112,37 +100,30 @@ namespace Falak {
             return Type.VOID;
         }
          //-----------------------------------------------------------
-        
-         //-----------------------------------------------------------
         public Type Visit(Stm_asign node) {
-            var functionName = node.AnchorToken.Lexeme;
-            fun_name_stmt = functionName;
+            var variableName = node.AnchorToken.Lexeme;
 
-            Console.WriteLine("fun_name_stmt:   ", node.AnchorToken.ToString());
+            Console.WriteLine("id assignation:   ", variableName);
 
-            if(VGST.ContainsKey(functionName)){
+            if(VGST.ContainsKey(variableName)){
                 VisitChildren(node);
                 return Type.VOID;
-
             } else {
                 throw new SemanticError(
-                "Undeclared Variable: " + functionName,
+                "Undeclared Variable: " + variableName,
                 node.AnchorToken);
             }
 
             return Type.VOID;
-
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_funcall node) {
             var functionName = node.AnchorToken.Lexeme;
             fun_name_stmt = functionName;
-            
-
+            Console.WriteLine("function name: ", functionName);
             if(FGST_Table.ContainsKey(functionName)){
                 VisitChildren(node);
                 return Type.VOID;
-
             } else {
                 throw new SemanticError(
                 "Undeclared Function: " + functionName,
@@ -154,10 +135,10 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Stm_funcall_Exprlist node) {
             var param_list = node.size();
-
-            if (FGST_Table[fun_name_stmt].arity != param_list){
+            var variableName = node.AnchorToken.Lexeme;
+            if (FGST_Table[variableName].arity != param_list){
                 throw new SemanticError(
-                "Bad arity: " + fun_name_stmt,
+                "Bad arity: " + variableName,
                 node.AnchorToken);
             }else{
                 VisitChildren(node);
@@ -225,17 +206,18 @@ namespace Falak {
         public Type Visit(While node) {
             counterWhile += 1;
             VisitChildren(node);
+            counterWhile -= 1;
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Do node) {
-            counterDo += 1;
+            counterWhile += 1;
             VisitChildren(node);
+            counterWhile -= 1;
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Break node) {
-            counterBreak += 1;
             if (counterWhile <= 0){
                 throw new SemanticError(
                     "Breaking Bad: ",
@@ -329,18 +311,33 @@ namespace Falak {
             VisitBinaryOperator("!", node, Type.INT);
             return Type.VOID;
         } //-----------------------------------------------------------
-        public Type Visit(Expr_primary_identifier node) {
+        public Type Visit(Expr_funcall_identifier node) {
             var functionName = node.AnchorToken.Lexeme;
 
             //ver si la variable esta en la lista de variables dentro de la funcion o global 
+            Console.WriteLine("Expr primary id: ", node);
             var param_list = node.children[0].size();
-
            
             if(FGST_Table.ContainsKey(functionName)){
                VisitChildren(node);
             } else {
                 throw new SemanticError(
                 "Undeclared Function: " + functionName,
+                node.AnchorToken);            }
+
+            return Type.VOID;
+        } //-----------------------------------------------------------
+        public Type Visit(Expr_var_identifier node) {
+            var varName = node.AnchorToken.Lexeme;
+
+            //ver si la variable esta en la lista de variables dentro de la funcion o global 
+            
+           
+            if(VGST.ContainsKey(varName)){
+               return Type.VOID;
+            } else {
+                throw new SemanticError(
+                "Undeclared Variable: " + varName,
                 node.AnchorToken);            }
 
             return Type.VOID;

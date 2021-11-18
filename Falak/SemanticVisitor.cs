@@ -6,13 +6,6 @@ namespace Falak {
 
     class SemanticVisitor {
         public string fun_name;
-        public int counterWhile = 0;
-
-        public int counterDo = 0;
-
-        public int counterBreak = 0;
-
-        public String fun_name_stmt;
 
         public struct FGST_struct {
             public string name;
@@ -21,14 +14,10 @@ namespace Falak {
             public List<string> refLst;   
             
         }
-        public SortedDictionary<string, FGST_struct> FGST_Table{
-             get;  set; }
+        public SortedDictionary<string, FGST_struct> FGST_Table{get;  set; }
 
         //--------------------------------------------------------------
-        public  SortedDictionary<string,string> VGST{ 
-            get; set;}
-
-        
+        public  SortedDictionary<string,string> VGST{ get; set;}
 
 
         //--------------------------------------------------------------
@@ -47,8 +36,6 @@ namespace Falak {
             FGST_Table["get"] = structManaegrAPI("add", 2);
             FGST_Table["set"] = structManaegrAPI("set", 3); 
         }
-        
-
       
         public FGST_struct structManaegrAPI(string nombre, int ari){
             FGST_struct newFGST = new FGST_struct();
@@ -60,7 +47,6 @@ namespace Falak {
         }
          public FGST_struct structManaegr(string nombre,int ari){
             FGST_struct newFGST = new FGST_struct();
-
             newFGST.name = nombre;
             newFGST.isPrimitive = false;
             newFGST.arity = ari;
@@ -133,23 +119,18 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Param_list_identifier node) {
             var paramListSize = node.size();
-
             var function_structure = FGST_Table[fun_name];
-            function_structure.arity = paramListSize;
-      
+            function_structure.arity = paramListSize;   
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Param_identifier node) {
-
             return Type.VOID;
         }
          //-----------------------------------------------------------
         public Type Visit(Stm_list node) {
             return Type.VOID;
         }
-         //-----------------------------------------------------------
-        
          //-----------------------------------------------------------
         public Type Visit(Stm_asign node) {
             return Type.VOID;
@@ -254,7 +235,7 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public Type Visit(Multiplication node) {
-            return Type.VOID; // int? aaaa 
+            return Type.VOID; 
         }
          //-----------------------------------------------------------
         public Type Visit(Division node) {

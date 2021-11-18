@@ -51,6 +51,8 @@ namespace Falak {
                                 class Negative : Node {}
                                 class Not : Node {}
                                     class Expr_primary_identifier : Node {}
+                                        class Expr_var_identifier : Node {}
+                                        class Expr_funcall_identifier : Node {}
                                     class Expr_primary_list : Node{}
                                     class Expr_primary_expr : Node {}
                                     class Lit_int : Node {}

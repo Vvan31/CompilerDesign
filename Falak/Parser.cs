@@ -290,13 +290,15 @@ namespace Falak {
             var stmFunCall = new Stm_funcall (){
                 AnchorToken = token
             };
-            stmFunCall.Add(ExpressionList());
+            stmFunCall.Add(ExpressionList(token));
             Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.SEMICOLON);
             return stmFunCall;
         }
-        public Node ExpressionList(){
-            var exprlist = new Stm_funcall_Exprlist ();
+        public Node ExpressionList(Token token){
+            var exprlist = new Stm_funcall_Exprlist (){
+                AnchorToken = token
+            };
             if (firstOfExpr.Contains(CurrentToken)){
                 exprlist.Add(Expression());
                 while(CurrentToken == TokenCategory.COMA){
@@ -630,29 +632,38 @@ namespace Falak {
 
         public Node Expression_primary(){
             Node expr;
+            Token token;
             switch (CurrentToken) {
                 case TokenCategory.IDENTIFIER:
-                    expr = new Expr_primary_identifier(){
-                        AnchorToken = Expect(TokenCategory.IDENTIFIER)
-                    };
+                    token = Expect(TokenCategory.IDENTIFIER);
+                     // Id is a function call 
                         if(CurrentToken == TokenCategory.STARTPARENTHESIS){
+                            expr = new Expr_funcall_identifier(){
+                            AnchorToken = token
+                            };
                             Expect(TokenCategory.STARTPARENTHESIS);
-                            expr.Add(ExpressionList());
+                            expr.Add(ExpressionList(token));
                             Expect(TokenCategory.ENDPARENTHESIS);
+                        }else{ // id is a variable call 
+                            expr = new Expr_var_identifier(){
+                            AnchorToken = token
+                            };
                         }
                     return expr;
                     
                 case TokenCategory.STARTBRACES:
+                    token = Expect(TokenCategory.STARTBRACES);
                     expr = new Expr_primary_list(){
-                        AnchorToken = Expect(TokenCategory.STARTBRACES)
+                        AnchorToken = token
                     };
-                    expr.Add(ExpressionList());
+                    expr.Add(ExpressionList(token));
                     Expect(TokenCategory.ENDBRACES);
                     return expr;
 
                 case TokenCategory.STARTPARENTHESIS:
+                    token = Expect(TokenCategory.STARTPARENTHESIS);
                     expr = new Expr_primary_expr(){
-                        AnchorToken = Expect(TokenCategory.STARTPARENTHESIS)
+                        AnchorToken = token
                     };
                     expr.Add(Expression());
                     Expect(TokenCategory.ENDPARENTHESIS);

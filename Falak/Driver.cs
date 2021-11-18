@@ -55,30 +55,24 @@ namespace Falak {
             try {
                 var inputPath = args[0];
                 var input = File.ReadAllText(inputPath);
+                //Parser
                 var parser = new Parser(
                     new Scanner(input).Scan().GetEnumerator());
                 var program = parser.Program();
                 Console.Write(program.ToStringTree());
 
+                //Semantic visitor First pass
                 var semantic = new SemanticVisitor();
                 semantic.Visit((dynamic) program);
 
-
-
-
                Console.WriteLine("PRIMERA");
-               foreach (var entry in semantic.FGST_Table) {
+               foreach (var entry in semantic.VGST) {
                     Console.WriteLine(entry);
                 }
-                
+                //Semantic visitor secoomd pass
                 var semantic2 = new SemanticVisitorSecondPass(semantic);
-                
-                //semantic2.FGST_Table = semantic.FGST_Table;
-                //semantic2.VGST = semantic.VGST;
                 semantic2.Visit((dynamic) program);
             
-             
-
                 Console.WriteLine("SEGUNDA");
                 foreach (var entry in semantic2.FGST_Table) {
                     Console.WriteLine(entry);

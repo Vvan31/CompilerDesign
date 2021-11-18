@@ -2,7 +2,7 @@
    Converts decimal numbers into binary.
    (C) 2021 Ariel Ortiz, ITESM CEM.
 #>
-
+var hello;
 # Inverts in-place the contents of an array list.
 reverse(array) {
     var start, finish, temp;
