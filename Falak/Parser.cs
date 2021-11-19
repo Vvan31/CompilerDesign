@@ -171,6 +171,16 @@ namespace Falak {
 
             return varIdentifier;
         }
+        public Node local_Var_def(){
+            var varIdentifier = new Local_var_identifier(){
+                AnchorToken = Expect(TokenCategory.VAR)
+                }; 
+            varIdentifier.Add(Id_list());
+           
+            Expect(TokenCategory.SEMICOLON);
+
+            return varIdentifier;
+        }
         public Node Id_list(){
             var idList = new Var_list_identifier();
 
@@ -201,8 +211,8 @@ namespace Falak {
             Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.STARTCURLBRACES);
             while(CurrentToken == TokenCategory.VAR){
-                //param list????
-                funDef.Add(Var_def());
+                //local variables
+                funDef.Add(local_Var_def());
             }
             while(firstOfStmtlist.Contains(CurrentToken)){
                 funDef.Add(Statement());

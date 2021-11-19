@@ -68,14 +68,30 @@ namespace Falak {
         }
          //----------------------------------------------------------
         public Type Visit(Var_identifier node) {
-           VisitChildren(node);
+            if(fun_name != null){
+                var variableName = node.AnchorToken.Lexeme;
+                    if(FGST_Table[fun_name].refLst.Contains(variableName)){
+                        throw new SemanticError(
+                        "Duplicated variable: " + variableName, 
+                        node.AnchorToken);
+                    } else{
+                        FGST_Table[fun_name].refLst.Add(variableName);
+                        }
+            }
             return Type.VOID;
         }
         //-----------------------------------------------------------
         public Type Visit(Fun_def node) {
+            fun_name = node.AnchorToken.Lexeme;
              VisitChildren(node);
             return Type.VOID;
         }
+        //-----------------------------------------------------------
+
+         public Type Visit(Local_var_identifier node){
+            VisitChildren(node);
+            return Type.VOID;
+         }
          //-----------------------------------------------------------
         public Type Visit(Param_list_identifier node) {
             VisitChildren(node);
@@ -84,14 +100,13 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Param_identifier node) {
              var varName = node.AnchorToken.Lexeme;
-
-            if(VGST.ContainsKey(varName)){
+            
+            if(FGST_Table[fun_name].refLst.Contains(varName)){
                return Type.VOID;
             } else {
-                throw new SemanticError(
-                "Undeclared Variable: " + varName,
-                node.AnchorToken);            }
-
+                Console.WriteLine("paran local var added: ",varName);
+                FGST_Table[fun_name].refLst.Add(varName);
+            }
             return Type.VOID;
         }
          //-----------------------------------------------------------
@@ -105,7 +120,7 @@ namespace Falak {
 
             Console.WriteLine("id assignation:   ", variableName);
 
-            if(VGST.ContainsKey(variableName)){
+            if(FGST_Table[fun_name].refLst.Contains(variableName)){
                 VisitChildren(node);
                 return Type.VOID;
             } else {
@@ -328,16 +343,16 @@ namespace Falak {
             return Type.VOID;
         } //-----------------------------------------------------------
         public Type Visit(Expr_var_identifier node) {
-            var varName = node.AnchorToken.Lexeme;
+            var variableName = node.AnchorToken.Lexeme;
 
             //ver si la variable esta en la lista de variables dentro de la funcion o global 
             
            
-            if(VGST.ContainsKey(varName)){
+            if(FGST_Table[fun_name].refLst.Contains(variableName)){
                return Type.VOID;
             } else {
                 throw new SemanticError(
-                "Undeclared Variable: " + varName,
+                "Undeclared Variable: " + variableName,
                 node.AnchorToken);            }
 
             return Type.VOID;

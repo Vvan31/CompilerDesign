@@ -42,7 +42,7 @@ namespace Falak {
             newFGST.name = nombre;
             newFGST.isPrimitive = true;
             newFGST.arity = ari;
-            newFGST.refLst = null; 
+            newFGST.refLst = new List<string>(); 
             return newFGST;
         }
          public FGST_struct structManaegr(string nombre,int ari){
@@ -50,7 +50,7 @@ namespace Falak {
             newFGST.name = nombre;
             newFGST.isPrimitive = false;
             newFGST.arity = ari;
-            newFGST.refLst = null; 
+            newFGST.refLst = new List<string>(); 
             return newFGST; 
         }
 
@@ -117,6 +117,9 @@ namespace Falak {
                 return Type.VOID;  
         }
          //-----------------------------------------------------------
+         public Type Visit(Local_var_identifier node){
+             return Type.VOID;
+         }
         public Type Visit(Param_list_identifier node) {
             var paramListSize = node.size();
             var function_structure = FGST_Table[fun_name];

@@ -1,4 +1,4 @@
-namespace Falak {
+ namespace Falak {
 
     class Program: Node {} //NO ANCHOR TOKEN
         class Def_list : Node {}//NO ANCHOR TOKEN
@@ -9,6 +9,7 @@ namespace Falak {
             class Param_list_identifier :Node {}
             class Param_identifier : Node {}
         class Fun_def: Node {}
+            class Local_var_identifier : Node {}
                 
 //----------STMT---------------------------------
             class Stm_list: Node {} //NO ANCHOR TOKEN

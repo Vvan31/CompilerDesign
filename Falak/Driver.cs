@@ -66,7 +66,12 @@ namespace Falak {
                 semantic.Visit((dynamic) program);
 
                Console.WriteLine("PRIMERA");
+               Console.WriteLine("-----------Variables globales ------------");
                foreach (var entry in semantic.VGST) {
+                    Console.WriteLine(entry);
+                }
+                Console.WriteLine("-----------Funciones ------------------");
+                foreach (var entry in semantic.FGST_Table) {
                     Console.WriteLine(entry);
                 }
                 //Semantic visitor secoomd pass
