@@ -65,12 +65,12 @@ namespace Falak {
                 var semantic = new SemanticVisitor();
                 semantic.Visit((dynamic) program);
 
-               Console.WriteLine("PRIMERA");
+               Console.WriteLine("PRIMERA PASADA\n");
                Console.WriteLine("-----------Variables globales ------------");
                foreach (var entry in semantic.VGST) {
                     Console.WriteLine(entry);
                 }
-                Console.WriteLine("-----------Funciones ------------------");
+                Console.WriteLine("\n-----------Funciones ------------------");
                 foreach (var entry in semantic.FGST_Table) {
                     Console.WriteLine(entry);
                 }
@@ -78,7 +78,14 @@ namespace Falak {
                 var semantic2 = new SemanticVisitorSecondPass(semantic);
                 semantic2.Visit((dynamic) program);
             
-                Console.WriteLine("SEGUNDA");
+                Console.WriteLine("\nSEGUNDA PASADA\n");
+                Console.WriteLine("-----------Variables locales ------------");
+                foreach (var entry in semantic2.FGST_Table) {
+                    foreach (var name in entry.refLst) {
+                        Console.WriteLine(entry+ " " + name);
+                    }
+                }
+                Console.WriteLine("\n-----------Funciones ------------------");
                 foreach (var entry in semantic2.FGST_Table) {
                     Console.WriteLine(entry);
                 }
