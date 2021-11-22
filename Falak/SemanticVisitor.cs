@@ -93,6 +93,7 @@ namespace Falak {
                     "Duplicated variable: " + variableName, 
                     node.AnchorToken);
                 } else{
+                    Console.WriteLine(variableName);
                     VGST[variableName] = "var";
                     }
                 return Type.VOID;
@@ -103,14 +104,22 @@ namespace Falak {
 
                 var functionName = node.AnchorToken.Lexeme;
                 fun_name = functionName;
+                
+                Console.WriteLine("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                Console.WriteLine(node.ToStringTree());
 
-                var param_list = node.children[0].size();
+                var param_list = 0;
+
+                if (node.children.Count > 0){
+                    param_list = node.children[0].size();
+                }
             
                 if(FGST_Table.ContainsKey(functionName)){
                     throw new SemanticError(
                     "Duplicated Function: " + functionName,
                     node.AnchorToken);
                 } else {
+                    Console.WriteLine(functionName);
                     FGST_Table[functionName] = structManaegr(functionName, param_list);
                 }
                 VisitChildren(node);

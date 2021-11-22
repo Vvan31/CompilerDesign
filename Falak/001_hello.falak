@@ -3,7 +3,11 @@
    (C) 2021 Ariel Ortiz, ITESM CEM.
 #>
 
-main() {
+var asdf;
+
+
+main(oooo) {
     prints("hello, world\n");;;
+    asdf = 5;
     return 42;;;
 }

@@ -83,7 +83,7 @@ namespace Falak {
         //-----------------------------------------------------------
         public Type Visit(Fun_def node) {
             fun_name = node.AnchorToken.Lexeme;
-             VisitChildren(node);
+            VisitChildren(node);
             return Type.VOID;
         }
         //-----------------------------------------------------------
@@ -116,9 +116,12 @@ namespace Falak {
          //-----------------------------------------------------------
         public Type Visit(Stm_asign node) {
             var variableName = node.AnchorToken.Lexeme;
+            foreach (var entry in VGST) {
+                    Console.WriteLine(entry);
+                }
 
-
-            if(FGST_Table[fun_name].refLst.Contains(variableName)){
+            if(FGST_Table[fun_name].refLst.Contains(variableName) || 
+            VGST.ContainsKey(variableName)){
                 VisitChildren(node);
                 return Type.VOID;
             } else {
@@ -350,7 +353,8 @@ namespace Falak {
             //ver si la variable esta en la lista de variables dentro de la funcion o global 
             
            
-            if(FGST_Table[fun_name].refLst.Contains(variableName)){
+            if(FGST_Table[fun_name].refLst.Contains(variableName) ||
+                        VGST.ContainsKey(variableName)){
                return Type.VOID;
             } else {
                 throw new SemanticError(

@@ -81,9 +81,10 @@ namespace Falak {
                 Console.WriteLine("\nSEGUNDA PASADA\n");
                 Console.WriteLine("-----------Variables locales ------------");
                 foreach (var entry in semantic2.FGST_Table) {
-                    foreach (var name in entry.refLst) {
-                        Console.WriteLine(entry+ " " + name);
-                    }
+                    
+                    // foreach (var name in entry.refLst) {
+                    //     Console.WriteLine(entry+ " " + name);
+                    // }
                 }
                 Console.WriteLine("\n-----------Funciones ------------------");
                 foreach (var entry in semantic2.FGST_Table) {
