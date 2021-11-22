@@ -11,7 +11,7 @@ namespace Falak {
             public string name;
             public bool isPrimitive;
             public int arity;
-            public List<string> refLst;   
+            public ISet<string> refLst;   
             
         }
         public SortedDictionary<string, FGST_struct> FGST_Table{get;  set; }
@@ -42,7 +42,7 @@ namespace Falak {
             newFGST.name = nombre;
             newFGST.isPrimitive = true;
             newFGST.arity = ari;
-            newFGST.refLst = new List<string>(); 
+            newFGST.refLst = new HashSet<string>(); 
             return newFGST;
         }
          public FGST_struct structManaegr(string nombre,int ari){
@@ -50,7 +50,7 @@ namespace Falak {
             newFGST.name = nombre;
             newFGST.isPrimitive = false;
             newFGST.arity = ari;
-            newFGST.refLst = new List<string>(); 
+            newFGST.refLst = new HashSet<string>(); 
             return newFGST; 
         }
 

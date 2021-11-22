@@ -5,6 +5,12 @@
 
 var asdf;
 
+cola(){
+    var pp;
+    pp = 5;
+    
+}
+
 
 main(oooo) {
     prints("hello, world\n");;;

@@ -4,7 +4,6 @@
 #>
 
 var a;
-var b;
 x(b) {
     var c;
     c = 5;
@@ -20,7 +19,7 @@ x(b) {
     println();
 }
 
-var c;
+var b, c;
 
 main() {
     var x;

@@ -56,7 +56,6 @@ namespace Falak {
         }
         //-----------------------------------------------------------
         public Type Visit(Var_def node) {
-            VisitChildren(node);
             return Type.VOID;
             
         }
@@ -71,6 +70,10 @@ namespace Falak {
             if(fun_name != null){
                 var variableName = node.AnchorToken.Lexeme;
                     if(FGST_Table[fun_name].refLst.Contains(variableName)){
+                        Console.WriteLine("                ");
+                        Console.WriteLine(string.Join(",",  FGST_Table[fun_name].refLst));
+                        Console.WriteLine("                ");
+
                         throw new SemanticError(
                         "Duplicated variable: " + variableName, 
                         node.AnchorToken);
