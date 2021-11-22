@@ -50,25 +50,35 @@ namespace Falak {
                 var semantic = new SemanticVisitor();
                 semantic.Visit((dynamic) program);
 
-               Console.WriteLine("PRIMERA PASADA\n");
-               Console.WriteLine("-----------Global var ------------");
-               foreach (var entry in semantic.VGST) {
-                    Console.WriteLine(entry);
-                }
-                Console.WriteLine("\n-----------Functions ------------------");
-                foreach (var entry in semantic.FGST_Table) {
-                    Console.WriteLine(entry);
-                }
-                //Semantic visitor secoomd pass
-                var semantic2 = new SemanticVisitorSecondPass(semantic);
-                semantic2.Visit((dynamic) program);
-            
-                Console.WriteLine("\nSEGUNDA PASADA\n");
-                Console.WriteLine("-----------Functions-----------------");
-                foreach (var entry in semantic2.FGST_Table) {
-                    Console.WriteLine("-Funtion: " + entry.Key);
-                    Console.WriteLine("---Local var: " + string.Join(", ", semantic2.FGST_Table[entry.Key].refLst));
-
+              
+                //main function? 
+                if(semantic.FGST_Table.ContainsKey("main")){
+                    Console.WriteLine("FIRST PASS\n");
+                    Console.WriteLine("-----------Global var ------------");
+                    foreach (var entry in semantic.VGST) {
+                            Console.WriteLine(entry.Key);
+                    }
+                    Console.WriteLine("\n-----------Functions ------------------");
+                    foreach (var entry in semantic.FGST_Table) {
+                        if(semantic.FGST_Table[entry.Key].isPrimitive == false){
+                            Console.WriteLine(entry.Key);
+                        }
+                    }
+                    
+                    //Semantic visitor secoomd pass
+                    var semantic2 = new SemanticVisitorSecondPass(semantic);
+                    semantic2.Visit((dynamic) program);
+                
+                    Console.WriteLine("\nSECOND PASS\n");
+                    Console.WriteLine("-----------Functions-----------------");
+                    foreach (var entry in semantic2.FGST_Table) {
+                        if(semantic.FGST_Table[entry.Key].isPrimitive == false){
+                            Console.WriteLine(entry.Key +": "+ string.Join(", ", 
+                                semantic2.FGST_Table[entry.Key].refLst));
+                        }
+                    }
+                }else{
+                    throw new SemanticError("No main Function: " );
                 }
                
                 Console.WriteLine("Semantics OK.");
@@ -88,7 +98,6 @@ namespace Falak {
                     Console.Error.WriteLine(e);
                     Environment.Exit(1);
                 }
-
                 throw;
             }
         }

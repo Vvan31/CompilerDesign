@@ -5,7 +5,6 @@
 
 var asdf;
 
-
 main(oooo) {
     var c, f;
     c = 2;

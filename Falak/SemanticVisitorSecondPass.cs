@@ -238,7 +238,6 @@ namespace Falak {
                 throw new SemanticError(
                 "Undeclared Function: " + functionName,
                 node.AnchorToken);            }
-
         } 
         //-----------------------------------------------------------
         public void Visit(Expr_var_identifier node) {

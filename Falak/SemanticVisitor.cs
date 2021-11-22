@@ -84,7 +84,6 @@ namespace Falak {
                 "Duplicated variable: " + variableName, 
                 node.AnchorToken);
             } else{
-                Console.WriteLine(variableName);
                 VGST[variableName] = "var";
             }
         }
