@@ -19,7 +19,6 @@ namespace Falak {
         //--------------------------------------------------------------
         public  SortedDictionary<string,string> VGST{ get; set;}
 
-
         //--------------------------------------------------------------
         public  SemanticVisitor() {
             VGST = new SortedDictionary<string,string>();
@@ -55,263 +54,153 @@ namespace Falak {
         }
 
         //-----------------------------------------------------------
-        public Type Visit(Program node) {
+        public void Visit(Program node) {
             VisitChildren(node);
-            return Type.VOID;
             
         }
         //-----------------------------------------------------------
-        public Type Visit(Def_list node) {
+        public void Visit(Def_list node) {
             VisitChildren(node);
-            return Type.VOID;
-            
         }
 
         //-----------------------------------------------------------
-        public Type Visit(Def node) {
+        public void Visit(Def node) {
             VisitChildren(node);
-            return Type.VOID;
-            
         }
         //-----------------------------------------------------------
-        public Type Visit(Var_def node) {
+        public void Visit(Var_def node) {
             VisitChildren(node);
-            return Type.VOID;
-            
         }
 
         //-----------------------------------------------------------
-        public Type Visit(Var_list_identifier node) {
+        public void Visit(Var_list_identifier node) {
             VisitChildren(node);
-            return Type.VOID;
         }
          //----------------------------------------------------------
-        public Type Visit(Var_identifier node) {
-                var variableName = node.AnchorToken.Lexeme;
-                if(VGST.ContainsKey(variableName)){
-                    throw new SemanticError(
-                    "Duplicated variable: " + variableName, 
-                    node.AnchorToken);
-                } else{
-                    Console.WriteLine(variableName);
-                    VGST[variableName] = "var";
-                    }
-                return Type.VOID;
-            
+        public void Visit(Var_identifier node) {
+            var variableName = node.AnchorToken.Lexeme;
+            if(VGST.ContainsKey(variableName)){
+                throw new SemanticError(
+                "Duplicated variable: " + variableName, 
+                node.AnchorToken);
+            } else{
+                Console.WriteLine(variableName);
+                VGST[variableName] = "var";
+            }
         }
         //-----------------------------------------------------------
-        public Type Visit(Fun_def node) {
+        public void Visit(Fun_def node) {
+            var functionName = node.AnchorToken.Lexeme;
+            fun_name = functionName;
+            var param_list = 0;
 
-                var functionName = node.AnchorToken.Lexeme;
-                fun_name = functionName;
-                
-                Console.WriteLine("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                Console.WriteLine(node.ToStringTree());
-
-                var param_list = 0;
-
-                if (node.children.Count > 0){
-                    param_list = node.children[0].size();
-                }
-            
-                if(FGST_Table.ContainsKey(functionName)){
-                    throw new SemanticError(
-                    "Duplicated Function: " + functionName,
-                    node.AnchorToken);
-                } else {
-                    Console.WriteLine(functionName);
-                    FGST_Table[functionName] = structManaegr(functionName, param_list);
-                }
-                VisitChildren(node);
-                return Type.VOID;  
+            if (node.children.Count > 0){
+                param_list = node.children[0].size();
+            }
+        
+            if(FGST_Table.ContainsKey(functionName)){
+                throw new SemanticError(
+                "Duplicated Function: " + functionName,
+                node.AnchorToken);
+            } else {
+                FGST_Table[functionName] = structManaegr(functionName, param_list);
+            }
+            VisitChildren(node);
         }
          //-----------------------------------------------------------
-         public Type Visit(Local_var_identifier node){
-             return Type.VOID;
-         }
-        public Type Visit(Param_list_identifier node) {
+         public void Visit(Local_var_identifier node){}
+         //-----------------------------------------------------------
+        public void Visit(Param_list_identifier node) {
             var paramListSize = node.size();
             var function_structure = FGST_Table[fun_name];
             function_structure.arity = paramListSize;   
-            return Type.VOID;
         }
          //-----------------------------------------------------------
-        public Type Visit(Param_identifier node) {
-            return Type.VOID;
-        }
+        public void Visit(Param_identifier node) {}
          //-----------------------------------------------------------
-        public Type Visit(Stm_list node) {
-            return Type.VOID;
-        }
+        public void Visit(Stm_list node) {}
          //-----------------------------------------------------------
-        public Type Visit(Stm_asign node) {
-            return Type.VOID;
-
-        }
+        public void Visit(Stm_asign node) {}
          //-----------------------------------------------------------
-        public Type Visit(Stm_funcall node) {
-            return Type.VOID;
-        }
+        public void Visit(Stm_funcall node) {}
          //-----------------------------------------------------------
-        public Type Visit(Stm_funcall_Exprlist node) {
-            return Type.VOID;
-        }
+        public void Visit(Stm_funcall_Exprlist node) {}
          //-----------------------------------------------------------
-        public Type Visit(Stm_Inc node) {
-            return Type.VOID;
-        }
-
+        public void Visit(Stm_Inc node) {}
          //-----------------------------------------------------------
-        public Type Visit(Inc_identifier node) {
-            return Type.VOID;
-        }
+        public void Visit(Inc_identifier node) {}
          //-----------------------------------------------------------
-        public Type Visit(Stm_dec node) {
-            return Type.VOID;
-        }
+        public void Visit(Stm_dec node) {}
          //-----------------------------------------------------------
-        public Type Visit(Dec_identifier node) {
-            return Type.VOID;
-        }
+        public void Visit(Dec_identifier node) {}
          //-----------------------------------------------------------
-        public Type Visit(If node) {
-            return Type.VOID;
-        }
+        public void Visit(If node) {}
          //-----------------------------------------------------------
-        public Type Visit(Elseif_list node) {
-            return Type.VOID;
-        }
+        public void Visit(Elseif_list node) {}
          //-----------------------------------------------------------
-        public Type Visit(Elseif node) {
-            return Type.VOID;
-        }
+        public void Visit(Elseif node) {}
          //-----------------------------------------------------------
-        public Type Visit(Else node) {
-            return Type.VOID;
-        }
+        public void Visit(Else node) {}
          //-----------------------------------------------------------
-        public Type Visit(While node) {
-            return Type.VOID;
-        }
+        public void Visit(While node) {}
          //-----------------------------------------------------------
-        public Type Visit(Do node) {
-            return Type.VOID;
-        }
+        public void Visit(Do node) {}
          //-----------------------------------------------------------
-        public Type Visit(Break node) {
-            return Type.VOID;
-        }
+        public void Visit(Break node) {}
          //-----------------------------------------------------------
-        public Type Visit(Return node) {
-            return Type.VOID;
-        }
+        public void Visit(Return node) {}
          //-----------------------------------------------------------
-        public Type Visit(Or node) {
-            return Type.VOID;
-        }
+        public void Visit(Or node) {}
          //-----------------------------------------------------------
-        public Type Visit(AND node) {
-            return Type.VOID;
-        }
+        public void Visit(AND node) {}
          //-----------------------------------------------------------
-        public Type Visit(Equals node) { 
-            return Type.VOID;
-        }
+        public void Visit(Equals node) {}
          //-----------------------------------------------------------
-        public Type Visit(Difequals node) {
-            return Type.VOID;
-        }
+        public void Visit(Difequals node) {}
          //-----------------------------------------------------------
-        public Type Visit(Greaterthan node) {
-            return Type.VOID;
-        }
+        public void Visit(Greaterthan node) {}
          //-----------------------------------------------------------
-        public Type Visit(GreaterthanEquals node) {
-            return Type.VOID;
-        }
+        public void Visit(GreaterthanEquals node) {}
          //-----------------------------------------------------------
-        public Type Visit(Lessthan node) {
-            return Type.VOID;
-        }
+        public void Visit(Lessthan node) {}
          //-----------------------------------------------------------
-        public Type Visit(LessThanEquals node) {
-            return Type.VOID;
-        }
+        public void Visit(LessThanEquals node) {}
          //-----------------------------------------------------------
-        public Type Visit(Plus node) {
-            return Type.VOID;
-        }
+        public void Visit(Plus node) {}
          //-----------------------------------------------------------
-        public Type Visit(Minus node) {
-            return Type.VOID;
-        }
+        public void Visit(Minus node) {}
          //-----------------------------------------------------------
-        public Type Visit(Multiplication node) {
-            return Type.VOID; 
-        }
+        public void Visit(Multiplication node) {}
          //-----------------------------------------------------------
-        public Type Visit(Division node) {
-            return Type.VOID;
-        }
+        public void Visit(Division node) {}
          //-----------------------------------------------------------
-        public Type Visit(Percent node) {
-            return Type.VOID;
-        }
+        public void Visit(Percent node) {}
          //-----------------------------------------------------------
-        public Type Visit(Positive node) {
-            return Type.VOID;
-        }
+        public void Visit(Positive node) {}
          //-----------------------------------------------------------
-        public Type Visit(Negative node) {
-            return Type.VOID;
-        }
+        public void Visit(Negative node) {}
          //-----------------------------------------------------------
-        public Type Visit(Not node) {
-            return Type.VOID;
-        } //-----------------------------------------------------------
-        public Type Visit(Expr_primary_identifier node) {
-            return Type.VOID;
-        } //-----------------------------------------------------------
-        public Type Visit(Expr_primary_list node) {
-            return Type.VOID;
-        } //-----------------------------------------------------------
-        public Type Visit(Expr_primary_expr node) {
-            return Type.VOID;
-        }
+        public void Visit(Not node) {} 
         //-----------------------------------------------------------
-        public Type Visit(Lit_true node) {
-            return Type.VOID;
-        }
+        public void Visit(Expr_primary_identifier node) {} 
         //-----------------------------------------------------------
-        public Type Visit(Lit_false node) {
-            return Type.VOID;
-        }
+        public void Visit(Expr_primary_list node) {} 
         //-----------------------------------------------------------
-        public Type Visit(Lit_char node) {
-            return Type.VOID;
-        }
+        public void Visit(Expr_primary_expr node) {}
         //-----------------------------------------------------------
-        public Type Visit(Lit_str node) {
-            return Type.VOID;
-        }
+        public void Visit(Lit_true node) {}
         //-----------------------------------------------------------
-        public Type Visit(Lit_int node) {
-            return Type.VOID;
-        }
+        public void Visit(Lit_false node) {}
+        //-----------------------------------------------------------
+        public void Visit(Lit_char node) {}
+        //-----------------------------------------------------------
+        public void Visit(Lit_str node) {}
+        //-----------------------------------------------------------
+        public void Visit(Lit_int node) {}
         //-----------------------------------------------------------
         void VisitChildren(Node node) {
             foreach (var n in node) {
                 Visit((dynamic) n);
-            }
-        }
-
-        //-----------------------------------------------------------
-        void VisitBinaryOperator(string op, Node node, Type type) {
-            if (Visit((dynamic) node[0]) != type ||
-                Visit((dynamic) node[1]) != type) {
-                throw new SemanticError(
-                    $"Operator {op}   two operands of type {type}",
-                    node.AnchorToken);
             }
         }
     }

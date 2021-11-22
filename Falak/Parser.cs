@@ -690,7 +690,6 @@ namespace Falak {
                     throw new SyntaxError(firstOfSimpleExpression,
                                         tokenStream.Current);
             }
-            return expr;
         }
         public Node Lit(){
             Node litNode; 
@@ -723,7 +722,6 @@ namespace Falak {
                     throw new SyntaxError(firstofliteral,
                                         tokenStream.Current);
             }
-            return litNode;
         }
     }
 }

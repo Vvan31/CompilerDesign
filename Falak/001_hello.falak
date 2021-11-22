@@ -5,14 +5,10 @@
 
 var asdf;
 
-cola(){
-    var pp;
-    pp = 5;
-    
-}
-
 
 main(oooo) {
+    var c, f;
+    c = 2;
     prints("hello, world\n");;;
     asdf = 5;
     return 42;;;

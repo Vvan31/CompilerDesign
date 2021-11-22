@@ -13,22 +13,9 @@ namespace Falak {
        static readonly string[] ReleaseIncludes = {
             "Lexical analysis",
             "Syntactic analysis",
-            "AST construction"
+            "AST construction",
+            "Semantic analysis"
         };
-
-        //-----------------------------------------------------------
-        void PrintAppHeader() {
-            /*
-            Console.WriteLine("Falak compiler, version " + VERSION);
-            Console.WriteLine(
-                "Copyright \u00A9 2013-2021 by A. Ortiz, ITESM CEM. ft Vivana Osorio, Oscar Zuniga and Fernando Sebastian");
-            Console.WriteLine("This program is free software; you may "
-                + "redistribute it under the terms of");
-            Console.WriteLine("the GNU General Public License version 3 or "
-                + "later.");
-            Console.WriteLine("This program has absolutely no warranty.");
-            */
-        }
 
         //-----------------------------------------------------------
         void PrintReleaseIncludes() {
@@ -40,8 +27,6 @@ namespace Falak {
 
         //-----------------------------------------------------------
         void Run(string[] args) {
-
-            PrintAppHeader();
             Console.WriteLine();
             PrintReleaseIncludes();
             Console.WriteLine();
@@ -66,11 +51,11 @@ namespace Falak {
                 semantic.Visit((dynamic) program);
 
                Console.WriteLine("PRIMERA PASADA\n");
-               Console.WriteLine("-----------Variables globales ------------");
+               Console.WriteLine("-----------Global var ------------");
                foreach (var entry in semantic.VGST) {
                     Console.WriteLine(entry);
                 }
-                Console.WriteLine("\n-----------Funciones ------------------");
+                Console.WriteLine("\n-----------Functions ------------------");
                 foreach (var entry in semantic.FGST_Table) {
                     Console.WriteLine(entry);
                 }
@@ -79,18 +64,13 @@ namespace Falak {
                 semantic2.Visit((dynamic) program);
             
                 Console.WriteLine("\nSEGUNDA PASADA\n");
-                Console.WriteLine("-----------Variables locales ------------");
+                Console.WriteLine("-----------Functions-----------------");
                 foreach (var entry in semantic2.FGST_Table) {
-                    
-                    // foreach (var name in entry.refLst) {
-                    //     Console.WriteLine(entry+ " " + name);
-                    // }
-                }
-                Console.WriteLine("\n-----------Funciones ------------------");
-                foreach (var entry in semantic2.FGST_Table) {
-                    Console.WriteLine(entry);
-                }
+                    Console.WriteLine("-Funtion: " + entry.Key);
+                    Console.WriteLine("---Local var: " + string.Join(", ", semantic2.FGST_Table[entry.Key].refLst));
 
+                }
+               
                 Console.WriteLine("Semantics OK.");
                 Console.WriteLine();
                 Console.WriteLine("Symbol Table");
