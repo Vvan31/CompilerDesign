@@ -1,0 +1,30 @@
+;-----------------------
+; Buttercup program 2.
+;-----------------------
+
+int i
+int j
+int k
+int m
+bool a
+bool b
+i = 100
+j = i * 2 + 50
+k = (j + i) * 10
+print i
+print j
+print k
+if (i < j) & (j < k) then
+    print b
+    k = -k
+    if k < 0 then
+        if k < i then
+            print k + 1
+        end
+        a = k < 0
+        print a
+        print m
+    end
+end
+
+; End of file

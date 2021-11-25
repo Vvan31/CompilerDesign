@@ -7,7 +7,7 @@
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be u6                    seful,
+# This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -16,16 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-falak.exe:Driver.cs Scanner.cs Token.cs TokenCategory.cs Parser.cs \
-	SyntaxError.cs Node.cs SpecificNodes.cs SemanticVisitor.cs \
-	Type.cs SemanticError.cs SemanticVisitorSecondPass.cs WatVisitor.cs
+buttercup.exe: Driver.cs Scanner.cs Token.cs TokenCategory.cs \
+	Parser.cs SyntaxError.cs Node.cs SpecificNodes.cs \
+	SemanticVisitor.cs Type.cs SemanticError.cs WatVisitor.cs
 
-	mcs -debug -out:falak.exe Driver.cs Scanner.cs Token.cs TokenCategory.cs \
-	Parser.cs SyntaxError.cs Node.cs SpecificNodes.cs SemanticVisitor.cs \
- 	Type.cs SemanticError.cs  SemanticVisitorSecondPass.cs WatVisitor.cs
+	mcs -out:buttercup.exe Driver.cs Scanner.cs Token.cs \
+	TokenCategory.cs Parser.cs SyntaxError.cs Node.cs \
+	SpecificNodes.cs SemanticVisitor.cs Type.cs \
+	SemanticError.cs WatVisitor.cs
 
 clean:
 
-	rm -f falak.exe
+	rm -f buttercup.exe prog1.wat prog2.wat
 	rm -rf __pycache__
-
