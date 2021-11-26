@@ -3,17 +3,18 @@ using System;
 using System.Collections.Generic;
 
 namespace Falak {
-
-    class SemanticVisitor {
-        public string fun_name;
-
-        public struct FGST_struct {
+    public struct FGST_struct {
             public string name;
             public bool isPrimitive;
             public int arity;
             public ISet<string> refLst;   
             
         }
+
+    class SemanticVisitor {
+        public string fun_name;
+
+        
         public SortedDictionary<string, FGST_struct> FGST_Table{get;  set; }
 
         //--------------------------------------------------------------

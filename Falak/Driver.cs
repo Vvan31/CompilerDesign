@@ -88,6 +88,16 @@ namespace Falak {
                 foreach (var entry in semantic.FGST_Table) {
                     Console.WriteLine(entry);
                 }
+                
+                var outputPath = Path.ChangeExtension(inputPath, ".wat");
+                var codeGenerator = new WatVisitor(semantic.FGST_Table, semantic.VGST);
+                File.WriteAllText(
+                    outputPath,
+                    codeGenerator.Visit((dynamic) program));
+                Console.WriteLine(
+                    "Created Wat (WebAssembly text format) file "
+                    + $"'{outputPath}'.");
+
 
             } catch (Exception e) {
                 if(e is FileNotFoundException 

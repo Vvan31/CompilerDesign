@@ -197,7 +197,7 @@ namespace Buttercup {
 
         //-----------------------------------------------------------
         void VisitChildren(Node node) {
-            foreach (var n in node) {
+            foreach (var n in node.get) {
                 Visit((dynamic) n);
             }
         }

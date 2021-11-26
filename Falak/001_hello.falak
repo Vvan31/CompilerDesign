@@ -3,12 +3,9 @@
    (C) 2021 Ariel Ortiz, ITESM CEM.
 #>
 
-var asdf;
-
-main(oooo) {
-    var c, f;
-    c = 2;
-    prints("hello, world\n");;;
-    asdf = 5;
-    return 42;;;
+main() {
+    var OwO;
+    OwO = 2;
+    prints("hello, world\n");
+    return 42;
 }
