@@ -4,6 +4,6 @@
 #>
 
 main() {
-    prints("hello world\n");
+    prints("holi crayoli\n");
     return 42;
 }

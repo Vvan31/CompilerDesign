@@ -16,10 +16,11 @@
     (result i32)
         (local $_temp i32)
 i32.const 0
-;; Start Stringhello world
+;; Start Stringholi crayoli
 i32.const 0
 call $new
 local.set $_temp
+local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -38,19 +39,15 @@ i32.const 104
  call $add
  drop
 
-i32.const 101
- call $add
- drop
-
-i32.const 108
- call $add
- drop
-
-i32.const 108
- call $add
- drop
-
 i32.const 111
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+
+i32.const 105
  call $add
  drop
 
@@ -58,11 +55,7 @@ i32.const 32
  call $add
  drop
 
-i32.const 119
- call $add
- drop
-
-i32.const 111
+i32.const 99
  call $add
  drop
 
@@ -70,11 +63,23 @@ i32.const 114
  call $add
  drop
 
+i32.const 97
+ call $add
+ drop
+
+i32.const 121
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
 i32.const 108
  call $add
  drop
 
-i32.const 100
+i32.const 105
  call $add
  drop
 
