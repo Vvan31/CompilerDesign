@@ -4,8 +4,6 @@
 #>
 
 main() {
-    var OwO;
-    OwO = 2;
-    prints("hello, world\n");
+    prints("hello world\n");
     return 42;
 }

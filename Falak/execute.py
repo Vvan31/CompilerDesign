@@ -19,7 +19,7 @@
 from sys import argv, stderr, exit
 from wasmer import engine, Module, wat2wasm, Store, Instance
 from wasmer_compiler_cranelift import Compiler
-from falakLib import make_import_object
+from falaklib import make_import_object
 
 def main():
     if len(argv) != 2:
@@ -45,6 +45,6 @@ def main():
     instance = Instance(module, import_object)
 
     # Run start function and return to OS its exit code
-    exit(instance.exports.start())
+    exit(instance.exports.main())
 
 main()

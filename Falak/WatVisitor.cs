@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Globalization;
 using System.Text;
 using System.Collections.Generic;
 
@@ -60,17 +61,17 @@ namespace Falak {
 
         public string Visit(Program node) {
             return "(module\n"
-                + "  (import \"falak\" \"printi\" (func $printi (param i32)))\n"
-                + "  (import \"falak\" \"printc\" (func $printc (param i32)))\n"
-                + "  (import \"falak\" \"prints\" (func $prints (param i32)))\n"
-                + "  (import \"falak\" \"println\" (func $println (param i32)))\n"
-                + "  (import \"falak\" \"readi\" (func $readi (param i32)))\n"
-                + "  (import \"falak\" \"reads\" (func $reads (param i32)))\n"
-                + "  (import \"falak\" \"new\" (func $new (param i32)))\n"
-                + "  (import \"falak\" \"size\" (func $size (param i32)))\n"
-                + "  (import \"falak\" \"add\" (func $add (param i32)))\n"
-                + "  (import \"falak\" \"get\" (func $get (param i32)))\n"
-                + "  (import \"falak\" \"set\" (func $set (param i32)))\n"
+                + "  (import \"falak\" \"printi\" (func $printi (param i32) (result i32)))\n"
+                + "  (import \"falak\" \"printc\" (func $printc (param i32) (result i32)))\n"
+                + "  (import \"falak\" \"prints\" (func $prints (param i32) (result i32)))\n"
+                + "  (import \"falak\" \"println\" (func $println (result i32)))\n"
+                + "  (import \"falak\" \"readi\" (func $readi (result i32)))\n"
+                + "  (import \"falak\" \"reads\" (func $reads (result i32)))\n"
+                + "  (import \"falak\" \"new\" (func $new (param i32) (result i32) ))\n"
+                + "  (import \"falak\" \"size\" (func $size (param i32) (result i32)))\n"
+                + "  (import \"falak\" \"add\" (func $add (param i32 i32) (result i32)))\n"
+                + "  (import \"falak\" \"get\" (func $get (param i32 i32) (result i32)))\n"
+                + "  (import \"falak\" \"set\" (func $set (param i32 i32 i32) (result i32)))\n"
                 + Visit((dynamic)node[0]) + "\n"
                 + ")\n";
         }
@@ -110,12 +111,15 @@ namespace Falak {
             
             var funName = node.AnchorToken.Lexeme;
             if (funName == "main"){
-                funName = "\n   (export \"main\")\n";
+                funName = "\n $main\n   (export \"main\")\n";
+                funName += "    (result i32)\n";
+                funName += "        (local $_temp i32)";
+                funName += "\ni32.const 0\n";
             }else{
                 funName = "$" + node.AnchorToken.Lexeme;
             }
             var result = "(func " + funName;
-            result += VisitChildren(node)+ ")\n\n";
+            result += VisitChildren(node)+ "i32.const 0  \n)\n\n";
             return result;
             
         }
@@ -143,7 +147,9 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Stm_funcall node) {
-            return VisitChildren(node); 
+            
+            return VisitChildren(node) + "call $" + node.AnchorToken.Lexeme +
+                    "\ndrop \n";
         }
          //-----------------------------------------------------------
         public string Visit(Stm_funcall_Exprlist node) {
@@ -199,7 +205,7 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Return node) {
-            return "return";
+            return VisitChildren(node) + "return\n";
         }
          //-----------------------------------------------------------
         public string Visit(Or node) {
@@ -301,14 +307,48 @@ namespace Falak {
         }
         //-----------------------------------------------------------
         public string Visit(Lit_str node) {
-            return $"    local.get ${node.AnchorToken.Lexeme}\n";
+            var wantedString = node.AnchorToken.Lexeme;
+            wantedString = wantedString.Remove(wantedString.Length-1,1);
+            wantedString = wantedString.Remove(0,1);
+
+            wantedString = wantedString.Replace("\\n","\n");
+            wantedString = wantedString.Replace("\\r","\r");
+            wantedString = wantedString.Replace("\\t","\t");
+            //PUEDE O PUEDE QUE NO SE USE 
+            //wantedString = wantedString.Replace("\\\\","\\");
+            //wantedString = wantedString.Replace("\\'","\'");
+            //wantedString = wantedString.Replace("\\"","\"");
+
+
+            var code = ";; Start String" + wantedString;
+            code += "i32.const 0\ncall $new\n";
+            code += "local.set $_temp\n";
+            code += "local.get $_temp\n";
+
+            
+            char[] charArr = wantedString.ToCharArray();
+
+            foreach (var c in charArr){
+                code += "local.get $_temp\n";
+            }
+
+
+            var specialCharFlag = 0;
+            foreach (var c in charArr){ 
+
+                code += "\ni32.const " + (short)c  + 
+                        "\n call $add"+
+                        "\n drop\n";
+            }
+
+            code += ";; End of String\n";
+
+            return code;
         }
         //-----------------------------------------------------------
         public string Visit(Lit_int node) {
-            return $"    local.get ${node.AnchorToken.Lexeme}\n";
-
+            return "i32.const " + node.AnchorToken.Lexeme + "\n";
         }
-
 
         string VisitChildren(Node node) {
             var sb = new StringBuilder();
