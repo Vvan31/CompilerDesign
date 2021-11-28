@@ -11,13 +11,32 @@
   (import "falak" "get" (func $get (param i32 i32) (result i32)))
   (import "falak" "set" (func $set (param i32 i32 i32) (result i32)))
 
+(func $sqrowo PARAM IDENTIFIER
+OwO EVI 
+OwO EVI 
+i32.mulreturn
+i32.const 0  
+)
+
 (func 
  $main
    (export "main")
     (result i32)
         (local $_temp i32)
 i32.const 0
-;; Start Stringholi crayoli
+owo LOCAL VAR IDENTIFIER
+local.set $arraylocal.set $sumlocal.set $iowo LESS THAN 
+local.set $xowo INC IDENTIFIER
+owo Equals 
+    if
+BREAKING BAD owo
+    end
+owo LESS THN EQUALS
+    if
+    end
+owo Equals 
+    if
+;; Start StringThe program works fine!
 i32.const 0
 call $new
 local.set $_temp
@@ -35,20 +54,27 @@ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 84
+ call $add
+ drop
 
 i32.const 104
  call $add
  drop
 
-i32.const 111
- call $add
- drop
-
-i32.const 108
- call $add
- drop
-
-i32.const 105
+i32.const 101
  call $add
  drop
 
@@ -56,7 +82,19 @@ i32.const 32
  call $add
  drop
 
-i32.const 99
+i32.const 112
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 103
  call $add
  drop
 
@@ -68,7 +106,15 @@ i32.const 97
  call $add
  drop
 
-i32.const 121
+i32.const 109
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 119
  call $add
  drop
 
@@ -76,11 +122,39 @@ i32.const 111
  call $add
  drop
 
-i32.const 108
+i32.const 114
+ call $add
+ drop
+
+i32.const 107
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 102
  call $add
  drop
 
 i32.const 105
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 33
  call $add
  drop
 
@@ -90,8 +164,7 @@ i32.const 10
 ;; End of String
 call $prints
 drop 
-i32.const 42
-return
+    end
 i32.const 0  
 )
 

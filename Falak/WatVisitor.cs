@@ -7,8 +7,7 @@ using System.Collections.Generic;
 namespace Falak {
    
     class WatVisitor {
-
-
+        public string functionFlag = "global"; 
         
         public SortedDictionary<string, FGST_struct> FGST_Table{get;  set; }
 
@@ -24,13 +23,10 @@ namespace Falak {
         //     };
 
         public WatVisitor(SortedDictionary<string, FGST_struct> FGST_Table, 
-        SortedDictionary<string, string> VGST ) {
+        SortedDictionary<string, string> VGST) {
             this.FGST_Table = FGST_Table;
             this.VGST = VGST;
         }
-
-        
-        
       
         //-----------------------------------------------------------
         // public string Visit(Assignment node) {
@@ -72,6 +68,7 @@ namespace Falak {
                 + "  (import \"falak\" \"add\" (func $add (param i32 i32) (result i32)))\n"
                 + "  (import \"falak\" \"get\" (func $get (param i32 i32) (result i32)))\n"
                 + "  (import \"falak\" \"set\" (func $set (param i32 i32 i32) (result i32)))\n"
+                + generateGlobalBVariables() + "\n"
                 + Visit((dynamic)node[0]) + "\n"
                 + ")\n";
         }
@@ -86,7 +83,7 @@ namespace Falak {
         }
         //-----------------------------------------------------------
         public string Visit(Var_def node) {
-            return VisitChildren(node);
+            return "(global $" + VisitChildren(node) + "(mut i32) (i32.const 0))";
         }
 
         //-----------------------------------------------------------
@@ -95,8 +92,22 @@ namespace Falak {
             // generated directly from the symbol table, not from
             // the AST nodes.
             var sb = new StringBuilder();
+            // foreach (var entry in VGST) {
+            //     sb.Append($"    (global ${entry.Key} i32)\n");
+            // }
+            if(functionFlag != "global"){
+                foreach (var localVar in FGST_Table[functionFlag].refLst){
+                    sb.Append($"    (local ${localVar} i32)\n");
+                }
+            }
+            return sb.ToString();
+        }
+
+                //-----------------------------------------------------------
+        public string generateGlobalBVariables(){
+            var sb = new StringBuilder();
             foreach (var entry in VGST) {
-                sb.Append($"    (local ${entry.Key} i32)\n");
+                sb.Append($"(global ${entry.Key} (mut i32) (i32.const 0)) \n");
             }
             return sb.ToString();
         }
@@ -106,9 +117,16 @@ namespace Falak {
 
         }
         //-----------------------------------------------------------
+
+        public string Visit(Expr_funcall_identifier node) {
+            Console.WriteLine("Expr_funcall_identifier");
+            Console.WriteLine(node.AnchorToken.Lexeme);
+            return("call $" + node.AnchorToken.Lexeme);
+        }
+
         public string Visit(Fun_def node) {
             Console.WriteLine("FUN DEF");
-            
+            functionFlag = node.AnchorToken.Lexeme; 
             var funName = node.AnchorToken.Lexeme;
             if (funName == "main"){
                 funName = "\n $main\n   (export \"main\")\n";
@@ -120,12 +138,13 @@ namespace Falak {
             }
             var result = "(func " + funName;
             result += VisitChildren(node)+ "i32.const 0  \n)\n\n";
+            functionFlag = "global";
             return result;
             
         }
          //-----------------------------------------------------------
          public string Visit(Local_var_identifier node){
-             return "owo\n";
+             return "owo LOCAL VAR IDENTIFIER\n";
          }
          //-----------------------------------------------------------
         public string Visit(Param_list_identifier node) {
@@ -134,7 +153,7 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Param_identifier node) {
-            return "owo\n";
+            return "owo PARAM IDENTIFIER\n";
         }
          //-----------------------------------------------------------
         public string Visit(Stm_list node) {
@@ -142,17 +161,27 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Stm_asign node) {
-            return VisitChildren(node);
+            var sb = new StringBuilder();
+            var varName = node.AnchorToken.Lexeme;
+            if(FGST_Table[functionFlag].refLst.Contains(varName)){ //Es una variable local
+                Console.WriteLine("Bruh  "+ Visit((dynamic)node[0]) + "\n");
+                //sb.Append(Visit((dynamic)node[0]));
+                sb.Append($"local.set ${varName}");
+            }else if (VGST.ContainsKey(varName)){
+                sb.Append(Visit((dynamic) node[0]));
+                sb.Append($"global.set ${varName}");
+            }
+            return sb.ToString();
 
         }
          //-----------------------------------------------------------
         public string Visit(Stm_funcall node) {
-            
             return VisitChildren(node) + "call $" + node.AnchorToken.Lexeme +
                     "\ndrop \n";
         }
          //-----------------------------------------------------------
         public string Visit(Stm_funcall_Exprlist node) {
+            var funCall = node.AnchorToken.Lexeme;
             return VisitChildren(node);
         }
          //-----------------------------------------------------------
@@ -162,7 +191,7 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Inc_identifier node) {
-            return "owo\n";
+            return "owo INC IDENTIFIER\n";
         }
          //-----------------------------------------------------------
         public string Visit(Stm_dec node) {
@@ -170,7 +199,7 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Dec_identifier node) {
-            return "owo\n";
+            return "owo DEC IDENTIFIER\n";
         }
          //-----------------------------------------------------------
         public string Visit(If node) {
@@ -201,75 +230,87 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Break node) {
-            return "owo\n";
+            return "BREAKING BAD owo\n";
         }
          //-----------------------------------------------------------
         public string Visit(Return node) {
+            Console.WriteLine("RETURN");
+            Console.WriteLine(node);
             return VisitChildren(node) + "return\n";
         }
          //-----------------------------------------------------------
         public string Visit(Or node) {
-            return "owo\n";
+            return "owoOR\n";
         }
          //-----------------------------------------------------------
         public string Visit(AND node) {
             //return VisitBinaryOperator("i32.and", node);
-            return VisitChildren(node);
+            return "owo AND \n";
         }
          //-----------------------------------------------------------
         public string Visit(Equals node) {
-            return VisitChildren(node);
+            return "owo Equals \n";
         }
          //-----------------------------------------------------------
         public string Visit(Difequals node) {
-            return VisitChildren(node);
+            return "owo Difequals \n";
         }
          //-----------------------------------------------------------
         public string Visit(Greaterthan node) {
-            return VisitChildren(node);
+            return "owo Greaterthan \n";
         }
          //-----------------------------------------------------------
         public string Visit(GreaterthanEquals node) {
-            return VisitChildren(node);
+            return "owo GreaterthanEquals \n";
         }
          //-----------------------------------------------------------
         public string Visit(Lessthan node) {
             //return VisitBinaryOperator("i32.lt_s", node);
-            return "owo\n";
+            return "owo LESS THAN \n";
         }
          //-----------------------------------------------------------
         public string Visit(LessThanEquals node) {
-            return "owo\n";
+            return "owo LESS THN EQUALS\n";
         }
          //-----------------------------------------------------------
         public string Visit(Plus node) {
-           // return VisitBinaryOperator("i32.add", node);
-            return "owo\n";
+            return $"{Visit((dynamic) node[0])} \n" +  
+                   $"{Visit((dynamic) node[1])} \n" +
+                   "i32.add";
 
         }
          //-----------------------------------------------------------
         public string Visit(Minus node) {
-            //return VisitBinaryOperator("i32.sub", node);
-            return "owo\n";
+            Console.WriteLine("MINUS");
+            //Console.WriteLine(node);
+            Console.WriteLine(node[0]);
+            //Console.WriteLine(node[1]);
+            Console.WriteLine(Visit((dynamic) node[0]));
 
+
+            //return VisitBinaryOperator("i32.sub", node);
+            return $"{Visit((dynamic) node[0])} \n" +  
+                   $"{Visit((dynamic) node[1])} \n" +
+                   "i32.sub";
         }
          //-----------------------------------------------------------
         public string Visit(Multiplication node) {
-            //return VisitBinaryOperator("i32.mul", node);
-            return "owo\n";
+            return $"{Visit((dynamic) node[0])} \n" +  
+                   $"{Visit((dynamic) node[1])} \n" +
+                   "i32.mul";
 
         }
          //-----------------------------------------------------------
         public string Visit(Division node) {
-            return "owo\n";
+            return "owo DIVISION\n";
         }
          //-----------------------------------------------------------
         public string Visit(Percent node) {
-            return "owo\n";
+            return "owo PERCENT \n";
         }
          //-----------------------------------------------------------
         public string Visit(Positive node) {
-            return "owo\n";
+            return "owo POSITIVE\n";
         }
          //-----------------------------------------------------------
         public string Visit(Negative node) {
@@ -279,7 +320,12 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Not node) {
-            return "owo\n";
+            return "ewe (not owo)\n";
+        } 
+
+        
+        public string Visit(Expr_var_identifier node) {
+            return "OwO EVI";
         } 
         //-----------------------------------------------------------
         public string Visit(Expr_primary_identifier node) {
@@ -295,15 +341,15 @@ namespace Falak {
         }
         //-----------------------------------------------------------
         public string Visit(Lit_true node) {
-            return "owo\n";
+            return "owo lit true\n";
         }
         //-----------------------------------------------------------
         public string Visit(Lit_false node) {
-            return "owo\n";
+            return "owo lit false\n";
         }
         //-----------------------------------------------------------
         public string Visit(Lit_char node) {
-            return "owo\n";
+            return "owo lit char\n";
         }
         //-----------------------------------------------------------
         public string Visit(Lit_str node) {
