@@ -22,6 +22,8 @@ binary(num) {
     var result, remainder;
     if (num <= 0) {
         return "0";
+    }elseif (num<=2){
+        return "1";
     }
     result = "";
     while (num > 0) {
@@ -29,7 +31,7 @@ binary(num) {
         add(result, remainder + '0');
         num = num / 2;
     }
-    reverse(result);
+    reverse("STRING");
     return result;
 }
 

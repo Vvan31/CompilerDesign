@@ -8,6 +8,8 @@ namespace Falak {
             public bool isPrimitive;
             public int arity;
             public ISet<string> refLst;   
+            public ISet<string> paramLst;   
+
             
         }
 
@@ -43,6 +45,8 @@ namespace Falak {
             newFGST.isPrimitive = true;
             newFGST.arity = ari;
             newFGST.refLst = new HashSet<string>(); 
+            newFGST.paramLst = new HashSet<string>(); 
+
             return newFGST;
         }
          public FGST_struct structManaegr(string nombre,int ari){
@@ -51,6 +55,8 @@ namespace Falak {
             newFGST.isPrimitive = false;
             newFGST.arity = ari;
             newFGST.refLst = new HashSet<string>(); 
+            newFGST.paramLst = new HashSet<string>(); 
+
             return newFGST; 
         }
 

@@ -71,6 +71,13 @@ namespace Falak {
             return children.Count;
         }
 
+        public IList<Node> remover(int index){
+            children.RemoveAt(index);
+            return children;
+        }
+
+        
+
         
     }
 }

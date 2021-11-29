@@ -53,7 +53,7 @@ namespace Falak {
               
                 //main function? 
                 if(semantic.FGST_Table.ContainsKey("main")){
-                    Console.WriteLine("FIRST PASS\n");
+                    /*Console.WriteLine("FIRST PASS\n");
                     Console.WriteLine("-----------Global var ------------");
                     foreach (var entry in semantic.VGST) {
                             Console.WriteLine(entry.Key);
@@ -77,6 +77,8 @@ namespace Falak {
                                 semantic2.FGST_Table[entry.Key].refLst));
                         }
                     }
+                    */
+                    Console.WriteLine("Semantics ok\n");
                 }else{
                     throw new SemanticError("No main Function: " );
                 }
@@ -85,9 +87,11 @@ namespace Falak {
                 Console.WriteLine();
                 Console.WriteLine("Symbol Table");
                 Console.WriteLine("============");
+                /*
                 foreach (var entry in semantic.FGST_Table) {
                     Console.WriteLine(entry);
                 }
+                */
                 
                 var outputPath = Path.ChangeExtension(inputPath, ".wat");
                 var codeGenerator = new WatVisitor(semantic.FGST_Table, semantic.VGST);

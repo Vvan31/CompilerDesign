@@ -32,6 +32,8 @@ namespace Falak {
             newFGST.isPrimitive = false;
             newFGST.arity = ari;
             newFGST.refLst = null; 
+            newFGST.paramLst = null; 
+            
             return newFGST; 
         }
 
@@ -59,7 +61,7 @@ namespace Falak {
         public new void Visit(Var_identifier node) {
             if(fun_name != null){
                 var variableName = node.AnchorToken.Lexeme;
-                if(FGST_Table[fun_name].refLst.Contains(variableName)){
+                if(FGST_Table[fun_name].refLst.Contains(variableName)||FGST_Table[fun_name].paramLst.Contains(variableName)){
                     throw new SemanticError(
                     "Duplicated variable: " + variableName, 
                     node.AnchorToken);
@@ -86,9 +88,9 @@ namespace Falak {
         public new void Visit(Param_identifier node) {
             var varName = node.AnchorToken.Lexeme;
             
-            if(FGST_Table[fun_name].refLst.Contains(varName)){} 
+            if(FGST_Table[fun_name].paramLst.Contains(varName)){} 
             else {
-                FGST_Table[fun_name].refLst.Add(varName);
+                FGST_Table[fun_name].paramLst.Add(varName);
             }
         }
          //-----------------------------------------------------------
@@ -100,7 +102,8 @@ namespace Falak {
             var variableName = node.AnchorToken.Lexeme;
 
             if(FGST_Table[fun_name].refLst.Contains(variableName) 
-            || VGST.ContainsKey(variableName)){
+            || VGST.ContainsKey(variableName)
+            || FGST_Table[fun_name].paramLst.Contains(variableName) ){
                 VisitChildren(node);
             } else {
                 throw new SemanticError(
@@ -143,7 +146,8 @@ namespace Falak {
             var variableName = node.AnchorToken.Lexeme;
 
             if (VGST.ContainsKey(variableName)
-            || FGST_Table[fun_name].refLst.Contains(variableName)) {}
+            || FGST_Table[fun_name].refLst.Contains(variableName)
+            || FGST_Table[fun_name].paramLst.Contains(variableName)) {}
             else{
                 throw new SemanticError(
                     "Undeclared variable: " + variableName,
@@ -159,7 +163,8 @@ namespace Falak {
             var variableName = node.AnchorToken.Lexeme;
 
             if (VGST.ContainsKey(variableName)
-            || FGST_Table[fun_name].refLst.Contains(variableName)) {}
+            || FGST_Table[fun_name].refLst.Contains(variableName)
+            || FGST_Table[fun_name].paramLst.Contains(variableName)) {}
             else{
                 throw new SemanticError(
                     "Undeclared variable: " + variableName,
@@ -243,8 +248,9 @@ namespace Falak {
         public void Visit(Expr_var_identifier node) {
             var variableName = node.AnchorToken.Lexeme;
 
-            if(FGST_Table[fun_name].refLst.Contains(variableName) ||
-                VGST.ContainsKey(variableName)){
+            if(FGST_Table[fun_name].refLst.Contains(variableName) 
+            ||VGST.ContainsKey(variableName)
+            || FGST_Table[fun_name].paramLst.Contains(variableName)){
             } else {
                 throw new SemanticError(
                 "Undeclared Variable: " + variableName,

@@ -11,17 +11,20 @@
   (import "falak" "get" (func $get (param i32 i32) (result i32)))
   (import "falak" "set" (func $set (param i32 i32 i32) (result i32)))
 
-(func 
+
+ (func 
  $main
    (export "main")
     (result i32)
-        (local $_temp i32)
-i32.const 0
+
 ;; Start Stringholi crayoli
-i32.const 0
+
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -89,11 +92,10 @@ i32.const 10
  drop
 ;; End of String
 call $prints
-drop 
 i32.const 42
 return
 i32.const 0  
-)
 
+)
 
 )
