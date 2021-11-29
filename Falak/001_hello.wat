@@ -18,7 +18,15 @@
     (result i32)
 (local $_temp i32)
 
-;; Start Stringholi crayoli
+;; IF statement 
+i32.const 1
+ 
+i32.const 1
+ 
+i32.eq 
+if
+;;; Stmlist if
+ ;; Start Stringholi crayoli
 
  i32.const 0
 call $new
@@ -93,6 +101,8 @@ i32.const 10
  drop
 ;; End of String
 call $prints
+;;; elseif list 
+end
 i32.const 42
 return
 i32.const 0  

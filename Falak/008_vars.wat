@@ -10,17 +10,28 @@
   (import "falak" "add" (func $add (param i32 i32) (result i32)))
   (import "falak" "get" (func $get (param i32 i32) (result i32)))
   (import "falak" "set" (func $set (param i32 i32 i32) (result i32)))
-(global $a (mut i32) (i32.const 0)) 
-(global $b (mut i32) (i32.const 0)) 
-(global $c (mut i32) (i32.const 0)) 
+(global $a(mut i32) (i32.const 0)) 
+(global $b(mut i32) (i32.const 0)) 
+(global $c(mut i32) (i32.const 0)) 
 
-(global $(mut i32) (i32.const 0))(func $xowo PARAM IDENTIFIER
-owo LOCAL VAR IDENTIFIER
-local.set $c;; Start StringFunction x
-i32.const 0
+
+ (func $x
+(param $b i32)
+(result i32) 
+(local $_temp i32)
+(local $c i32) 
+i32.const 5
+local.set $c ;; VARIABLE ASSIGN
+i32.const 5
+global.set $c 
+;; Start StringFunction x
+
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -78,11 +89,13 @@ i32.const 10
  drop
 ;; End of String
 call $prints
-drop 
-;; Start Stringa = i32.const 0
+;; Start Stringa = 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -105,15 +118,16 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-OwO EVIcall $printi
-drop 
+global.get $a
+call $printi
 call $println
-drop 
-;; Start Stringb = i32.const 0
+;; Start Stringb = 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -136,15 +150,16 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-OwO EVIcall $printi
-drop 
+global.get $b
+call $printi
 call $println
-drop 
-;; Start Stringc = i32.const 0
+;; Start Stringc = 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -167,31 +182,44 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-OwO EVIcall $printi
-drop 
+global.get $c
+call $printi
 call $println
-drop 
 i32.const 0  
+
 )
 
-(global $(mut i32) (i32.const 0))(func 
+ (func 
  $main
    (export "main")
     (result i32)
-        (local $_temp i32)
-i32.const 0
-owo LOCAL VAR IDENTIFIER
+(local $_temp i32)
+
+(local $x i32) 
 i32.const 1
-global.set $ai32.const 2
-global.set $bi32.const 3
-global.set $clocal.set $xOwO EVIcall $x
-drop 
+local.set $a ;; VARIABLE ASSIGN
+i32.const 1
+global.set $a 
+i32.const 2
+local.set $b ;; VARIABLE ASSIGN
+i32.const 2
+global.set $b 
+i32.const 3
+local.set $c ;; VARIABLE ASSIGN
+i32.const 3
+global.set $c 
+i32.const 4
+local.set $x ;; VARIABLE ASSIGN
+local.get $x
+call $x
 ;; Start StringFunction main
-i32.const 0
+
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -264,11 +292,13 @@ i32.const 10
  drop
 ;; End of String
 call $prints
-drop 
-;; Start Stringa = i32.const 0
+;; Start Stringa = 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -291,15 +321,16 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-OwO EVIcall $printi
-drop 
+global.get $a
+call $printi
 call $println
-drop 
-;; Start Stringb = i32.const 0
+;; Start Stringb = 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -322,15 +353,16 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-OwO EVIcall $printi
-drop 
+global.get $b
+call $printi
 call $println
-drop 
-;; Start Stringc = i32.const 0
+;; Start Stringc = 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -353,15 +385,16 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-OwO EVIcall $printi
-drop 
+global.get $c
+call $printi
 call $println
-drop 
-;; Start Stringx = i32.const 0
+;; Start Stringx = 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -384,13 +417,11 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-OwO EVIcall $printi
-drop 
+local.get $x
+call $printi
 call $println
-drop 
 i32.const 0  
-)
 
+)
 
 )

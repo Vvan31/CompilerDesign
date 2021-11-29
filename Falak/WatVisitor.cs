@@ -289,33 +289,37 @@ namespace Falak {
             var ifString = ";; IF statement \n" 
                 + Visit((dynamic) node[0]) // Expressions 
                 + "if\n"
-                + Visit((dynamic) node[1]); //stm list 
+                + ";;; Stmlist if\n "
+                +Visit((dynamic) node[1]); //stm list 
 
                 if(node[2]!= null){ //Elseif_list maybe else maybe elif
-                   ifString += Visit((dynamic) node[1]);
+                   ifString += ";;; elseif list \n"
+                   +Visit((dynamic) node[2]);
                 }
 
-                ifString += "    end\n";
+                ifString += "end\n";
                 return ifString;
         }
          //-----------------------------------------------------------
         public string Visit(Elseif_list node) {
+ 
             return VisitChildren(node);
         }
          //-----------------------------------------------------------
         public string Visit(Elseif node) {
              return ";; elseif statement \n" 
-             +"else\n"
-            + Visit((dynamic)node[0]) + "\n"
-            + "if\n"
-            + Visit((dynamic)node[1]) + "\n";
+             +"else\n";
+            // + Visit((dynamic)node[0]) + "\n"
+            // + "if\n"
+            // + Visit((dynamic)node[1]) + "\n";
             
         }
          //-----------------------------------------------------------
         public string Visit(Else node) {
+           Console.WriteLine("ELSE");
             return ";; else statement \n" 
             + "else\n"
-            + Visit((dynamic)node[0]) + "\n";
+            + VisitChildren(node) + "\n";
         }
          //-----------------------------------------------------------
         public string Visit(While node) {
