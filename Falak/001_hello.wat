@@ -16,6 +16,7 @@
  $main
    (export "main")
     (result i32)
+(local $_temp i32)
 
 ;; Start Stringholi crayoli
 

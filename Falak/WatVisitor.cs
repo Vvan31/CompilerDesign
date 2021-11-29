@@ -102,16 +102,31 @@ namespace Falak {
             //     sb.Append($"    (global ${entry.Key} i32)\n");
             // }
             
+            //var refl = FGST_Table[functionFlag].refLst;
+          
 
-            if(functionFlag != "global"){
-                var issues;
-                FGST_Table[functionFlag].refLst.CopyTo(issues,0);
-                Console.WriteLine(issues);
+                //sb.Append("(local $_temp i32)\n");
+            if(functionFlag != "global" && functionFlag != "main"){
                 sb.Append("(local $_temp i32)\n");
-                foreach (var localVar in FGST_Table[functionFlag].refLst){
-                    sb.Append("    (local " + localVar+" i32)\n");
-                     
+            }
+            if(functionFlag != "global"){
+                //var issues;
+
+                //sb.Append("(local $_temp i32)\n");
+                //Console.WriteLine(node.ToStringTree());
+
+                foreach (var localVar in node){
+                    //Console.WriteLine(localVar.ToStringTree());
+                    //Console.WriteLine("    (local " + localVar.AnchorToken.Lexeme+" i32)\n");
+                    //Console.WriteLine(VisitChildren(localVar));
+                    sb.Append("(local $" + localVar.AnchorToken.Lexeme + " i32) \n");
                 }
+                //Console.WriteLine(sizeof(refl));
+                // foreach (var localVar in FGST_Table[functionFlag].refLst){
+                //     Console.W
+                //     sb.Append("    (local " + localVar+" i32)\n");
+                     
+                // }
 
                 
             }
@@ -130,13 +145,16 @@ namespace Falak {
         }
          //----------------------------------------------------------
         public string Visit(Var_identifier node) {
+            //Console.WriteLine("vi");
+            //Console.WriteLine(node.ToStringTree());
             return VisitChildren(node);
 
         }
         //-----------------------------------------------------------
 
         public string Visit(Expr_funcall_identifier node) {
-            return("call $" + node.AnchorToken.Lexeme + "\n");
+            Console.WriteLine(node);
+            return(VisitChildren(node) + "\ncall $" + node.AnchorToken.Lexeme + "\n");
         }
 
         public string Visit(Fun_def node) {
@@ -150,6 +168,8 @@ namespace Falak {
 
                 funName = "\n $main\n   (export \"main\")\n" +
                           "    (result i32)\n";
+                funName += "(local $_temp i32)\n";
+
                 result = "\n (func " + funName + "\n"+
                                 VisitChildren(node)+
                                 "i32.const 0  \n\n)\n";
@@ -168,6 +188,8 @@ namespace Falak {
         }
          //-----------------------------------------------------------
          public string Visit(Local_var_identifier node){
+             //Console.WriteLine("lvi");
+             //Console.WriteLine(node.ToStringTree());
              return VisitChildren(node);
          }
          //-----------------------------------------------------------
@@ -188,6 +210,21 @@ namespace Falak {
         public string Visit(Stm_asign node) {
             var sb = new StringBuilder();
             var varName = node.AnchorToken.Lexeme;
+            //Console.WriteLine(varName);
+            //Console.WriteLine(functionFlag);
+            //Console.WriteLine(node.ToStringTree());
+            //Console.WriteLine(FGST_Table[functionFlag].ContainsKey(varName));
+            foreach(KeyValuePair<string, Falak.FGST_struct> fg in FGST_Table){
+                //Console.WriteLine(fg.Key);
+                if (fg.Key ==functionFlag){
+                    //Console.WriteLine(varName);
+                    var varAssign = "";
+                    varAssign += VisitChildren(node);
+                    varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
+                    sb.Append(varAssign);
+                } 
+            }
+            
             if(FGST_Table[functionFlag].refLst.Contains(varName)){ //Es una variable local
                 //sb.Append(Visit((dynamic)node[0]));
                 //Console.WriteLine(node.ToStringTree());
@@ -210,10 +247,10 @@ namespace Falak {
         public string Visit(Stm_funcall_Exprlist node) {
             //Console.WriteLine("STM_FUNCALL_EXPRLIST");
             //Console.WriteLine(node);
-            var funCall = node.AnchorToken.Lexeme;
+            //var funCall = node.AnchorToken.Lexeme;
             //Console.WriteLine(node);
             //Console.WriteLine(funCall);
-            //Console.WriteLine(VisitChildren(node));
+            ///Console.WriteLine(VisitChildren(node));
             return VisitChildren(node);
         }
          //-----------------------------------------------------------
@@ -396,7 +433,7 @@ namespace Falak {
         public string Visit(Division node) {
             return $"{Visit((dynamic) node[0])} \n" +  
                    $"{Visit((dynamic) node[1])} \n" +
-                   "i32.div \n";        }
+                   "i32.div_u \n";        }
          //-----------------------------------------------------------
         public string Visit(Percent node) {
             return $"{Visit((dynamic) node[0])} \n" +  
@@ -419,6 +456,7 @@ namespace Falak {
 
         
         public string Visit(Expr_var_identifier node) {
+            //Console.WriteLine(node.ToStringTree());
             var idName = node.AnchorToken.Lexeme;
             var finalVarId = "";            
             if(functionFlag != "global"){ 
