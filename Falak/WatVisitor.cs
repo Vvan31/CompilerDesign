@@ -286,15 +286,13 @@ namespace Falak {
          //-----------------------------------------------------------
         public string Visit(If node) {
             Console.WriteLine(node.ToStringTree());
-            var ifString = ";; IF statement \n" 
+            return  ";; IF statement \n" 
                 + Visit((dynamic) node[0]) // Expressions 
                 + "if\n"
                 + ";;; Stmlist if\n "
                 + Visit((dynamic) node[1]) //stm list 
-                + Visit((dynamic) node[2]);//elseif list
-                
-                ifString += "end\n";
-                return ifString;
+                + Visit((dynamic) node[2])//elseif list
+                + "end\n";
         }
          //-----------------------------------------------------------
         public string Visit(Elseif_list node) {
