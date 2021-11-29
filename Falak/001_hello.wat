@@ -26,7 +26,7 @@ i32.const 1
 i32.eq 
 if
 ;;; Stmlist if
- ;; Start Stringholi crayoli
+ ;; Start String: holi crayoli
 
  i32.const 0
 call $new
@@ -101,7 +101,106 @@ i32.const 10
  drop
 ;; End of String
 call $prints
-;;; elseif list 
+;; elseif statement 
+else
+i32.const 2
+ 
+i32.const 2
+ 
+i32.eq 
+
+if
+;; Start String: owo
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 119
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+;; End of String
+call $prints
+
+;; elseif statement 
+else
+i32.const 3
+ 
+i32.const 3
+ 
+i32.eq 
+
+if
+;; Start String: UwU
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 85
+ call $add
+ drop
+
+i32.const 119
+ call $add
+ drop
+
+i32.const 85
+ call $add
+ drop
+;; End of String
+call $prints
+
+;; else statement 
+else
+;; Start String: hell
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 104
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+;; End of String
+call $prints
+
 end
 i32.const 42
 return

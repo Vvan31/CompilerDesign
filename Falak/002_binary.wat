@@ -84,7 +84,8 @@ i32.const 0
  
 i32.le_s 
 if
-;; Start String0
+;;; Stmlist if
+ ;; Start String0
  i32.const 0
 call $new
 
@@ -98,7 +99,17 @@ i32.const 48
  drop
 ;; End of String
 return
-;; Start String0
+;;; elseif list 
+;; elseif statement 
+else
+local.get $num
+ 
+i32.const 2
+ 
+i32.le_s 
+
+if
+;; Start String1
  i32.const 0
 call $new
 
@@ -107,12 +118,13 @@ call $new
  local.get $_temp
 local.get $_temp
 
-i32.const 48
+i32.const 49
  call $add
  drop
 ;; End of String
 return
-    end
+
+end
 ;; Start String
  i32.const 0
 call $new
@@ -643,13 +655,12 @@ i32.const 0
  
 i32.eq 
 if
-
+;;; Stmlist if
+ 
 i32.const 39
 local.set $option ;; VARIABLE ASSIGN
-
-i32.const 39
-local.set $option ;; VARIABLE ASSIGN
-    end
+;;; elseif list 
+end
 br_if $00004
 local.get $option
  
@@ -1105,13 +1116,12 @@ i32.const 0
  
 i32.eq 
 if
-
+;;; Stmlist if
+ 
 i32.const 39
 local.set $option ;; VARIABLE ASSIGN
-
-i32.const 39
-local.set $option ;; VARIABLE ASSIGN
-    end
+;;; elseif list 
+end
 br_if $00006
 local.get $option
  

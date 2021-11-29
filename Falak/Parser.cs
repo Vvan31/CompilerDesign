@@ -355,9 +355,12 @@ namespace Falak {
              ifNode.Add(Statement());
             Expect(TokenCategory.ENDCURLBRACES);
 
+            var elseiflistnode = new Elseif_list();
+            ifNode.Add(elseiflistnode);
+            
             while (firstofIf.Contains(CurrentToken)) {
-                var elseiflistnode = new Elseif_list();
-                ifNode.Add(elseiflistnode);
+                // var elseiflistnode = new Elseif_list();
+                // ifNode.Add(elseiflistnode);
 
                 switch (CurrentToken) {
                     case TokenCategory.ELSEIF:
@@ -378,7 +381,8 @@ namespace Falak {
                         var elseNode =  new Else(){
                             AnchorToken = Expect(TokenCategory.ELSE)
                         };
-                        ifNode.Add(elseNode);
+                        //ifNode.Add(elseNode);
+                        elseiflistnode.Add(elseNode);
                         Expect(TokenCategory.STARTCURLBRACES);
                         elseNode.Add(Statement());
                         Expect(TokenCategory.ENDCURLBRACES);

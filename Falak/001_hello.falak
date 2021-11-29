@@ -6,6 +6,10 @@
 main() {
     if(1 == 1){
         prints("holi crayoli\n");
+    }elseif(2 ==2 ){
+        prints("owo");
+    }elseif(3 == 3 ){
+        prints("UwU");
     } else {
         prints("hell"); 
     }

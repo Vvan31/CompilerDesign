@@ -285,33 +285,29 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(If node) {
-            //Console.WriteLine(node.ToStringTree());
+            Console.WriteLine(node.ToStringTree());
             var ifString = ";; IF statement \n" 
                 + Visit((dynamic) node[0]) // Expressions 
                 + "if\n"
                 + ";;; Stmlist if\n "
-                +Visit((dynamic) node[1]); //stm list 
-
-                if(node[2]!= null){ //Elseif_list maybe else maybe elif
-                   ifString += ";;; elseif list \n"
-                   +Visit((dynamic) node[2]);
-                }
-
+                + Visit((dynamic) node[1]) //stm list 
+                + Visit((dynamic) node[2]);//elseif list
+                
                 ifString += "end\n";
                 return ifString;
         }
          //-----------------------------------------------------------
         public string Visit(Elseif_list node) {
- 
+            Console.WriteLine("elseif list");
             return VisitChildren(node);
         }
          //-----------------------------------------------------------
         public string Visit(Elseif node) {
              return ";; elseif statement \n" 
-             +"else\n";
-            // + Visit((dynamic)node[0]) + "\n"
-            // + "if\n"
-            // + Visit((dynamic)node[1]) + "\n";
+             +"else\n"
+             + Visit((dynamic)node[0]) + "\n"
+             + "if\n"
+             + Visit((dynamic)node[1]) + "\n";
             
         }
          //-----------------------------------------------------------
@@ -525,7 +521,7 @@ namespace Falak {
             //wantedString = wantedString.Replace("\\"","\"");
 
 
-            var code = ";; Start String" + wantedString;
+            var code = ";; Start String: " + wantedString;
             code += "\n i32.const 0\ncall $new\n";
             code += "\n local.set $_temp\n";
             code += "\n local.get $_temp\n";
