@@ -21,18 +21,13 @@ reverse(array) {
 binary(num) {
     var result, remainder;
     if (num <= 0) {
-        prints("menor a 0");
-        println();
         return "0";
     }
-
     result = "";
     while (num > 0) {
         remainder = num % 2;
-        printi(remainder);
         add(result, remainder + '0');
         num = num / 2;
-        println();
     }
     reverse(result);
     return result;

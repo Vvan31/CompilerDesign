@@ -1237,9 +1237,9 @@ i32.const 8364
  i32.const 0
 call $new
 
- local.set $_temp
+local.set $_temp
 
- local.get $_temp
+local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp

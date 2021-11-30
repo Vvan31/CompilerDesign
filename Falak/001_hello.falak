@@ -4,11 +4,15 @@
 #>
 
 var owo;
+var ewe;
 main() {
     var start,finish;
-
+    var owo;
+    owo = 5;
+    ewe = 4;
     start = 0;
     finish = 6;
+
 
     owo = 3;
 
@@ -16,7 +20,7 @@ main() {
         prints("a");
         println();
     }
-    while(start>finish) {
+    while(start<finish) {
         prints("b");
         println();
         inc start;

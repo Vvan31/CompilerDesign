@@ -350,8 +350,8 @@ end
 end
 ;; END WHILE 
 ;;START WHILE 
-block $00004
-loop $00005
+block $00002
+loop $00003
 i32.const 2
  
 i32.const 2
@@ -361,7 +361,7 @@ i32.add
 i32.const 5
  
 i32.ne 
-br_if  $00004
+br_if  $00002
 (local.get $j)
 i32.const 1 
 i32.add
@@ -374,7 +374,7 @@ local.get $x
 i32.gt_s 
 if
 ;;; Stmlist if
- br $00000
+ br $-00002
 ;; elseif statement 
 else
 local.get $x
@@ -404,12 +404,12 @@ i32.const 0
 i32.eq 
 
 if
-br $-00002
+br $-00004
 
 end
 end
 end
-br $00005
+br $00003
 end
 end
 ;; END WHILE 

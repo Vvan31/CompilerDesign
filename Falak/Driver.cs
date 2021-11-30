@@ -83,6 +83,8 @@ namespace Falak {
                         }
                     }
                     */
+                    var semantic2 = new SemanticVisitorSecondPass(semantic);
+                    semantic2.Visit((dynamic) program);
                     
                     Console.WriteLine("Semantics ok\n");
                 }else{

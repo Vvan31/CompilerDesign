@@ -4,18 +4,18 @@ using System.Text;
 using System.Collections.Generic;
 
 namespace Falak {
-    // class CodePoints {
-    // public static IList<int> AsCodePoints(String str) {
-    //     var result = new List<int>(str.Length);
-    //     for (var i = 0; i < str.Length; i++) {
-    //         result.Add(char.ConvertToUtf32(str, i));
-    //         if (char.IsHighSurrogate(str, i)) {
-    //             i++;
-    //         }
-    //     }
-    //     return result;
-    //     }
-    // }
+    class CodePoints {
+    public static IList<int> AsCodePoints(String str) {
+        var result = new List<int>(str.Length);
+        for (var i = 0; i < str.Length; i++) {
+            result.Add(char.ConvertToUtf32(str, i));
+            if (char.IsHighSurrogate(str, i)) {
+                i++;
+            }
+        }
+        return result;
+        }
+    }
 
    
     class WatVisitor {
@@ -209,31 +209,39 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Stm_asign node) {
+            // foreach(KeyValuePair<string, Falak.FGST_struct> fg in FGST_Table){
+
+            //      if(fg.Key == functionFlag){
+            //         var varAssign = "";
+            //         varAssign += VisitChildren(node);
+            //         varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
+            //         sb.Append(varAssign);
+            //     }   
+
+            //     else  if  (VGST.ContainsKey(varName) && fg.Key == functionFlag){
+            //         sb.Append(Visit((dynamic) node[0]));
+            //         sb.Append($"global.set ${varName} ;; VARIABLE ASSIGN\n");
+            //     } 
+                
+               
+            // }
+            
+
             var sb = new StringBuilder();
             var varName = node.AnchorToken.Lexeme;
-            foreach(KeyValuePair<string, Falak.FGST_struct> fg in FGST_Table){
-        
-                if (VGST.ContainsKey(varName) && fg.Key == functionFlag){
-                    sb.Append(Visit((dynamic) node[0]));
-                    sb.Append($"global.set ${varName} \n");
-                }
-                else if (fg.Key == functionFlag){
-                    var varAssign = "";
-                    varAssign += VisitChildren(node);
-                    varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
-                    sb.Append(varAssign);
-                } 
+            
+
+         
+            if(FGST_Table[functionFlag].refLst.Contains(varName) || FGST_Table[functionFlag].paramLst.Contains(varName) ){ //Es una variable local
+                var varAssign = "";
+                varAssign += VisitChildren(node);
+                varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
+                sb.Append(varAssign);
+            }else if (VGST.ContainsKey(varName)){
+                sb.Append(VisitChildren (node[0]));
+                sb.Append($"global.set ${varName} \n");
             }
             
-            // if(FGST_Table[functionFlag].refLst.Contains(varName)){ //Es una variable local
-            //     var varAssign = "";
-            //     varAssign += VisitChildren(node);
-            //     varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
-            //     sb.Append(varAssign);
-            // }else if (VGST.ContainsKey(varName)){
-            //     sb.Append(Visit((dynamic) node[0]));
-            //     sb.Append($"global.set ${varName} \n");
-            // }
             return sb.ToString();
 
         }
@@ -252,15 +260,18 @@ namespace Falak {
             var varName = Visit((dynamic) node[0]);
             var scopeString = "";
 
-            if (VGST.ContainsKey(varName)){
-                scopeString = "global";
-            } else {
+            if(FGST_Table[functionFlag].refLst.Contains(varName)){ //Es una variable local
                 scopeString =  "local";
+
+            }else if (VGST.ContainsKey(varName)){
+                scopeString = "global";
+
             }
+           
             return "(" + scopeString + ".get $" + varName + ")\n"+   
                    "i32.const 1 \n" +
                    "i32.add\n"+
-                   "(" + scopeString + ".set $" + varName + ")\n";        
+                   "(" + scopeString + ".set $" + varName + ")\n";          
         }
          //-----------------------------------------------------------
         public string Visit(Inc_identifier node) {
@@ -272,12 +283,14 @@ namespace Falak {
             var varName = Visit((dynamic) node[0]);
             var scopeString = "";
 
-            if (VGST.ContainsKey(varName)){
-                scopeString = "global";
-            } else {
+            if(FGST_Table[functionFlag].refLst.Contains(varName)){ //Es una variable local
                 scopeString =  "local";
-            }
 
+            }else if (VGST.ContainsKey(varName)){
+                scopeString = "global";
+
+            }
+           
             return "(" + scopeString + ".get $" + varName + ")\n"+   
                    "i32.const 1 \n" +
                    "i32.sub\n"+
@@ -366,6 +379,7 @@ namespace Falak {
             ";; END WHILE \n"
             );
             counterWhile--;
+            labelCounter -=2;
             return varString;
         }
          //-----------------------------------------------------------
@@ -441,6 +455,7 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Multiplication node) {
+            Console.WriteLine("MUL");
             return $"{Visit((dynamic) node[0])} \n" +  
                    $"{Visit((dynamic) node[1])} \n" +
                    "i32.mul \n";
@@ -448,6 +463,9 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Division node) {
+            Console.WriteLine("DIV");
+            Console.WriteLine(Visit((dynamic)node[0]));
+
             return $"{Visit((dynamic) node[0])} \n" +  
                    $"{Visit((dynamic) node[1])} \n" +
                    "i32.div_s \n";        }
@@ -477,7 +495,7 @@ namespace Falak {
             var finalVarId = "";            
             if(functionFlag != "global"){ 
                 if (VGST.ContainsKey(idName)){
-                    finalVarId ="global.get $" + idName + "\n";
+                    finalVarId ="global.get $" + idName + "\n" + ";;expr_var_identifier";
                 }else{
                     
                     finalVarId =  "local.get $" + idName+  "\n";
