@@ -21,18 +21,16 @@
 (local $start i32) 
 i32.const 10
 local.set $start ;; VARIABLE ASSIGN
-(local.get $start)
-i32.const 1 
-i32.sub
-(local.set $start)
+;;START WHILE 
+block $00000
+loop $00001
+i32.const 22
+ 
 local.get $start
-call $printi
-drop
-(local.get $start)
-i32.const 1 
-i32.add
-(local.set $start)
-;; Start String: aaaaa
+ 
+i32.le_s 
+br_if  $00000
+;; Start String: a
 
  i32.const 0
 call $new
@@ -42,26 +40,6 @@ call $new
  local.get $_temp
 local.get $_temp
 local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-
-i32.const 97
- call $add
- drop
-
-i32.const 97
- call $add
- drop
-
-i32.const 97
- call $add
- drop
-
-i32.const 97
- call $add
- drop
 
 i32.const 97
  call $add
@@ -73,9 +51,14 @@ i32.const 10
 ;; End of String
 call $prints
 drop
-local.get $start
-call $printi
-drop
+(local.get $start)
+i32.const 1 
+i32.add
+(local.set $start)
+br $00001
+end
+end
+;; END WHILE 
 i32.const 42
 return
 i32.const 0  

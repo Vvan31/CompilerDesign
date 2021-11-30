@@ -6,10 +6,9 @@
 main() {
     var start;
     start = 10;
-    dec start; 
-    printi(start);
-    inc start;
-    prints("aaaaa\n");
-    printi(start);
+    while(start <= 22){
+        prints("a\n");
+        inc start;
+    }
     return 42;
 }

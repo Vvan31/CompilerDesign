@@ -365,25 +365,25 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Greaterthan node) {
-            return $"{Visit((dynamic) node[0])} \n" +  
-                   $"{Visit((dynamic) node[1])} \n" +
+            return $"{Visit((dynamic) node[1])} \n" +  
+                   $"{Visit((dynamic) node[0])} \n" +
                    "i32.ge_s \n";        
                    }
          //-----------------------------------------------------------
         public string Visit(GreaterthanEquals node) {
-            return $"{Visit((dynamic) node[0])} \n" +  
-                   $"{Visit((dynamic) node[1])} \n" +
-                   "i32.g_ts \n";        }
+            return $"{Visit((dynamic) node[1])} \n" +  
+                   $"{Visit((dynamic) node[0])} \n" +
+                   "i32.gt_s \n";        }
          //-----------------------------------------------------------
         public string Visit(Lessthan node) {
-            return $"{Visit((dynamic) node[0])} \n" +  
-                   $"{Visit((dynamic) node[1])} \n" +
+            return $"{Visit((dynamic) node[1])} \n" +  
+                   $"{Visit((dynamic) node[0])} \n" +
                    "i32.lt_s \n";
         }
          //-----------------------------------------------------------
         public string Visit(LessThanEquals node) {
-            return $"{Visit((dynamic) node[0])} \n" +  
-                   $"{Visit((dynamic) node[1])} \n" +
+            return $"{Visit((dynamic) node[1])} \n" +  
+                   $"{Visit((dynamic) node[0])} \n" +
                    "i32.le_s \n";        }
          //-----------------------------------------------------------
         public string Visit(Plus node) {
