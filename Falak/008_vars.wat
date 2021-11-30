@@ -21,7 +21,7 @@
 (local $_temp i32)
 (local $c i32) 
 i32.const 5
-global.set $c 
+local.set $c ;; VARIABLE ASSIGN
 ;; Start String: Function x
 
  i32.const 0
@@ -119,7 +119,7 @@ i32.const 32
 call $prints
 drop
 global.get $a
-call $printi
+;;expr_var_identifiercall $printi
 drop
 call $println
 drop
@@ -154,7 +154,7 @@ i32.const 32
 call $prints
 drop
 global.get $b
-call $printi
+;;expr_var_identifiercall $printi
 drop
 call $println
 drop
@@ -189,7 +189,7 @@ i32.const 32
 call $prints
 drop
 global.get $c
-call $printi
+;;expr_var_identifiercall $printi
 drop
 call $println
 drop
@@ -205,11 +205,11 @@ i32.const 0
 
 (local $x i32) 
 i32.const 1
-global.set $a 
+global.set $a ;; VARIABLE ASSIGN
 i32.const 2
-global.set $b 
+global.set $b ;; VARIABLE ASSIGN
 i32.const 3
-global.set $c 
+global.set $c ;; VARIABLE ASSIGN
 i32.const 4
 local.set $x ;; VARIABLE ASSIGN
 local.get $x
@@ -327,7 +327,7 @@ i32.const 32
 call $prints
 drop
 global.get $a
-call $printi
+;;expr_var_identifiercall $printi
 drop
 call $println
 drop
@@ -362,7 +362,7 @@ i32.const 32
 call $prints
 drop
 global.get $b
-call $printi
+;;expr_var_identifiercall $printi
 drop
 call $println
 drop
@@ -397,7 +397,7 @@ i32.const 32
 call $prints
 drop
 global.get $c
-call $printi
+;;expr_var_identifiercall $printi
 drop
 call $println
 drop

@@ -20,7 +20,6 @@ print_array(a) {
         inc i;
     }
     printc(']');
-
 }
 
 # Returns the addition of all elements in the array list referred by handle a.
@@ -97,5 +96,4 @@ main() {
     prints("Sorted array:   ");
     print_array(array);
     println();
-
 }

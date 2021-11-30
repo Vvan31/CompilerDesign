@@ -626,8 +626,8 @@ end
 end
 ;; END WHILE 
 ;;START WHILE 
-block $00002
-loop $00003
+block $00000
+loop $00001
 local.get $option
  
 
@@ -643,7 +643,7 @@ i32.const 39
 i32.eq 
  
 i32.or 
-br_if  $00002
+br_if  $00000
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -1151,7 +1151,7 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00003
+br $00001
 end
 end
 ;; END WHILE 

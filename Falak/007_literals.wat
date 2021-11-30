@@ -157,7 +157,7 @@ i32.const 0
 (local $i i32) 
 (local $n i32) 
 i32.const 0
-global.set $fails 
+global.set $fails ;; VARIABLE ASSIGN
 
 i32.const 39
 i32.const 10
@@ -1237,9 +1237,9 @@ i32.const 8364
  i32.const 0
 call $new
 
-local.set $_temp
+ local.set $_temp
 
-local.get $_temp
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -1835,6 +1835,8 @@ local.get $i
 local.get $n
  
 i32.lt_s 
+  
+ i32.eqz
 br_if  $00000
 local.get $a
 local.get $i
@@ -1978,7 +1980,7 @@ end
 end
 ;; END WHILE 
 global.get $fails
-call $printi
+;;expr_var_identifiercall $printi
 drop
 ;; Start String:  assertion failure(s) found.
  i32.const 0

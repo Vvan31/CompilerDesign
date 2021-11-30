@@ -238,8 +238,8 @@ namespace Falak {
                 varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
                 sb.Append(varAssign);
             }else if (VGST.ContainsKey(varName)){
-                sb.Append(VisitChildren (node[0]));
-                sb.Append($"global.set ${varName} \n");
+                sb.Append(VisitChildren (node));
+                sb.Append($"global.set ${varName} ;; VARIABLE ASSIGN\n");
             }
             
             return sb.ToString();
