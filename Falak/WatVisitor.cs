@@ -218,33 +218,44 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Stm_Inc node) {
-             return $"i32.const 1\n" 
-             + $"{Visit((dynamic) node[0])} \n" 
-             + "i32.add \n";       
+            var varName = Visit((dynamic) node[0]);
+            var scopeString = "";
+
+            if (VGST.ContainsKey(varName)){
+                scopeString = "global";
+            } else {
+                scopeString =  "local";
+            }
+            return "(" + scopeString + ".get $" + varName + ")\n"+   
+                   "i32.const 1 \n" +
+                   "i32.add\n"+
+                   "(" + scopeString + ".set $" + varName + ")\n";        
         }
          //-----------------------------------------------------------
         public string Visit(Inc_identifier node) {
             var varName = node.AnchorToken.Lexeme;
-            if (VGST.ContainsKey(varName)){
-                return "global.get $" + varName + "\n";
-            } else {
-                return "local.get $" + varName + "\n";
-            }
+            return varName;
         }
          //-----------------------------------------------------------
         public string Visit(Stm_dec node) {
-            return $"{Visit((dynamic) node[0])} \n" +  
-                   $"i32.const 1 \n" +
-                   "i32.sub\n";          
+            var varName = Visit((dynamic) node[0]);
+            var scopeString = "";
+
+            if (VGST.ContainsKey(varName)){
+                scopeString = "global";
+            } else {
+                scopeString =  "local";
+            }
+
+            return "(" + scopeString + ".get $" + varName + ")\n"+   
+                   "i32.const 1 \n" +
+                   "i32.sub\n"+
+                   "(" + scopeString + ".set $" + varName + ")\n";          
         }
          //-----------------------------------------------------------
         public string Visit(Dec_identifier node) {
             var varName = node.AnchorToken.Lexeme;
-            if (VGST.ContainsKey(varName)){
-                return "global.get $" + varName + "\n";
-            } else {
-                return "local.get $" + varName + "\n";
-            }
+            return varName;
         }
          //-----------------------------------------------------------
         public string Visit(If node) {

@@ -4,17 +4,12 @@
 #>
 
 main() {
-    var n,m,x;
-    prints("holi crayoli\n");
-    if(1 == 1){
-        n = 1;
-        prints("holi crayoli\n");
-    }elseif(2 ==2 ){
-        m = 2;
-    }elseif(3 == 3 ){
-        x = 3;
-    } else {
-        n = 5; 
-    }
+    var start;
+    start = 10;
+    dec start; 
+    printi(start);
+    inc start;
+    prints("aaaaa\n");
+    printi(start);
     return 42;
 }
