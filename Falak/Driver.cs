@@ -53,6 +53,7 @@ namespace Falak {
               
                 //main function? 
                 if(semantic.FGST_Table.ContainsKey("main")){
+                    /*
                     Console.WriteLine("FIRST PASS\n");
                     Console.WriteLine("-----------Global var ------------");
                     foreach (var entry in semantic.VGST) {
@@ -63,6 +64,7 @@ namespace Falak {
                         if(semantic.FGST_Table[entry.Key].isPrimitive == false){
                             Console.WriteLine(entry.Key);
                         }
+                        
                     }
                     
                     //Semantic visitor secoomd pass
@@ -71,6 +73,7 @@ namespace Falak {
                 
                     Console.WriteLine("\nSECOND PASS\n");
                     Console.WriteLine("-----------Functions-----------------");
+                    /*
                     foreach (var entry in semantic2.FGST_Table) {
                         if(semantic.FGST_Table[entry.Key].isPrimitive == false){
                             Console.WriteLine(entry.Key +": "+ string.Join(", ", 
@@ -79,6 +82,7 @@ namespace Falak {
                                 semantic2.FGST_Table[entry.Key].paramLst));
                         }
                     }
+                    */
                     
                     Console.WriteLine("Semantics ok\n");
                 }else{
@@ -89,11 +93,6 @@ namespace Falak {
                 Console.WriteLine();
                 Console.WriteLine("Symbol Table");
                 Console.WriteLine("============");
-                
-                foreach (var entry in semantic.FGST_Table) {
-                    Console.WriteLine(entry);
-                }
-                
                 
                 var outputPath = Path.ChangeExtension(inputPath, ".wat");
                 var codeGenerator = new WatVisitor(semantic.FGST_Table, semantic.VGST);

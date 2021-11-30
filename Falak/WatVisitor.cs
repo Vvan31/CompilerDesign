@@ -13,14 +13,6 @@ namespace Falak {
         //--------------------------------------------------------------
         public  SortedDictionary<string,string> VGST{ get; set;}
         
-        //-----------------------------------------------------------
-        //Depreciated
-        // static readonly IDictionary<Type, string> PrintInstructions =
-        //     new Dictionary<Type, string>() {
-        //         { Type.BOOL, "print_bool" },
-        //         { Type.INT, "print_int" }
-        //     };
-
         public WatVisitor(SortedDictionary<string, FGST_struct> FGST_Table, 
         SortedDictionary<string, string> VGST) {
             this.FGST_Table = FGST_Table;
@@ -60,7 +52,6 @@ namespace Falak {
             return String.Format("${0:00000}", labelCounter++);
         }
 
-    // Rest of the class goes here
         public string Visit(Program node) {
             return "(module\n"
                 + "  (import \"falak\" \"printi\" (func $printi (param i32) (result i32)))\n"
@@ -117,18 +108,8 @@ namespace Falak {
                 //Console.WriteLine(node.ToStringTree());
 
                 foreach (var localVar in node){
-                    //Console.WriteLine(localVar.ToStringTree());
-                    //Console.WriteLine("    (local " + localVar.AnchorToken.Lexeme+" i32)\n");
-                    //Console.WriteLine(VisitChildren(localVar));
                     sb.Append("(local $" + localVar.AnchorToken.Lexeme + " i32) \n");
                 }
-                //Console.WriteLine(sizeof(refl));
-                // foreach (var localVar in FGST_Table[functionFlag].refLst){
-                //     Console.W
-                //     sb.Append("    (local " + localVar+" i32)\n");
-                     
-                // }
-
                 
             }
             return sb.ToString();
@@ -146,21 +127,16 @@ namespace Falak {
         }
          //----------------------------------------------------------
         public string Visit(Var_identifier node) {
-            //Console.WriteLine("vi");
-            //Console.WriteLine(node.ToStringTree());
             return VisitChildren(node);
 
         }
         //-----------------------------------------------------------
-
         public string Visit(Expr_funcall_identifier node) {
             Console.WriteLine(node);
             return(VisitChildren(node) + "\ncall $" + node.AnchorToken.Lexeme + "\n");
         }
 
         public string Visit(Fun_def node) {
-
-            //Give us the name of the function.
             functionFlag = node.AnchorToken.Lexeme; 
             
             var funName = node.AnchorToken.Lexeme;
@@ -189,8 +165,6 @@ namespace Falak {
         }
          //-----------------------------------------------------------
          public string Visit(Local_var_identifier node){
-             //Console.WriteLine("lvi");
-             //Console.WriteLine(node.ToStringTree());
              return VisitChildren(node);
          }
          //-----------------------------------------------------------
@@ -204,21 +178,15 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Stm_list node) {
-            //Console.WriteLine(node.ToStringTree());
             return VisitChildren(node);
         }
          //-----------------------------------------------------------
         public string Visit(Stm_asign node) {
             var sb = new StringBuilder();
             var varName = node.AnchorToken.Lexeme;
-            //Console.WriteLine(varName);
-            //Console.WriteLine(functionFlag);
-            //Console.WriteLine(node.ToStringTree());
-            //Console.WriteLine(FGST_Table[functionFlag].ContainsKey(varName));
             foreach(KeyValuePair<string, Falak.FGST_struct> fg in FGST_Table){
-                //Console.WriteLine(fg.Key);
-                if (fg.Key ==functionFlag){
-                    //Console.WriteLine(varName);
+
+                if (fg.Key == functionFlag){
                     var varAssign = "";
                     varAssign += VisitChildren(node);
                     varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
@@ -227,8 +195,6 @@ namespace Falak {
             }
             
             if(FGST_Table[functionFlag].refLst.Contains(varName)){ //Es una variable local
-                //sb.Append(Visit((dynamic)node[0]));
-                //Console.WriteLine(node.ToStringTree());
                 var varAssign = "";
                 varAssign += VisitChildren(node);
                 varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
@@ -243,7 +209,8 @@ namespace Falak {
          //-----------------------------------------------------------
         public string Visit(Stm_funcall node) {
             return VisitChildren(node) 
-                   + "call $" + node.AnchorToken.Lexeme + "\n";
+                   + "call $" + node.AnchorToken.Lexeme 
+                   + "\ndrop\n";
         }
          //-----------------------------------------------------------
         public string Visit(Stm_funcall_Exprlist node) {
@@ -455,7 +422,6 @@ namespace Falak {
 
         
         public string Visit(Expr_var_identifier node) {
-            //Console.WriteLine(node.ToStringTree());
             var idName = node.AnchorToken.Lexeme;
             var finalVarId = "";            
             if(functionFlag != "global"){ 
@@ -468,7 +434,6 @@ namespace Falak {
             }else{ // Not in a function
                 finalVarId = "global.get $" + idName + "\n";
             }
-
             return finalVarId;
 
         } 
@@ -519,12 +484,10 @@ namespace Falak {
             //wantedString = wantedString.Replace("\\'","\'");
             //wantedString = wantedString.Replace("\\"","\"");
 
-
             var code = ";; Start String: " + wantedString;
             code += "\n i32.const 0\ncall $new\n";
             code += "\n local.set $_temp\n";
             code += "\n local.get $_temp\n";
-
             
             char[] charArr = wantedString.ToCharArray();
 
@@ -532,17 +495,13 @@ namespace Falak {
                 code += "local.get $_temp\n";
             }
 
-
             var specialCharFlag = 0;
             foreach (var c in charArr){ 
-
                 code += "\ni32.const " + (short)c  + 
                         "\n call $add"+
                         "\n drop\n";
             }
-
             code += ";; End of String\n";
-
             return code;
         }
         //-----------------------------------------------------------
