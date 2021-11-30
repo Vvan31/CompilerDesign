@@ -19,10 +19,11 @@
 (param $value2 i32)
 (param $message i32)
 (result i32) 
-i32.const 1
-global.get $asserts
- 
-i32.add 
+(local $_temp i32)
+(global.get $asserts)
+i32.const 1 
+i32.add
+(global.set $asserts)
 ;; IF statement 
 local.get $value1
  
@@ -31,10 +32,10 @@ local.get $value2
 i32.ne 
 if
 ;;; Stmlist if
- i32.const 1
-global.get $fails
- 
-i32.add 
+ (global.get $fails)
+i32.const 1 
+i32.add
+(global.set $fails)
 ;; Start String: Assertion failure: 
  i32.const 0
 call $new
@@ -139,9 +140,12 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 local.get $message
 call $prints
+drop
 call $println
+drop
 end
 i32.const 0  
 
@@ -153,22 +157,22 @@ i32.const 0
 )
 
  (func $true_fun
-owo lit true
+    i32.const 1
 return
 i32.const 0  
 
 )
 
  (func $false_fun
-owo lit false
+    i32.const 0
 return
 i32.const 0  
 
 )
 
  (func $never_called
-owo lit false
-owo lit true
+    i32.const 0
+    i32.const 1
 ;; Start String: error in short circuit operator
  i32.const 0
 call $new
@@ -333,6 +337,7 @@ i32.const 114
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0  
 
 )
@@ -343,12 +348,8 @@ i32.const 0
     (result i32)
 (local $_temp i32)
 
-i32.const 0
-local.set $fails ;; VARIABLE ASSIGN
-i32.const 0
+i32.const 01111111111111111111111111
 global.set $fails 
-i32.const 0
-local.set $asserts ;; VARIABLE ASSIGN
 i32.const 0
 global.set $asserts 
 i32.const -0
@@ -462,6 +463,7 @@ i32.const 115
  drop
 ;; End of String
 call $assert
+drop
 i32.const -5
     i32.const 0
     i32.const 0
@@ -579,6 +581,7 @@ i32.const 115
  drop
 ;; End of String
 call $assert
+drop
 i32.const 7
     i32.const 0
     i32.const 0
@@ -694,6 +697,7 @@ i32.const 115
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 i32.const +0
 ;; Start String: error in unary plus
@@ -800,6 +804,7 @@ i32.const 115
  drop
 ;; End of String
 call $assert
+drop
 i32.const 5
 i32.const 5
  
@@ -909,6 +914,7 @@ i32.const 115
  drop
 ;; End of String
 call $assert
+drop
 i32.const 7
 i32.const 7
  
@@ -1017,6 +1023,7 @@ i32.const 115
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 i32.const 42
  
@@ -1147,6 +1154,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 42
 i32.const 6
  
@@ -1277,6 +1285,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 42
 i32.const -6
  
@@ -1407,6 +1416,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const -42
 i32.const 6
  
@@ -1537,12 +1547,13 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 i32.const 1
  
 i32.const 2
  
-i32.div_u 
+i32.div_s 
 ;; Start String: error in division
  i32.const 0
 call $new
@@ -1637,12 +1648,13 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 6
 i32.const 20
  
 i32.const 3
  
-i32.div_u 
+i32.div_s 
 ;; Start String: error in division
  i32.const 0
 call $new
@@ -1737,12 +1749,13 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const -6
 i32.const -20
  
 i32.const 3
  
-i32.div_u 
+i32.div_s 
 ;; Start String: error in division
  i32.const 0
 call $new
@@ -1837,12 +1850,13 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 6
 i32.const -20
  
 i32.const -3
  
-i32.div_u 
+i32.div_s 
 ;; Start String: error in division
  i32.const 0
 call $new
@@ -1937,6 +1951,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 2
 i32.const 20
  
@@ -2042,6 +2057,7 @@ i32.const 114
  drop
 ;; End of String
 call $assert
+drop
 i32.const -2
 i32.const -20
  
@@ -2147,6 +2163,7 @@ i32.const 114
  drop
 ;; End of String
 call $assert
+drop
 i32.const -2
 i32.const -20
  
@@ -2252,6 +2269,7 @@ i32.const 114
  drop
 ;; End of String
 call $assert
+drop
 i32.const 42
 i32.const 22
  
@@ -2352,6 +2370,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 2
 i32.const 22
  
@@ -2452,6 +2471,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const -42
 i32.const -22
  
@@ -2552,6 +2572,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 42
 i32.const 80
  
@@ -2672,6 +2693,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const -118
 i32.const -80
  
@@ -2792,6 +2814,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const -42
 i32.const -80
  
@@ -2912,8 +2935,9 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
-owo lit true
+    i32.const 1
  
 i32.eqz 
 ;; Start String: error in logical NOT
@@ -3025,8 +3049,9 @@ i32.const 84
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
-owo lit false
+    i32.const 0
  
 i32.eqz 
 ;; Start String: error in logical NOT
@@ -3138,8 +3163,9 @@ i32.const 84
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
-owo lit true
+    i32.const 1
  
 i32.eqz 
  
@@ -3255,10 +3281,11 @@ i32.const 84
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
-owo lit false
+    i32.const 0
  
-owo lit false
+    i32.const 0
  
 i32.and 
 ;; Start String: error in logical AND
@@ -3370,10 +3397,11 @@ i32.const 68
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
-owo lit true
+    i32.const 1
  
-owo lit false
+    i32.const 0
  
 i32.and 
 ;; Start String: error in logical AND
@@ -3485,10 +3513,11 @@ i32.const 68
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
-owo lit false
+    i32.const 0
  
-owo lit true
+    i32.const 1
  
 i32.and 
 ;; Start String: error in logical AND
@@ -3600,10 +3629,11 @@ i32.const 68
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
-owo lit true
+    i32.const 1
  
-owo lit true
+    i32.const 1
  
 i32.and 
 ;; Start String: error in logical AND
@@ -3715,6 +3745,7 @@ i32.const 68
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 
 call $false_fun
@@ -3832,10 +3863,11 @@ i32.const 68
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
-owo lit false
+    i32.const 0
  
-owo lit false
+    i32.const 0
  
 i32.or 
 ;; Start String: error in logical OR
@@ -3942,10 +3974,11 @@ i32.const 82
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
-owo lit true
+    i32.const 1
  
-owo lit false
+    i32.const 0
  
 i32.or 
 ;; Start String: error in logical OR
@@ -4052,10 +4085,11 @@ i32.const 82
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
-owo lit false
+    i32.const 0
  
-owo lit true
+    i32.const 1
  
 i32.or 
 ;; Start String: error in logical OR
@@ -4162,10 +4196,11 @@ i32.const 82
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
-owo lit true
+    i32.const 1
  
-owo lit true
+    i32.const 1
  
 i32.or 
 ;; Start String: error in logical OR
@@ -4272,6 +4307,7 @@ i32.const 82
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
 
 call $true_fun
@@ -4384,10 +4420,11 @@ i32.const 82
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
-owo lit false
+    i32.const 0
  
-owo lit false
+    i32.const 0
  
 i32.or 
 ;; Start String: error in logical XOR
@@ -4499,10 +4536,11 @@ i32.const 82
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
-owo lit true
+    i32.const 1
  
-owo lit false
+    i32.const 0
  
 i32.or 
 ;; Start String: error in logical XOR
@@ -4614,125 +4652,11 @@ i32.const 82
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
-owo lit false
+    i32.const 0
  
-owo lit true
- 
-i32.or 
-;; Start String: error in logical XOR
- i32.const 0
-call $new
-
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-
-i32.const 101
- call $add
- drop
-
-i32.const 114
- call $add
- drop
-
-i32.const 114
- call $add
- drop
-
-i32.const 111
- call $add
- drop
-
-i32.const 114
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 105
- call $add
- drop
-
-i32.const 110
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 108
- call $add
- drop
-
-i32.const 111
- call $add
- drop
-
-i32.const 103
- call $add
- drop
-
-i32.const 105
- call $add
- drop
-
-i32.const 99
- call $add
- drop
-
-i32.const 97
- call $add
- drop
-
-i32.const 108
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 88
- call $add
- drop
-
-i32.const 79
- call $add
- drop
-
-i32.const 82
- call $add
- drop
-;; End of String
-call $assert
-i32.const 0
-owo lit true
- 
-owo lit true
+    i32.const 1
  
 i32.or 
 ;; Start String: error in logical XOR
@@ -4844,7 +4768,124 @@ i32.const 82
  drop
 ;; End of String
 call $assert
-owo lit false
+drop
+i32.const 0
+    i32.const 1
+ 
+    i32.const 1
+ 
+i32.or 
+;; Start String: error in logical XOR
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 103
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 99
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 88
+ call $add
+ drop
+
+i32.const 79
+ call $add
+ drop
+
+i32.const 82
+ call $add
+ drop
+;; End of String
+call $assert
+drop
+    i32.const 0
 i32.const 0
  
 i32.const 0
@@ -4959,7 +5000,8 @@ i32.const 82
  drop
 ;; End of String
 call $assert
-owo lit true
+drop
+    i32.const 1
 i32.const 6
  
 i32.const 7
@@ -5078,7 +5120,8 @@ i32.const 82
  drop
 ;; End of String
 call $assert
-owo lit true
+drop
+    i32.const 1
 i32.const 6
  
 i32.const 3
@@ -5205,7 +5248,8 @@ i32.const 82
  drop
 ;; End of String
 call $assert
-owo lit false
+drop
+    i32.const 0
 i32.const 7
  
 i32.const 2
@@ -5324,6 +5368,7 @@ i32.const 82
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
 i32.const 42
  
@@ -5424,6 +5469,7 @@ i32.const 111
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 i32.const 42
  
@@ -5524,6 +5570,7 @@ i32.const 111
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
 i32.const 42
  
@@ -5644,6 +5691,7 @@ i32.const 111
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 i32.const 42
  
@@ -5764,12 +5812,13 @@ i32.const 111
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
 i32.const 43
  
 i32.const 42
  
-i32.ge_s 
+i32.gt_s 
 ;; Start String: error in greater than
  i32.const 0
 call $new
@@ -5884,12 +5933,13 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 i32.const 42
  
 i32.const 42
  
-i32.ge_s 
+i32.gt_s 
 ;; Start String: error in greater than
  i32.const 0
 call $new
@@ -6004,6 +6054,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
 i32.const 42
  
@@ -6109,6 +6160,7 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 i32.const 42
  
@@ -6214,12 +6266,13 @@ i32.const 110
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
 i32.const 43
  
 i32.const 42
  
-i32.g_ts 
+i32.ge_s 
 ;; Start String: error in greater or equal
  i32.const 0
 call $new
@@ -6354,12 +6407,13 @@ i32.const 108
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
 i32.const 42
  
 i32.const 42
  
-i32.g_ts 
+i32.ge_s 
 ;; Start String: error in greater or equal
  i32.const 0
 call $new
@@ -6494,12 +6548,13 @@ i32.const 108
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 i32.const 42
  
 i32.const 43
  
-i32.g_ts 
+i32.ge_s 
 ;; Start String: error in greater or equal
  i32.const 0
 call $new
@@ -6634,6 +6689,7 @@ i32.const 108
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
 i32.const 42
  
@@ -6759,6 +6815,7 @@ i32.const 108
  drop
 ;; End of String
 call $assert
+drop
 i32.const 1
 i32.const 42
  
@@ -6884,6 +6941,7 @@ i32.const 108
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 i32.const 43
  
@@ -7009,6 +7067,7 @@ i32.const 108
  drop
 ;; End of String
 call $assert
+drop
 i32.const 0
 
 call $some_fun
@@ -7131,8 +7190,10 @@ i32.const 108
  drop
 ;; End of String
 call $assert
+drop
 global.get $fails
 call $printi
+drop
 ;; Start String:  failure(s) found in 
  i32.const 0
 call $new
@@ -7247,8 +7308,10 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 global.get $asserts
 call $printi
+drop
 ;; Start String:  assertion(s).
 
  i32.const 0
@@ -7334,6 +7397,7 @@ i32.const 10
  drop
 ;; End of String
 call $prints
+drop
 i32.const 0  
 
 )

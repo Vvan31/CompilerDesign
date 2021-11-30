@@ -39,6 +39,8 @@ local.get $i
 local.get $n
  
 i32.lt_s 
+  
+ i32.eqz
 br_if  $00000
 ;; IF statement 
 local.get $first
@@ -115,6 +117,8 @@ local.get $i
 local.get $n
  
 i32.lt_s 
+  
+ i32.eqz
 br_if  $00000
 local.get $sum
  
@@ -166,6 +170,8 @@ local.get $i
 local.get $n
  
 i32.lt_s 
+  
+ i32.eqz
 br_if  $00000
 local.get $a
 local.get $i
@@ -224,6 +230,8 @@ i32.const 1
 i32.sub 
  
 i32.lt_s 
+  
+ i32.eqz
 br_if  $00000
 i32.const 0
 local.set $j ;; VARIABLE ASSIGN
@@ -245,6 +253,8 @@ i32.const 1
 i32.sub 
  
 i32.lt_s 
+  
+ i32.eqz
 br_if  $00002
 ;; IF statement 
 local.get $a

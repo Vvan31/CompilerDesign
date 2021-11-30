@@ -3,10 +3,15 @@
    (C) 2021 Ariel Ortiz, ITESM CEM.
 #>
 
+var owo;
 main() {
     var start,finish;
+
     start = 0;
     finish = 6;
+
+    owo = 3;
+
     if(start<finish){
         prints("a");
         println();
@@ -17,4 +22,5 @@ main() {
         inc start;
         dec finish;
     }
+   
 }

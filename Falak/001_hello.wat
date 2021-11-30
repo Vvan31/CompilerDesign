@@ -10,6 +10,7 @@
   (import "falak" "add" (func $add (param i32 i32) (result i32)))
   (import "falak" "get" (func $get (param i32 i32) (result i32)))
   (import "falak" "set" (func $set (param i32 i32 i32) (result i32)))
+(global $owo(mut i32) (i32.const 0)) 
 
 
  (func 
@@ -24,6 +25,8 @@ i32.const 0
 local.set $start ;; VARIABLE ASSIGN
 i32.const 6
 local.set $finish ;; VARIABLE ASSIGN
+i32.const 3
+global.set $owo 
 ;; IF statement 
 local.get $start
  
@@ -58,7 +61,6 @@ local.get $start
 local.get $finish
  
 i32.gt_s 
-i32.eqz
 br_if  $00000
 ;; Start String: b
  i32.const 0

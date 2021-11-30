@@ -4,6 +4,19 @@ using System.Text;
 using System.Collections.Generic;
 
 namespace Falak {
+    // class CodePoints {
+    // public static IList<int> AsCodePoints(String str) {
+    //     var result = new List<int>(str.Length);
+    //     for (var i = 0; i < str.Length; i++) {
+    //         result.Add(char.ConvertToUtf32(str, i));
+    //         if (char.IsHighSurrogate(str, i)) {
+    //             i++;
+    //         }
+    //     }
+    //     return result;
+    //     }
+    // }
+
    
     class WatVisitor {
         public string functionFlag = "global"; 
@@ -199,8 +212,12 @@ namespace Falak {
             var sb = new StringBuilder();
             var varName = node.AnchorToken.Lexeme;
             foreach(KeyValuePair<string, Falak.FGST_struct> fg in FGST_Table){
-
-                if (fg.Key == functionFlag){
+        
+                if (VGST.ContainsKey(varName) && fg.Key == functionFlag){
+                    sb.Append(Visit((dynamic) node[0]));
+                    sb.Append($"global.set ${varName} \n");
+                }
+                else if (fg.Key == functionFlag){
                     var varAssign = "";
                     varAssign += VisitChildren(node);
                     varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
@@ -208,15 +225,15 @@ namespace Falak {
                 } 
             }
             
-            if(FGST_Table[functionFlag].refLst.Contains(varName)){ //Es una variable local
-                var varAssign = "";
-                varAssign += VisitChildren(node);
-                varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
-                sb.Append(varAssign);
-            }else if (VGST.ContainsKey(varName)){
-                sb.Append(Visit((dynamic) node[0]));
-                sb.Append($"global.set ${varName} \n");
-            }
+            // if(FGST_Table[functionFlag].refLst.Contains(varName)){ //Es una variable local
+            //     var varAssign = "";
+            //     varAssign += VisitChildren(node);
+            //     varAssign += $"local.set ${varName} ;; VARIABLE ASSIGN\n";
+            //     sb.Append(varAssign);
+            // }else if (VGST.ContainsKey(varName)){
+            //     sb.Append(Visit((dynamic) node[0]));
+            //     sb.Append($"global.set ${varName} \n");
+            // }
             return sb.ToString();
 
         }
@@ -317,6 +334,7 @@ namespace Falak {
             "block " + label1 + "\n"+
             "loop " + label2 + "\n"+
             Visit((dynamic) node[0])+ 
+            "  \n i32.eqz\n" + 
             $"br_if  " + label1 + "\n" +
             Visit((dynamic) node[1])+ //The Conditional
             "br " + label2 +"\n"+
@@ -512,6 +530,11 @@ namespace Falak {
             wantedString = wantedString.Replace("\\n","\n");
             wantedString = wantedString.Replace("\\r","\r");
             wantedString = wantedString.Replace("\\t","\t");
+
+            //TODO: Pasar un char Unicode en un string a una constante.
+            //wantedString = wantedString.Replace("\\u","\u");
+
+
             //PUEDE O PUEDE QUE NO SE USE 
             //wantedString = wantedString.Replace("\\\\","\\");
             //wantedString = wantedString.Replace("\\'","\'");

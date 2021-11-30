@@ -37,7 +37,6 @@ local.get $start
 local.get $finish
  
 i32.lt_s 
-i32.eqz
 br_if  $00000
 local.get $array
 local.get $start
@@ -169,15 +168,14 @@ call $new
 ;; End of String
 local.set $result ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00002
-loop $00003
+block $00000
+loop $00001
 local.get $num
  
 i32.const 0
  
 i32.gt_s 
-i32.eqz
-br_if  $00002
+br_if  $00000
 local.get $num
  
 i32.const 2
@@ -204,7 +202,7 @@ i32.div_s
 local.set $num ;; VARIABLE ASSIGN
 call $println
 drop
-br $00003
+br $00001
 end
 end
 ;; END WHILE 
@@ -226,8 +224,8 @@ i32.const 0
 (local $option i32) 
 (local $num i32) 
 ;;START WHILE 
-block $00004
-loop $00005
+block $00000
+loop $00001
 local.get $option
  
 
@@ -243,7 +241,7 @@ i32.const 39
 i32.eq 
  
 i32.or 
-br_if  $00004
+br_if  $00000
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -694,13 +692,13 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00005
+br $00001
 end
 end
 ;; END WHILE 
 ;;START WHILE 
-block $00006
-loop $00007
+block $00002
+loop $00003
 local.get $option
  
 
@@ -716,7 +714,7 @@ i32.const 39
 i32.eq 
  
 i32.or 
-br_if  $00006
+br_if  $00002
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -1167,7 +1165,7 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00007
+br $00003
 end
 end
 ;; END WHILE 

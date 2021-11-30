@@ -15,6 +15,7 @@ is_palindrome(str) {
     printi(finish);
     println();
     while (start < finish) {
+        prints("aa");
         if (get(str, start) != get(str, finish)) {
             return false;
         }

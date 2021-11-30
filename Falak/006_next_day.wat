@@ -15,6 +15,7 @@
  (func $is_leap_year
 (param $y i32)
 (result i32) 
+(local $_temp i32)
 ;; IF statement 
 local.get $y
  
@@ -157,6 +158,7 @@ i32.const 0
 (param $m i32)
 (param $d i32)
 (result i32) 
+(local $_temp i32)
 ;; IF statement 
 local.get $d
  

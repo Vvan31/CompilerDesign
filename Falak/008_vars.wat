@@ -21,10 +21,8 @@
 (local $_temp i32)
 (local $c i32) 
 i32.const 5
-local.set $c ;; VARIABLE ASSIGN
-i32.const 5
 global.set $c 
-;; Start StringFunction x
+;; Start String: Function x
 
  i32.const 0
 call $new
@@ -89,7 +87,8 @@ i32.const 10
  drop
 ;; End of String
 call $prints
-;; Start Stringa = 
+drop
+;; Start String: a = 
  i32.const 0
 call $new
 
@@ -118,10 +117,13 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 global.get $a
 call $printi
+drop
 call $println
-;; Start Stringb = 
+drop
+;; Start String: b = 
  i32.const 0
 call $new
 
@@ -150,10 +152,13 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 global.get $b
 call $printi
+drop
 call $println
-;; Start Stringc = 
+drop
+;; Start String: c = 
  i32.const 0
 call $new
 
@@ -182,9 +187,12 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 global.get $c
 call $printi
+drop
 call $println
+drop
 i32.const 0  
 
 )
@@ -197,22 +205,17 @@ i32.const 0
 
 (local $x i32) 
 i32.const 1
-local.set $a ;; VARIABLE ASSIGN
-i32.const 1
 global.set $a 
 i32.const 2
-local.set $b ;; VARIABLE ASSIGN
-i32.const 2
 global.set $b 
-i32.const 3
-local.set $c ;; VARIABLE ASSIGN
 i32.const 3
 global.set $c 
 i32.const 4
 local.set $x ;; VARIABLE ASSIGN
 local.get $x
 call $x
-;; Start StringFunction main
+drop
+;; Start String: Function main
 
  i32.const 0
 call $new
@@ -292,7 +295,8 @@ i32.const 10
  drop
 ;; End of String
 call $prints
-;; Start Stringa = 
+drop
+;; Start String: a = 
  i32.const 0
 call $new
 
@@ -321,10 +325,13 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 global.get $a
 call $printi
+drop
 call $println
-;; Start Stringb = 
+drop
+;; Start String: b = 
  i32.const 0
 call $new
 
@@ -353,10 +360,13 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 global.get $b
 call $printi
+drop
 call $println
-;; Start Stringc = 
+drop
+;; Start String: c = 
  i32.const 0
 call $new
 
@@ -385,10 +395,13 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 global.get $c
 call $printi
+drop
 call $println
-;; Start Stringx = 
+drop
+;; Start String: x = 
  i32.const 0
 call $new
 
@@ -417,9 +430,12 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 local.get $x
 call $printi
+drop
 call $println
+drop
 i32.const 0  
 
 )
