@@ -22,6 +22,16 @@
 (local $temp i32) 
 i32.const 0
 local.set $start ;; VARIABLE ASSIGN
+i32.const 0
+local.set $start ;; VARIABLE ASSIGN
+local.get $array
+
+call $size
+ 
+i32.const 1
+ 
+i32.sub 
+local.set $finish ;; VARIABLE ASSIGN
 local.get $array
 
 call $size
@@ -39,6 +49,11 @@ local.get $finish
  
 i32.lt_s 
 br_if  $00000
+local.get $array
+local.get $start
+
+call $get
+local.set $temp ;; VARIABLE ASSIGN
 local.get $array
 local.get $start
 
@@ -85,7 +100,7 @@ i32.const 0
 i32.le_s 
 if
 ;;; Stmlist if
- ;; Start String0
+ ;; Start String: 0
  i32.const 0
 call $new
 
@@ -99,7 +114,6 @@ i32.const 48
  drop
 ;; End of String
 return
-;;; elseif list 
 ;; elseif statement 
 else
 local.get $num
@@ -109,7 +123,7 @@ i32.const 2
 i32.le_s 
 
 if
-;; Start String1
+;; Start String: 1
  i32.const 0
 call $new
 
@@ -125,7 +139,17 @@ i32.const 49
 return
 
 end
-;; Start String
+end
+;; Start String: 
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+;; End of String
+local.set $result ;; VARIABLE ASSIGN
+;; Start String: 
  i32.const 0
 call $new
 
@@ -143,6 +167,12 @@ i32.const 0
  
 i32.ge_s 
 br_if  $00002
+local.get $num
+ 
+i32.const 2
+ 
+i32.rem_s 
+local.set $remainder ;; VARIABLE ASSIGN
 local.get $num
  
 i32.const 2
@@ -167,7 +197,7 @@ br $00003
 end
 end
 ;; END WHILE 
-;; Start StringSTRING
+;; Start String: STRING
  i32.const 0
 call $new
 
@@ -218,12 +248,14 @@ i32.const 0
     (result i32)
 (local $_temp i32)
 
+(param $x i32)
+(result i32) 
 (local $option i32) 
 (local $num i32) 
 ;;START WHILE 
 block $00004
 loop $00005
-;; Start StringInput a number: 
+;; Start String: Input a number: 
  i32.const 0
 call $new
 
@@ -315,7 +347,10 @@ call $prints
 
 call $readi
 local.set $num ;; VARIABLE ASSIGN
-;; Start StringConversion to binary of that number: 
+
+call $readi
+local.set $num ;; VARIABLE ASSIGN
+;; Start String: Conversion to binary of that number: 
  i32.const 0
 call $new
 
@@ -514,7 +549,7 @@ local.get $num
 call $binary
 call $prints
 call $println
-;; Start StringConvert another number? 
+;; Start String: Convert another number? 
  i32.const 0
 call $new
 
@@ -646,6 +681,9 @@ call $prints
 
 call $reads
 local.set $option ;; VARIABLE ASSIGN
+
+call $reads
+local.set $option ;; VARIABLE ASSIGN
 ;; IF statement 
 local.get $option
 
@@ -659,7 +697,22 @@ if
  
 i32.const 39
 local.set $option ;; VARIABLE ASSIGN
-;;; elseif list 
+
+i32.const 39
+local.set $option ;; VARIABLE ASSIGN
+;; else statement 
+else
+local.get $option
+i32.const 0
+
+call $get
+local.set $option ;; VARIABLE ASSIGN
+local.get $option
+i32.const 0
+
+call $get
+local.set $option ;; VARIABLE ASSIGN
+
 end
 br_if $00004
 local.get $option
@@ -684,7 +737,7 @@ end
 ;;START WHILE 
 block $00006
 loop $00007
-;; Start StringInput a number: 
+;; Start String: Input a number: 
  i32.const 0
 call $new
 
@@ -776,7 +829,10 @@ call $prints
 
 call $readi
 local.set $num ;; VARIABLE ASSIGN
-;; Start StringConversion to binary of that number: 
+
+call $readi
+local.set $num ;; VARIABLE ASSIGN
+;; Start String: Conversion to binary of that number: 
  i32.const 0
 call $new
 
@@ -975,7 +1031,7 @@ local.get $num
 call $binary
 call $prints
 call $println
-;; Start StringConvert another number? 
+;; Start String: Convert another number? 
  i32.const 0
 call $new
 
@@ -1107,6 +1163,9 @@ call $prints
 
 call $reads
 local.set $option ;; VARIABLE ASSIGN
+
+call $reads
+local.set $option ;; VARIABLE ASSIGN
 ;; IF statement 
 local.get $option
 
@@ -1120,7 +1179,22 @@ if
  
 i32.const 39
 local.set $option ;; VARIABLE ASSIGN
-;;; elseif list 
+
+i32.const 39
+local.set $option ;; VARIABLE ASSIGN
+;; else statement 
+else
+local.get $option
+i32.const 0
+
+call $get
+local.set $option ;; VARIABLE ASSIGN
+local.get $option
+i32.const 0
+
+call $get
+local.set $option ;; VARIABLE ASSIGN
+
 end
 br_if $00006
 local.get $option

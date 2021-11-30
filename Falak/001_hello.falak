@@ -4,14 +4,17 @@
 #>
 
 main() {
+    var n,m,x;
+    prints("holi crayoli\n");
     if(1 == 1){
+        n = 1;
         prints("holi crayoli\n");
     }elseif(2 ==2 ){
-        prints("owo");
+        m = 2;
     }elseif(3 == 3 ){
-        prints("UwU");
+        x = 3;
     } else {
-        prints("hell"); 
+        n = 5; 
     }
     return 42;
 }

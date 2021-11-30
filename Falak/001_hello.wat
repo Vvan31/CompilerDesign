@@ -18,6 +18,84 @@
     (result i32)
 (local $_temp i32)
 
+(local $n i32) 
+(local $m i32) 
+(local $x i32) 
+;; Start String: holi crayoli
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 104
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 99
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 121
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+call $prints
 ;; IF statement 
 i32.const 1
  
@@ -26,7 +104,11 @@ i32.const 1
 i32.eq 
 if
 ;;; Stmlist if
- ;; Start String: holi crayoli
+ i32.const 1
+local.set $n ;; VARIABLE ASSIGN
+i32.const 1
+local.set $n ;; VARIABLE ASSIGN
+;; Start String: holi crayoli
 
  i32.const 0
 call $new
@@ -110,30 +192,10 @@ i32.const 2
 i32.eq 
 
 if
-;; Start String: owo
- i32.const 0
-call $new
-
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-
-i32.const 111
- call $add
- drop
-
-i32.const 119
- call $add
- drop
-
-i32.const 111
- call $add
- drop
-;; End of String
-call $prints
+i32.const 2
+local.set $m ;; VARIABLE ASSIGN
+i32.const 2
+local.set $m ;; VARIABLE ASSIGN
 
 ;; elseif statement 
 else
@@ -144,63 +206,20 @@ i32.const 3
 i32.eq 
 
 if
-;; Start String: UwU
- i32.const 0
-call $new
-
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-
-i32.const 85
- call $add
- drop
-
-i32.const 119
- call $add
- drop
-
-i32.const 85
- call $add
- drop
-;; End of String
-call $prints
+i32.const 3
+local.set $x ;; VARIABLE ASSIGN
+i32.const 3
+local.set $x ;; VARIABLE ASSIGN
 
 ;; else statement 
 else
-;; Start String: hell
- i32.const 0
-call $new
+i32.const 5
+local.set $n ;; VARIABLE ASSIGN
+i32.const 5
+local.set $n ;; VARIABLE ASSIGN
 
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-
-i32.const 104
- call $add
- drop
-
-i32.const 101
- call $add
- drop
-
-i32.const 108
- call $add
- drop
-
-i32.const 108
- call $add
- drop
-;; End of String
-call $prints
-
+end
+end
 end
 i32.const 42
 return

@@ -54,6 +54,7 @@ namespace Falak {
         // }
         ///=========
         int labelCounter = 0;
+        int else_if = 0;
 
         public String GenerateLabel() {
             return String.Format("${0:00000}", labelCounter++);
@@ -241,23 +242,18 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Stm_funcall node) {
-            return VisitChildren(node) + "call $" + node.AnchorToken.Lexeme + "\n";
+            return VisitChildren(node) 
+                   + "call $" + node.AnchorToken.Lexeme + "\n";
         }
          //-----------------------------------------------------------
         public string Visit(Stm_funcall_Exprlist node) {
-            //Console.WriteLine("STM_FUNCALL_EXPRLIST");
-            //Console.WriteLine(node);
-            //var funCall = node.AnchorToken.Lexeme;
-            //Console.WriteLine(node);
-            //Console.WriteLine(funCall);
-            ///Console.WriteLine(VisitChildren(node));
             return VisitChildren(node);
         }
          //-----------------------------------------------------------
         public string Visit(Stm_Inc node) {
-             return $"i32.const 1\n" + 
-                   $"{Visit((dynamic) node[0])} \n" +
-                   "i32.add \n";       
+             return $"i32.const 1\n" 
+             + $"{Visit((dynamic) node[0])} \n" 
+             + "i32.add \n";       
         }
          //-----------------------------------------------------------
         public string Visit(Inc_identifier node) {
@@ -286,13 +282,18 @@ namespace Falak {
          //-----------------------------------------------------------
         public string Visit(If node) {
             Console.WriteLine(node.ToStringTree());
-            return  ";; IF statement \n" 
+            var finalString = ";; IF statement \n" 
                 + Visit((dynamic) node[0]) // Expressions 
                 + "if\n"
                 + ";;; Stmlist if\n "
                 + Visit((dynamic) node[1]) //stm list 
                 + Visit((dynamic) node[2])//elseif list
                 + "end\n";
+            while(else_if>0){
+                finalString += "end\n";
+                else_if --;
+            }
+            return finalString;
         }
          //-----------------------------------------------------------
         public string Visit(Elseif_list node) {
@@ -301,12 +302,12 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Elseif node) {
+            else_if ++;
              return ";; elseif statement \n" 
              +"else\n"
              + Visit((dynamic)node[0]) + "\n"
              + "if\n"
              + Visit((dynamic)node[1]) + "\n";
-            
         }
          //-----------------------------------------------------------
         public string Visit(Else node) {

@@ -38,7 +38,7 @@ never_called() {
 
 main() {
 
-    fails = 0;
+    fails = 01111111111111111111111111;
     asserts = 0;
 
     assert(-0, 0, "error in unary minus");
