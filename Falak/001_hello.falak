@@ -6,25 +6,10 @@
 var owo;
 var ewe;
 main() {
-    var start,finish;
-    var owo;
-    owo = 5;
-    ewe = 4;
-    start = 0;
-    finish = 6;
+
+    prints("E we paro\n")
+   #nice
+   return 69; 
 
 
-    owo = 3;
-
-    if(start<finish){
-        prints("a");
-        println();
-    }
-    while(start<finish) {
-        prints("b");
-        println();
-        inc start;
-        dec finish;
-    }
-   
 }

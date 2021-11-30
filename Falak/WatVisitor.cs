@@ -19,6 +19,7 @@ namespace Falak {
 
    
     class WatVisitor {
+
         public string functionFlag = "global"; 
         
         public SortedDictionary<string, FGST_struct> FGST_Table{get;  set; }
@@ -31,7 +32,8 @@ namespace Falak {
             this.FGST_Table = FGST_Table;
             this.VGST = VGST;
         }
-      
+
+        public CodePoints codPoints =  new CodePoints();      
         //-----------------------------------------------------------
         // public string Visit(Assignment node) {
         //     return Visit((dynamic) node[0])
@@ -63,6 +65,8 @@ namespace Falak {
         int else_if = 0;
 
         int YeEstaElTemp = 0;
+
+
         
 
         public String GenerateLabel() {
@@ -541,6 +545,8 @@ namespace Falak {
         }
         //-----------------------------------------------------------
         public string Visit(Lit_str node) {
+
+
             var wantedString = node.AnchorToken.Lexeme;
             wantedString = wantedString.Remove(wantedString.Length-1,1);
             wantedString = wantedString.Remove(0,1);
@@ -558,20 +564,24 @@ namespace Falak {
             //wantedString = wantedString.Replace("\\'","\'");
             //wantedString = wantedString.Replace("\\"","\"");
 
+            var finalString =  codPoints.AsCodePoints(wantedString);
+
+            Console.WriteLine(finalString);
+
             var code = ";; Start String: " + wantedString;
             code += "\n i32.const 0\ncall $new\n";
             code += "\n local.set $_temp\n";
             code += "\n local.get $_temp\n";
             
-            char[] charArr = wantedString.ToCharArray();
+            //char[] charArr = wantedString.ToCharArray();
 
-            foreach (var c in charArr){
+            foreach (var i in finalString){
                 code += "local.get $_temp\n";
             }
 
             var specialCharFlag = 0;
-            foreach (var c in charArr){ 
-                code += "\ni32.const " + (short)c  + 
+            foreach (var i in finalString){ 
+                code += "\ni32.const " + c  + 
                         "\n call $add"+
                         "\n drop\n";
             }
