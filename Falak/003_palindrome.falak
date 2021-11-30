@@ -8,6 +8,12 @@ is_palindrome(str) {
     var start, finish;
     start = 0;
     finish = size(str) - 1;
+    prints("start: ");
+    printi(start);
+    println();
+    prints("finish: ");
+    printi(finish);
+    println();
     while (start < finish) {
         if (get(str, start) != get(str, finish)) {
             return false;

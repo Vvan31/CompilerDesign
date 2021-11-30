@@ -10,7 +10,6 @@
   (import "falak" "add" (func $add (param i32 i32) (result i32)))
   (import "falak" "get" (func $get (param i32 i32) (result i32)))
   (import "falak" "set" (func $set (param i32 i32 i32) (result i32)))
-(global $hello(mut i32) (i32.const 0)) 
 
 
  (func $reverse
@@ -22,16 +21,6 @@
 (local $temp i32) 
 i32.const 0
 local.set $start ;; VARIABLE ASSIGN
-i32.const 0
-local.set $start ;; VARIABLE ASSIGN
-local.get $array
-
-call $size
- 
-i32.const 1
- 
-i32.sub 
-local.set $finish ;; VARIABLE ASSIGN
 local.get $array
 
 call $size
@@ -48,6 +37,7 @@ local.get $start
 local.get $finish
  
 i32.lt_s 
+i32.eqz
 br_if  $00000
 local.get $array
 local.get $start
@@ -56,28 +46,25 @@ call $get
 local.set $temp ;; VARIABLE ASSIGN
 local.get $array
 local.get $start
-
-call $get
-local.set $temp ;; VARIABLE ASSIGN
-local.get $array
-local.get $start
 local.get $array
 local.get $finish
 
 call $get
 call $set
+drop
 local.get $array
 local.get $finish
 local.get $temp
 call $set
-i32.const 1
-local.get $start
- 
-i32.add 
-local.get $finish
- 
+drop
+(local.get $start)
+i32.const 1 
+i32.add
+(local.set $start)
+(local.get $finish)
 i32.const 1 
 i32.sub
+(local.set $finish)
 br $00001
 end
 end
@@ -100,7 +87,64 @@ i32.const 0
 i32.le_s 
 if
 ;;; Stmlist if
- ;; Start String: 0
+ ;; Start String: menor a 0
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 109
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+;; End of String
+call $prints
+drop
+call $println
+drop
+;; Start String: 0
  i32.const 0
 call $new
 
@@ -114,41 +158,7 @@ i32.const 48
  drop
 ;; End of String
 return
-;; elseif statement 
-else
-local.get $num
- 
-i32.const 2
- 
-i32.le_s 
-
-if
-;; Start String: 1
- i32.const 0
-call $new
-
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-
-i32.const 49
- call $add
- drop
-;; End of String
-return
-
 end
-end
-;; Start String: 
- i32.const 0
-call $new
-
- local.set $_temp
-
- local.get $_temp
-;; End of String
-local.set $result ;; VARIABLE ASSIGN
 ;; Start String: 
  i32.const 0
 call $new
@@ -165,7 +175,8 @@ local.get $num
  
 i32.const 0
  
-i32.ge_s 
+i32.gt_s 
+i32.eqz
 br_if  $00002
 local.get $num
  
@@ -173,12 +184,9 @@ i32.const 2
  
 i32.rem_s 
 local.set $remainder ;; VARIABLE ASSIGN
-local.get $num
- 
-i32.const 2
- 
-i32.rem_s 
-local.set $remainder ;; VARIABLE ASSIGN
+local.get $remainder
+call $printi
+drop
 local.get $result
 local.get $remainder
  
@@ -187,55 +195,22 @@ i32.const 39
  
 i32.add 
 call $add
+drop
 local.get $num
  
 i32.const 2
  
-i32.div_u 
+i32.div_s 
 local.set $num ;; VARIABLE ASSIGN
+call $println
+drop
 br $00003
 end
 end
 ;; END WHILE 
-;; Start String: STRING
- i32.const 0
-call $new
-
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-
-i32.const 83
- call $add
- drop
-
-i32.const 84
- call $add
- drop
-
-i32.const 82
- call $add
- drop
-
-i32.const 73
- call $add
- drop
-
-i32.const 78
- call $add
- drop
-
-i32.const 71
- call $add
- drop
-;; End of String
+local.get $result
 call $reverse
+drop
 local.get $result
 return
 i32.const 0  
@@ -248,13 +223,27 @@ i32.const 0
     (result i32)
 (local $_temp i32)
 
-(param $x i32)
-(result i32) 
 (local $option i32) 
 (local $num i32) 
 ;;START WHILE 
 block $00004
 loop $00005
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+i32.or 
+br_if  $00004
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -344,9 +333,7 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-
-call $readi
-local.set $num ;; VARIABLE ASSIGN
+drop
 
 call $readi
 local.set $num ;; VARIABLE ASSIGN
@@ -544,11 +531,14 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 local.get $num
 
 call $binary
 call $prints
+drop
 call $println
+drop
 ;; Start String: Convert another number? 
  i32.const 0
 call $new
@@ -678,9 +668,7 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-
-call $reads
-local.set $option ;; VARIABLE ASSIGN
+drop
 
 call $reads
 local.set $option ;; VARIABLE ASSIGN
@@ -697,9 +685,6 @@ if
  
 i32.const 39
 local.set $option ;; VARIABLE ASSIGN
-
-i32.const 39
-local.set $option ;; VARIABLE ASSIGN
 ;; else statement 
 else
 local.get $option
@@ -707,29 +692,8 @@ i32.const 0
 
 call $get
 local.set $option ;; VARIABLE ASSIGN
-local.get $option
-i32.const 0
-
-call $get
-local.set $option ;; VARIABLE ASSIGN
 
 end
-br_if $00004
-local.get $option
- 
-
-i32.const 39
- 
-i32.eq 
- 
-local.get $option
- 
-
-i32.const 39
- 
-i32.eq 
- 
-i32.or 
 br $00005
 end
 end
@@ -737,6 +701,22 @@ end
 ;;START WHILE 
 block $00006
 loop $00007
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+i32.or 
+br_if  $00006
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -826,9 +806,7 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-
-call $readi
-local.set $num ;; VARIABLE ASSIGN
+drop
 
 call $readi
 local.set $num ;; VARIABLE ASSIGN
@@ -1026,11 +1004,14 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 local.get $num
 
 call $binary
 call $prints
+drop
 call $println
+drop
 ;; Start String: Convert another number? 
  i32.const 0
 call $new
@@ -1160,9 +1141,7 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-
-call $reads
-local.set $option ;; VARIABLE ASSIGN
+drop
 
 call $reads
 local.set $option ;; VARIABLE ASSIGN
@@ -1179,9 +1158,6 @@ if
  
 i32.const 39
 local.set $option ;; VARIABLE ASSIGN
-
-i32.const 39
-local.set $option ;; VARIABLE ASSIGN
 ;; else statement 
 else
 local.get $option
@@ -1189,29 +1165,8 @@ i32.const 0
 
 call $get
 local.set $option ;; VARIABLE ASSIGN
-local.get $option
-i32.const 0
-
-call $get
-local.set $option ;; VARIABLE ASSIGN
 
 end
-br_if $00006
-local.get $option
- 
-
-i32.const 39
- 
-i32.eq 
- 
-local.get $option
- 
-
-i32.const 39
- 
-i32.eq 
- 
-i32.or 
 br $00007
 end
 end

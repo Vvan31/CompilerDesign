@@ -19,19 +19,20 @@
 (local $_temp i32)
 
 (local $start i32) 
-i32.const 10
+(local $finish i32) 
+i32.const 0
 local.set $start ;; VARIABLE ASSIGN
-;;START WHILE 
-block $00000
-loop $00001
-i32.const 22
- 
+i32.const 6
+local.set $finish ;; VARIABLE ASSIGN
+;; IF statement 
 local.get $start
  
-i32.le_s 
-br_if  $00000
-;; Start String: a
-
+local.get $finish
+ 
+i32.lt_s 
+if
+;;; Stmlist if
+ ;; Start String: a
  i32.const 0
 call $new
 
@@ -39,28 +40,55 @@ call $new
 
  local.get $_temp
 local.get $_temp
-local.get $_temp
 
 i32.const 97
- call $add
- drop
-
-i32.const 10
  call $add
  drop
 ;; End of String
 call $prints
 drop
+call $println
+drop
+end
+;;START WHILE 
+block $00000
+loop $00001
+local.get $start
+ 
+local.get $finish
+ 
+i32.gt_s 
+i32.eqz
+br_if  $00000
+;; Start String: b
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+
+i32.const 98
+ call $add
+ drop
+;; End of String
+call $prints
+drop
+call $println
+drop
 (local.get $start)
 i32.const 1 
 i32.add
 (local.set $start)
+(local.get $finish)
+i32.const 1 
+i32.sub
+(local.set $finish)
 br $00001
 end
 end
 ;; END WHILE 
-i32.const 42
-return
 i32.const 0  
 
 )

@@ -10,18 +10,34 @@
   (import "falak" "add" (func $add (param i32 i32) (result i32)))
   (import "falak" "get" (func $get (param i32 i32) (result i32)))
   (import "falak" "set" (func $set (param i32 i32 i32) (result i32)))
-(global $fails (mut i32) (i32.const 0)) 
+(global $fails(mut i32) (i32.const 0)) 
 
-(global $(mut i32) (i32.const 0))(func $assertowo PARAM IDENTIFIER
-owo PARAM IDENTIFIER
-owo PARAM IDENTIFIER
-owo Difequals 
-    if
-owo INC IDENTIFIER
-;; Start StringAssertion failure: i32.const 0
+
+ (func $assert
+(param $value1 i32)
+(param $value2 i32)
+(param $message i32)
+(result i32) 
+(local $_temp i32)
+;; IF statement 
+local.get $value1
+ 
+local.get $value2
+ 
+i32.ne 
+if
+;;; Stmlist if
+ (global.get $fails)
+i32.const 1 
+i32.add
+(global.set $fails)
+;; Start String: Assertion failure: 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -119,29 +135,91 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-OwO EVIcall $prints
-drop 
+drop
+local.get $message
+call $prints
+drop
 call $println
-drop 
-    end
+drop
+end
 i32.const 0  
+
 )
 
-(func 
+ (func 
  $main
    (export "main")
     (result i32)
-        (local $_temp i32)
+(local $_temp i32)
+
+(local $s i32) 
+(local $a i32) 
+(local $i i32) 
+(local $n i32) 
 i32.const 0
-owo LOCAL VAR IDENTIFIER
+global.set $fails 
 i32.const 0
-global.set $failsowo lit char
+global.set $fails 
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails;; VARIABLE ASSIGN
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails 
+i32.const 0
+global.set $fails 
+
+i32.const 39
 i32.const 10
-;; Start Stringerror in newline literali32.const 0
+;; Start String: error in newline literal
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -264,13 +342,17 @@ i32.const 108
  drop
 ;; End of String
 call $assert
-drop 
-owo lit char
+drop
+
+i32.const 39
 i32.const 13
-;; Start Stringerror in carriage return literali32.const 0
+;; Start String: error in carriage return literal
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -433,13 +515,17 @@ i32.const 108
  drop
 ;; End of String
 call $assert
-drop 
-owo lit char
+drop
+
+i32.const 39
 i32.const 9
-;; Start Stringerror in tab literali32.const 0
+;; Start String: error in tab literal
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -542,13 +628,17 @@ i32.const 108
  drop
 ;; End of String
 call $assert
-drop 
-owo lit char
+drop
+
+i32.const 39
 i32.const 92
-;; Start Stringerror in backslash literali32.const 0
+;; Start String: error in backslash literal
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -681,13 +771,17 @@ i32.const 108
  drop
 ;; End of String
 call $assert
-drop 
-owo lit char
+drop
+
 i32.const 39
-;; Start Stringerror in single quote literali32.const 0
+i32.const 39
+;; Start String: error in single quote literal
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -835,13 +929,17 @@ i32.const 108
  drop
 ;; End of String
 call $assert
-drop 
-owo lit char
+drop
+
+i32.const 39
 i32.const 34
-;; Start Stringerror in double quote literali32.const 0
+;; Start String: error in double quote literal
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -989,13 +1087,18 @@ i32.const 108
  drop
 ;; End of String
 call $assert
-drop 
-owo lit char
-owo lit char
-;; Start Stringerror in letter A literal code pointi32.const 0
+drop
+
+i32.const 39
+
+i32.const 39
+;; Start String: error in letter A literal code point
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -1178,13 +1281,17 @@ i32.const 116
  drop
 ;; End of String
 call $assert
-drop 
-owo lit char
+drop
+
+i32.const 39
 i32.const 8364
-;; Start Stringerror in euro literal code pointi32.const 0
+;; Start String: error in euro literal code point
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -1347,12 +1454,5543 @@ i32.const 116
  drop
 ;; End of String
 call $assert
-drop 
-local.set $slocal.set $alocal.set $ilocal.set $nowo LESS THAN 
-call $getcall $get;; Start Stringerror in string literali32.const 0
+drop
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
 call $new
-local.set $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+;; Start String: \u0000A1\u0020ACste ni\u0000F1o \u0020ACst\u0000E1 bien \u0000D1o\u0000F1o!
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 65
+ call $add
+ drop
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 68
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 92
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 70
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 33
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+global.set $s;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 161
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 101
+i32.const 32
+i32.const 110
+i32.const 105
+i32.const 241
+i32.const 111
+i32.const 32
+i32.const 8364
+i32.const 115
+i32.const 116
+i32.const 225
+i32.const 32
+i32.const 98
+i32.const 105
+i32.const 101
+i32.const 110
+i32.const 32
+i32.const 209
+i32.const 111
+i32.const 241
+i32.const 111
+i32.const 33
+i32.const 10
+global.set $a;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+i32.const 0
+global.set $i;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+local.get $s
+
+call $size
+global.set $n;; VARIABLE ASSIGN
+;;START WHILE 
+block $00000
+loop $00001
+local.get $i
+ 
+local.get $n
+ 
+i32.lt_s 
+br_if  $00000
+local.get $a
+local.get $i
+
+call $get
+local.get $s
+local.get $i
+
+call $get
+;; Start String: error in string literal
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -1470,14 +7108,25 @@ i32.const 108
  drop
 ;; End of String
 call $assert
-drop 
-owo INC IDENTIFIER
-OwO EVIcall $printi
-drop 
-;; Start String assertion failure(s) found.i32.const 0
+drop
+(local.get $i)
+i32.const 1 
+i32.add
+(local.set $i)
+br $00001
+end
+end
+;; END WHILE 
+global.get $fails
+call $printi
+drop
+;; Start String:  assertion failure(s) found.
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -1620,13 +7269,14 @@ i32.const 46
  drop
 ;; End of String
 call $prints
-drop 
+drop
 call $println
-drop 
-OwO EVIcall $prints
-drop 
+drop
+local.get $a
+call $prints
+drop
 i32.const 0  
-)
 
+)
 
 )

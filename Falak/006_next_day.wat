@@ -26,7 +26,8 @@ i32.const 0
  
 i32.eq 
 if
-;; IF statement 
+;;; Stmlist if
+ ;; IF statement 
 local.get $y
  
 i32.const 100
@@ -37,7 +38,8 @@ i32.const 0
  
 i32.eq 
 if
-;; IF statement 
+;;; Stmlist if
+ ;; IF statement 
 local.get $y
  
 i32.const 400
@@ -48,73 +50,27 @@ i32.const 0
  
 i32.eq 
 if
-owo lit true
+;;; Stmlist if
+     i32.const 1
 return
-owo lit true
+;; else statement 
+else
+    i32.const 0
 return
-    end
-;; IF statement 
-local.get $y
- 
-i32.const 400
- 
-i32.rem_s 
- 
-i32.const 0
- 
-i32.eq 
-if
-owo lit true
+
+end
+;; else statement 
+else
+    i32.const 1
 return
-owo lit true
+
+end
+;; else statement 
+else
+    i32.const 0
 return
-    end
-    end
-;; IF statement 
-local.get $y
- 
-i32.const 100
- 
-i32.rem_s 
- 
-i32.const 0
- 
-i32.eq 
-if
-;; IF statement 
-local.get $y
- 
-i32.const 400
- 
-i32.rem_s 
- 
-i32.const 0
- 
-i32.eq 
-if
-owo lit true
-return
-owo lit true
-return
-    end
-;; IF statement 
-local.get $y
- 
-i32.const 400
- 
-i32.rem_s 
- 
-i32.const 0
- 
-i32.eq 
-if
-owo lit true
-return
-owo lit true
-return
-    end
-    end
-    end
+
+end
 i32.const 0  
 
 )
@@ -132,27 +88,64 @@ i32.const 2
  
 i32.eq 
 if
-;; IF statement 
+;;; Stmlist if
+ ;; IF statement 
 local.get $y
 
 call $is_leap_year
 if
-i32.const 29
+;;; Stmlist if
+ i32.const 29
 local.set $result ;; VARIABLE ASSIGN
-i32.const 29
+;; else statement 
+else
+i32.const 28
 local.set $result ;; VARIABLE ASSIGN
-    end
-;; IF statement 
-local.get $y
 
-call $is_leap_year
+end
+;; elseif statement 
+else
+local.get $m
+ 
+i32.const 4
+ 
+i32.eq 
+ 
+local.get $m
+ 
+i32.const 6
+ 
+i32.eq 
+ 
+i32.or 
+ 
+local.get $m
+ 
+i32.const 9
+ 
+i32.eq 
+ 
+i32.or 
+ 
+local.get $m
+ 
+i32.const 11
+ 
+i32.eq 
+ 
+i32.or 
+
 if
-i32.const 29
+i32.const 30
 local.set $result ;; VARIABLE ASSIGN
-i32.const 29
+
+;; else statement 
+else
+i32.const 31
 local.set $result ;; VARIABLE ASSIGN
-    end
-    end
+
+end
+end
 local.get $result
 return
 i32.const 0  
@@ -174,14 +167,16 @@ call $number_of_days_in_month
  
 i32.eq 
 if
-;; IF statement 
+;;; Stmlist if
+ ;; IF statement 
 local.get $m
  
 i32.const 12
  
 i32.eq 
 if
-local.get $y
+;;; Stmlist if
+ local.get $y
  
 i32.const 1
  
@@ -189,40 +184,30 @@ i32.add
 i32.const 1
 i32.const 1
 return
+;; else statement 
+else
 local.get $y
- 
-i32.const 1
- 
-i32.add 
-i32.const 1
-i32.const 1
-return
-    end
-;; IF statement 
 local.get $m
  
-i32.const 12
- 
-i32.eq 
-if
-local.get $y
- 
 i32.const 1
  
 i32.add 
 i32.const 1
-i32.const 1
 return
+
+end
+;; else statement 
+else
 local.get $y
+local.get $m
+local.get $d
  
 i32.const 1
  
 i32.add 
-i32.const 1
-i32.const 1
 return
-    end
-    end
+
+end
 i32.const 0  
 
 )
@@ -234,7 +219,7 @@ i32.const 0
 (result i32) 
 (local $_temp i32)
 (local $next i32) 
-;; Start StringThe day after 
+;; Start String: The day after 
  i32.const 0
 call $new
 
@@ -313,19 +298,25 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 local.get $y
 call $printi
+drop
 
 i32.const 39
 call $printc
+drop
 local.get $m
 call $printi
+drop
 
 i32.const 39
 call $printc
+drop
 local.get $d
 call $printi
-;; Start String is 
+drop
+;; Start String:  is 
  i32.const 0
 call $new
 
@@ -354,6 +345,7 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 local.get $y
 local.get $m
 local.get $d
@@ -365,23 +357,29 @@ i32.const 0
 
 call $get
 call $printi
+drop
 
 i32.const 39
 call $printc
+drop
 local.get $next
 i32.const 1
 
 call $get
 call $printi
+drop
 
 i32.const 39
 call $printc
+drop
 local.get $next
 i32.const 2
 
 call $get
 call $printi
+drop
 call $println
+drop
 i32.const 0  
 
 )
@@ -396,18 +394,22 @@ i32.const 2020
 i32.const 2
 i32.const 28
 call $print_next_day
+drop
 i32.const 2021
 i32.const 2
 i32.const 13
 call $print_next_day
+drop
 i32.const 2021
 i32.const 2
 i32.const 28
 call $print_next_day
+drop
 i32.const 2021
 i32.const 12
 i32.const 31
 call $print_next_day
+drop
 i32.const 0  
 
 )

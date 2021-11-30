@@ -4,11 +4,17 @@
 #>
 
 main() {
-    var start;
-    start = 10;
-    while(start <= 22){
-        prints("a\n");
-        inc start;
+    var start,finish;
+    start = 0;
+    finish = 6;
+    if(start<finish){
+        prints("a");
+        println();
     }
-    return 42;
+    while(start>finish) {
+        prints("b");
+        println();
+        inc start;
+        dec finish;
+    }
 }

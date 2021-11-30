@@ -30,6 +30,7 @@ local.get $i
 local.get $n
  
 i32.le_s 
+i32.eqz
 br_if  $00000
 local.get $result
  
@@ -37,10 +38,10 @@ local.get $i
  
 i32.mul 
 local.set $result ;; VARIABLE ASSIGN
-i32.const 1
-local.get $i
- 
-i32.add 
+(local.get $i)
+i32.const 1 
+i32.add
+(local.set $i)
 br $00001
 end
 end
@@ -61,11 +62,25 @@ i32.const 0
  
 i32.le_s 
 if
-i32.const 1
+;;; Stmlist if
+ i32.const 1
 return
+;; else statement 
+else
+local.get $n
+ 
+local.get $n
+ 
 i32.const 1
+ 
+i32.sub 
+
+call $recursive_factorial
+ 
+i32.mul 
 return
-    end
+
+end
 i32.const 0  
 
 )
@@ -81,7 +96,23 @@ i32.const 0
 ;;START WHILE 
 block $00002
 loop $00003
-;; Start StringInput a number: 
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+i32.or 
+br_if  $00002
+;; Start String: Input a number: 
  i32.const 0
 call $new
 
@@ -170,10 +201,11 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 
 call $readi
 local.set $num ;; VARIABLE ASSIGN
-;; Start StringIterative factorial: 
+;; Start String: Iterative factorial: 
  i32.const 0
 call $new
 
@@ -287,12 +319,15 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 local.get $num
 
 call $iterative_factorial
 call $printi
+drop
 call $println
-;; Start StringRecursive factorial: 
+drop
+;; Start String: Recursive factorial: 
  i32.const 0
 call $new
 
@@ -406,12 +441,15 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 local.get $num
 
 call $recursive_factorial
 call $printi
+drop
 call $println
-;; Start StringCompute another factorial? 
+drop
+;; Start String: Compute another factorial? 
  i32.const 0
 call $new
 
@@ -555,6 +593,7 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 
 call $reads
 local.set $option ;; VARIABLE ASSIGN
@@ -567,29 +606,19 @@ i32.const 0
  
 i32.eq 
 if
-
+;;; Stmlist if
+ 
 i32.const 39
 local.set $option ;; VARIABLE ASSIGN
+;; else statement 
+else
+local.get $option
+i32.const 0
 
-i32.const 39
+call $get
 local.set $option ;; VARIABLE ASSIGN
-    end
-br_if $00002
-local.get $option
- 
 
-i32.const 39
- 
-i32.eq 
- 
-local.get $option
- 
-
-i32.const 39
- 
-i32.eq 
- 
-i32.or 
+end
 br $00003
 end
 end
@@ -597,7 +626,23 @@ end
 ;;START WHILE 
 block $00004
 loop $00005
-;; Start StringInput a number: 
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+i32.or 
+br_if  $00004
+;; Start String: Input a number: 
  i32.const 0
 call $new
 
@@ -686,10 +731,11 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 
 call $readi
 local.set $num ;; VARIABLE ASSIGN
-;; Start StringIterative factorial: 
+;; Start String: Iterative factorial: 
  i32.const 0
 call $new
 
@@ -803,12 +849,15 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 local.get $num
 
 call $iterative_factorial
 call $printi
+drop
 call $println
-;; Start StringRecursive factorial: 
+drop
+;; Start String: Recursive factorial: 
  i32.const 0
 call $new
 
@@ -922,12 +971,15 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 local.get $num
 
 call $recursive_factorial
 call $printi
+drop
 call $println
-;; Start StringCompute another factorial? 
+drop
+;; Start String: Compute another factorial? 
  i32.const 0
 call $new
 
@@ -1071,6 +1123,7 @@ i32.const 32
  drop
 ;; End of String
 call $prints
+drop
 
 call $reads
 local.set $option ;; VARIABLE ASSIGN
@@ -1083,29 +1136,19 @@ i32.const 0
  
 i32.eq 
 if
-
+;;; Stmlist if
+ 
 i32.const 39
 local.set $option ;; VARIABLE ASSIGN
+;; else statement 
+else
+local.get $option
+i32.const 0
 
-i32.const 39
+call $get
 local.set $option ;; VARIABLE ASSIGN
-    end
-br_if $00004
-local.get $option
- 
 
-i32.const 39
- 
-i32.eq 
- 
-local.get $option
- 
-
-i32.const 39
- 
-i32.eq 
- 
-i32.or 
+end
 br $00005
 end
 end

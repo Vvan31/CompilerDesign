@@ -46,7 +46,11 @@ namespace Falak {
         // }
         ///=========
         int labelCounter = 0;
+        int counterWhile = 0;
         int else_if = 0;
+
+        int YeEstaElTemp = 0;
+        
 
         public String GenerateLabel() {
             return String.Format("${0:00000}", labelCounter++);
@@ -95,17 +99,19 @@ namespace Falak {
             // }
             
             //var refl = FGST_Table[functionFlag].refLst;
-          
+            if(YeEstaElTemp == 0){
+                if(functionFlag != "global" && functionFlag != "main"){
+                    sb.Append("(local $_temp i32)\n");
+                }
+                YeEstaElTemp = 1;
+            }
 
                 //sb.Append("(local $_temp i32)\n");
-            if(functionFlag != "global" && functionFlag != "main"){
-                sb.Append("(local $_temp i32)\n");
-            }
+            
             if(functionFlag != "global"){
                 //var issues;
 
                 //sb.Append("(local $_temp i32)\n");
-                //Console.WriteLine(node.ToStringTree());
 
                 foreach (var localVar in node){
                     sb.Append("(local $" + localVar.AnchorToken.Lexeme + " i32) \n");
@@ -132,13 +138,12 @@ namespace Falak {
         }
         //-----------------------------------------------------------
         public string Visit(Expr_funcall_identifier node) {
-            Console.WriteLine(node);
             return(VisitChildren(node) + "\ncall $" + node.AnchorToken.Lexeme + "\n");
         }
 
         public string Visit(Fun_def node) {
             functionFlag = node.AnchorToken.Lexeme; 
-            
+            YeEstaElTemp = 0;
             var funName = node.AnchorToken.Lexeme;
             var result = "";
             if (funName == "main"){
@@ -169,7 +174,16 @@ namespace Falak {
          }
          //-----------------------------------------------------------
         public string Visit(Param_list_identifier node) {
-            return(VisitChildren(node) + "(result i32) \n");
+            var sb = new StringBuilder();
+            sb.Append(VisitChildren(node) + "(result i32) \n");
+            if(YeEstaElTemp == 0){
+                Console.WriteLine("Param no tiene temp");
+                if(functionFlag != "global" && functionFlag != "main"){
+                    sb.Append("(local $_temp i32)\n");
+                }
+                YeEstaElTemp = 1;
+            }
+            return sb.ToString();
         }
          //-----------------------------------------------------------
         public string Visit(Param_identifier node) {
@@ -259,7 +273,6 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(If node) {
-            Console.WriteLine(node.ToStringTree());
             var finalString = ";; IF statement \n" 
                 + Visit((dynamic) node[0]) // Expressions 
                 + "if\n"
@@ -275,7 +288,6 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Elseif_list node) {
-            Console.WriteLine("elseif list");
             return VisitChildren(node);
         }
          //-----------------------------------------------------------
@@ -289,52 +301,60 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Else node) {
-           Console.WriteLine("ELSE");
             return ";; else statement \n" 
             + "else\n"
             + VisitChildren(node) + "\n";
         }
          //-----------------------------------------------------------
         public string Visit(While node) {
-
+           counterWhile++;
+            var varString="";
             var label1 = GenerateLabel();
             var label2 = GenerateLabel();
 
-            return (
+            varString = (
             ";;START WHILE \n" + 
             "block " + label1 + "\n"+
             "loop " + label2 + "\n"+
-            Visit((dynamic) node[0])+ //The Conditional
+            Visit((dynamic) node[0])+ 
             $"br_if  " + label1 + "\n" +
-            Visit((dynamic) node[1])+
+            Visit((dynamic) node[1])+ //The Conditional
             "br " + label2 +"\n"+
             "end\n"+
             "end\n"+
             ";; END WHILE \n"
             );
+            counterWhile--;
+            labelCounter -=2;
+            return varString;
         }
-         //-------------FALTA ESTE------------------------------------------
+         //------------------------------------------------------
         public string Visit(Do node) {
+            counterWhile++;
+
+            var varString="";
             var label1 = GenerateLabel();
             var label2 = GenerateLabel();
-
-            return (
+            varString = (
             ";;START WHILE \n" + 
             "block " + label1 + "\n"+
             "loop " + label2 + "\n"+
+            Visit((dynamic) node[1])+ 
+            $"br_if  " + label1 + "\n" +
             Visit((dynamic) node[0])+ //The Conditional
-            $"br_if " + label1 + "\n" +
-            Visit((dynamic) node[1])+
             "br " + label2 +"\n"+
             "end\n"+
             "end\n"+
             ";; END WHILE \n"
             );
+            counterWhile--;
+            return varString;
         }
          //-----------------------------------------------------------
         public string Visit(Break node) {
-            labelCounter--;
-            return "br "+ GenerateLabel();
+            var label = String.Format("${0:00000}", labelCounter + (2*(counterWhile -1)-2));
+            counterWhile--;
+            return "br "+ label+ "\n";
         }
          //-----------------------------------------------------------
         public string Visit(Return node) {
@@ -363,28 +383,30 @@ namespace Falak {
                    $"{Visit((dynamic) node[1])} \n" +
                    "i32.ne \n";        
         }
-         //-----------------------------------------------------------
+         //----------------------estaaaaaa-------------------------------
         public string Visit(Greaterthan node) {
-            return $"{Visit((dynamic) node[1])} \n" +  
-                   $"{Visit((dynamic) node[0])} \n" +
-                   "i32.ge_s \n";        
+            return $"{Visit((dynamic) node[0])} \n" +  
+                   $"{Visit((dynamic) node[1])} \n" +
+                   "i32.gt_s \n";        
                    }
-         //-----------------------------------------------------------
+         //----------------------estaaaaaa----------------------------
         public string Visit(GreaterthanEquals node) {
-            return $"{Visit((dynamic) node[1])} \n" +  
-                   $"{Visit((dynamic) node[0])} \n" +
-                   "i32.gt_s \n";        }
-         //-----------------------------------------------------------
+            return $"{Visit((dynamic) node[0])} \n" +  
+                   $"{Visit((dynamic) node[1])} \n" +
+                   "i32.ge_s \n";        
+        }
+         //-------------------estaaaaaa----------------------------------------
         public string Visit(Lessthan node) {
-            return $"{Visit((dynamic) node[1])} \n" +  
-                   $"{Visit((dynamic) node[0])} \n" +
+            return $"{Visit((dynamic) node[0])} \n" +  
+                   $"{Visit((dynamic) node[1])} \n" +
                    "i32.lt_s \n";
         }
-         //-----------------------------------------------------------
+         //-----------------------------estaaaaaa------------------------------
         public string Visit(LessThanEquals node) {
-            return $"{Visit((dynamic) node[1])} \n" +  
-                   $"{Visit((dynamic) node[0])} \n" +
-                   "i32.le_s \n";        }
+            return $"{Visit((dynamic) node[0])} \n" +  
+                   $"{Visit((dynamic) node[1])} \n" +
+                   "i32.le_s \n";        
+        }
          //-----------------------------------------------------------
         public string Visit(Plus node) {
             return $"{Visit((dynamic) node[0])} \n" +  
@@ -410,7 +432,7 @@ namespace Falak {
         public string Visit(Division node) {
             return $"{Visit((dynamic) node[0])} \n" +  
                    $"{Visit((dynamic) node[1])} \n" +
-                   "i32.div_u \n";        }
+                   "i32.div_s \n";        }
          //-----------------------------------------------------------
         public string Visit(Percent node) {
             return $"{Visit((dynamic) node[0])} \n" +  
@@ -462,11 +484,11 @@ namespace Falak {
         }
         //-----------------------------------------------------------
         public string Visit(Lit_true node) {
-            return "owo lit true\n";
+             return "    i32.const 1\n";
         }
         //-----------------------------------------------------------
         public string Visit(Lit_false node) {
-            return "owo lit false\n";
+             return "    i32.const 0\n";
         }
         //-----------------------------------------------------------
         public string Visit(Lit_char node) {

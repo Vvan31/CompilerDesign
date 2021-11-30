@@ -11,32 +11,207 @@
   (import "falak" "get" (func $get (param i32 i32) (result i32)))
   (import "falak" "set" (func $set (param i32 i32 i32) (result i32)))
 
-(func $is_palindromeowo PARAM IDENTIFIER
-owo LOCAL VAR IDENTIFIER
-local.set $startlocal.set $finishowo LESS THAN 
-owo Difequals 
-    if
-owo lit false
+
+ (func $is_palindrome
+(param $str i32)
+(result i32) 
+(local $_temp i32)
+(local $start i32) 
+(local $finish i32) 
+i32.const 0
+local.set $start ;; VARIABLE ASSIGN
+local.get $str
+
+call $size
+ 
+i32.const 1
+ 
+i32.sub 
+local.set $finish ;; VARIABLE ASSIGN
+;; Start String: start: 
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+;; End of String
+call $prints
+drop
+local.get $start
+call $printi
+drop
+call $println
+drop
+;; Start String: finish: 
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 102
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 104
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+;; End of String
+call $prints
+drop
+local.get $finish
+call $printi
+drop
+call $println
+drop
+;;START WHILE 
+block $00000
+loop $00001
+local.get $start
+ 
+local.get $finish
+ 
+i32.lt_s 
+i32.eqz
+br_if  $00000
+;; IF statement 
+local.get $str
+local.get $start
+
+call $get
+ 
+local.get $str
+local.get $finish
+
+call $get
+ 
+i32.ne 
+if
+;;; Stmlist if
+     i32.const 0
 return
-    end
-owo INC IDENTIFIER
-owo DEC IDENTIFIER
-owo lit true
+end
+(local.get $start)
+i32.const 1 
+i32.add
+(local.set $start)
+(local.get $finish)
+i32.const 1 
+i32.sub
+(local.set $finish)
+br $00001
+end
+end
+;; END WHILE 
+    i32.const 1
 return
 i32.const 0  
+
 )
 
-(func 
+ (func 
  $main
    (export "main")
     (result i32)
-        (local $_temp i32)
-i32.const 0
-owo LOCAL VAR IDENTIFIER
-;; Start StringInput a string: i32.const 0
+(local $_temp i32)
+
+(local $str i32) 
+(local $option i32) 
+;;START WHILE 
+block $00002
+loop $00003
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+i32.or 
+br_if  $00002
+;; Start String: Input a string: 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -119,11 +294,17 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-local.set $str;; Start StringThe string \"i32.const 0
+drop
+
+call $reads
+local.set $str ;; VARIABLE ASSIGN
+;; Start String: The string \"
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -191,13 +372,17 @@ i32.const 34
  drop
 ;; End of String
 call $prints
-drop 
-OwO EVIcall $prints
-drop 
-;; Start String\" is i32.const 0
+drop
+local.get $str
+call $prints
+drop
+;; Start String: \" is 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -230,13 +415,22 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-ewe (not owo)
-    if
-;; Start StringNOT i32.const 0
+drop
+;; IF statement 
+local.get $str
+
+call $is_palindrome
+ 
+i32.eqz 
+if
+;;; Stmlist if
+ ;; Start String: NOT 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -259,13 +453,16 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-    end
-;; Start Stringa palindrome.
-i32.const 0
+drop
+end
+;; Start String: a palindrome.
+
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -338,11 +535,14 @@ i32.const 10
  drop
 ;; End of String
 call $prints
-drop 
-;; Start StringCheck another string? i32.const 0
+drop
+;; Start String: Check another string? 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -455,15 +655,62 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-local.set $optionowo Equals 
-    if
-local.set $option    end
-owoOR
-;; Start StringInput a string: i32.const 0
+drop
+
+call $reads
+local.set $option ;; VARIABLE ASSIGN
+;; IF statement 
+local.get $option
+
+call $size
+ 
+i32.const 0
+ 
+i32.eq 
+if
+;;; Stmlist if
+ 
+i32.const 39
+local.set $option ;; VARIABLE ASSIGN
+;; else statement 
+else
+local.get $option
+i32.const 0
+
+call $get
+local.set $option ;; VARIABLE ASSIGN
+
+end
+br $00003
+end
+end
+;; END WHILE 
+;;START WHILE 
+block $00004
+loop $00005
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+local.get $option
+ 
+
+i32.const 39
+ 
+i32.eq 
+ 
+i32.or 
+br_if  $00004
+;; Start String: Input a string: 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -546,11 +793,17 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-local.set $str;; Start StringThe string \"i32.const 0
+drop
+
+call $reads
+local.set $str ;; VARIABLE ASSIGN
+;; Start String: The string \"
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -618,13 +871,17 @@ i32.const 34
  drop
 ;; End of String
 call $prints
-drop 
-OwO EVIcall $prints
-drop 
-;; Start String\" is i32.const 0
+drop
+local.get $str
+call $prints
+drop
+;; Start String: \" is 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -657,13 +914,22 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-ewe (not owo)
-    if
-;; Start StringNOT i32.const 0
+drop
+;; IF statement 
+local.get $str
+
+call $is_palindrome
+ 
+i32.eqz 
+if
+;;; Stmlist if
+ ;; Start String: NOT 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -686,13 +952,16 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-    end
-;; Start Stringa palindrome.
-i32.const 0
+drop
+end
+;; Start String: a palindrome.
+
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -765,11 +1034,14 @@ i32.const 10
  drop
 ;; End of String
 call $prints
-drop 
-;; Start StringCheck another string? i32.const 0
+drop
+;; Start String: Check another string? 
+ i32.const 0
 call $new
-local.set $_temp
-local.get $_temp
+
+ local.set $_temp
+
+ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -882,13 +1154,38 @@ i32.const 32
  drop
 ;; End of String
 call $prints
-drop 
-local.set $optionowo Equals 
-    if
-local.set $option    end
-owoOR
+drop
+
+call $reads
+local.set $option ;; VARIABLE ASSIGN
+;; IF statement 
+local.get $option
+
+call $size
+ 
+i32.const 0
+ 
+i32.eq 
+if
+;;; Stmlist if
+ 
+i32.const 39
+local.set $option ;; VARIABLE ASSIGN
+;; else statement 
+else
+local.get $option
+i32.const 0
+
+call $get
+local.set $option ;; VARIABLE ASSIGN
+
+end
+br $00005
+end
+end
+;; END WHILE 
 i32.const 0  
-)
 
+)
 
 )
