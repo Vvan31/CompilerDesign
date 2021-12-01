@@ -20,7 +20,7 @@
 (local $finish i32) 
 i32.const 0
 local.set $start ;; VARIABLE ASSIGN
-local.get $str ;; VARIABLE ASSIGN
+local.get $str ;; VARIABLE Expr_var_identifier 
 
 call $size
  
@@ -73,7 +73,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $start ;; VARIABLE ASSIGN
+local.get $start ;; VARIABLE Expr_var_identifier 
 call $printi
 drop
 call $println
@@ -128,17 +128,17 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $finish ;; VARIABLE ASSIGN
+local.get $finish ;; VARIABLE Expr_var_identifier 
 call $printi
 drop
 call $println
 drop
 ;;START WHILE 
 block $00002;; Break flag: 2
-loop $00003;; LOOP flag: 2
-local.get $start ;; VARIABLE ASSIGN
+loop $00003;; LOOP flag: 3
+local.get $start ;; VARIABLE Expr_var_identifier 
  
-local.get $finish ;; VARIABLE ASSIGN
+local.get $finish ;; VARIABLE Expr_var_identifier 
  
 i32.lt_s 
 i32.eqz
@@ -164,13 +164,13 @@ i32.const 97
 call $prints
 drop
 ;; IF statement 
-local.get $str ;; VARIABLE ASSIGN
-local.get $start ;; VARIABLE ASSIGN
+local.get $str ;; VARIABLE Expr_var_identifier 
+local.get $start ;; VARIABLE Expr_var_identifier 
 
 call $get
  
-local.get $str ;; VARIABLE ASSIGN
-local.get $finish ;; VARIABLE ASSIGN
+local.get $str ;; VARIABLE Expr_var_identifier 
+local.get $finish ;; VARIABLE Expr_var_identifier 
 
 call $get
  
@@ -206,7 +206,7 @@ i32.const 0
 
 (local $str i32) 
 (local $option i32) 
-;;START WHILE 
+;;START DO 
 ;; Start String: Input a string: 
  i32.const 0
 call $new
@@ -300,14 +300,13 @@ drop
 
 call $reads
 local.set $str ;; VARIABLE ASSIGN
-;; Start String: The string \"
+;; Start String: The string "
  i32.const 0
 call $new
 
  local.set $_temp
 
  local.get $_temp
-local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -365,20 +364,16 @@ i32.const 32
  call $add
  drop
 
-i32.const 92
- call $add
- drop
-
 i32.const 34
  call $add
  drop
 ;; End of String
 call $prints
 drop
-local.get $str ;; VARIABLE ASSIGN
+local.get $str ;; VARIABLE Expr_var_identifier 
 call $prints
 drop
-;; Start String: \" is 
+;; Start String: " is 
  i32.const 0
 call $new
 
@@ -390,11 +385,6 @@ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
-local.get $_temp
-
-i32.const 92
- call $add
- drop
 
 i32.const 34
  call $add
@@ -419,7 +409,7 @@ i32.const 32
 call $prints
 drop
 ;; IF statement 
-local.get $str ;; VARIABLE ASSIGN
+local.get $str ;; VARIABLE Expr_var_identifier 
 
 call $is_palindrome
  
@@ -662,7 +652,7 @@ drop
 call $reads
 local.set $option ;; VARIABLE ASSIGN
 ;; IF statement 
-local.get $option ;; VARIABLE ASSIGN
+local.get $option ;; VARIABLE Expr_var_identifier 
 
 call $size
  
@@ -676,31 +666,33 @@ i32.const 78
 local.set $option ;; VARIABLE ASSIGN
 ;; else statement 
 else
-local.get $option ;; VARIABLE ASSIGN
+local.get $option ;; VARIABLE Expr_var_identifier 
 i32.const 0
 
 call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-block $00002
-loop $00003
-local.get $option ;; VARIABLE ASSIGN
+block $00002;; Break flag: 2
+loop $00003;; LOOP flag: 3
+local.get $option ;; VARIABLE Expr_var_identifier 
  
 
 i32.const 89
  
 i32.eq 
- 
-local.get $option ;; VARIABLE ASSIGN
+if (result i32)
+i32.const 1
+else
+local.get $option ;; VARIABLE Expr_var_identifier 
  
 
 i32.const 121
  
 i32.eq 
- 
-i32.or 
-
+i32.eqz
+i32.eqz
+end
 i32.eqz
 br_if $00002
 ;; Start String: Input a string: 
@@ -796,14 +788,13 @@ drop
 
 call $reads
 local.set $str ;; VARIABLE ASSIGN
-;; Start String: The string \"
+;; Start String: The string "
  i32.const 0
 call $new
 
  local.set $_temp
 
  local.get $_temp
-local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -861,20 +852,16 @@ i32.const 32
  call $add
  drop
 
-i32.const 92
- call $add
- drop
-
 i32.const 34
  call $add
  drop
 ;; End of String
 call $prints
 drop
-local.get $str ;; VARIABLE ASSIGN
+local.get $str ;; VARIABLE Expr_var_identifier 
 call $prints
 drop
-;; Start String: \" is 
+;; Start String: " is 
  i32.const 0
 call $new
 
@@ -886,11 +873,6 @@ local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
-local.get $_temp
-
-i32.const 92
- call $add
- drop
 
 i32.const 34
  call $add
@@ -915,7 +897,7 @@ i32.const 32
 call $prints
 drop
 ;; IF statement 
-local.get $str ;; VARIABLE ASSIGN
+local.get $str ;; VARIABLE Expr_var_identifier 
 
 call $is_palindrome
  
@@ -1158,7 +1140,7 @@ drop
 call $reads
 local.set $option ;; VARIABLE ASSIGN
 ;; IF statement 
-local.get $option ;; VARIABLE ASSIGN
+local.get $option ;; VARIABLE Expr_var_identifier 
 
 call $size
  
@@ -1172,7 +1154,7 @@ i32.const 78
 local.set $option ;; VARIABLE ASSIGN
 ;; else statement 
 else
-local.get $option ;; VARIABLE ASSIGN
+local.get $option ;; VARIABLE Expr_var_identifier 
 i32.const 0
 
 call $get
@@ -1182,7 +1164,7 @@ end
 br $00003
 end
 end
-;; END WHILE 
+;; END DO 
 ;;Do Denied
 i32.const 0  
 

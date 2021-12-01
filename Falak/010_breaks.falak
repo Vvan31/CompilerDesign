@@ -39,6 +39,7 @@ main() {
         }
     }
     if (sum == 88) {
+        prints(num);
         prints("The program works fine!\n");
     } else {
         prints("This program sucks!\n");

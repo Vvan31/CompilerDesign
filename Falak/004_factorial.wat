@@ -24,17 +24,17 @@ i32.const 2
 local.set $i ;; VARIABLE ASSIGN
 ;;START WHILE 
 block $00002;; Break flag: 2
-loop $00003;; LOOP flag: 2
-local.get $i ;; VARIABLE ASSIGN
+loop $00003;; LOOP flag: 3
+local.get $i ;; VARIABLE Expr_var_identifier 
  
-local.get $n ;; VARIABLE ASSIGN
+local.get $n ;; VARIABLE Expr_var_identifier 
  
 i32.le_s 
 i32.eqz
 br_if $00002
-local.get $result ;; VARIABLE ASSIGN
+local.get $result ;; VARIABLE Expr_var_identifier 
  
-local.get $i ;; VARIABLE ASSIGN
+local.get $i ;; VARIABLE Expr_var_identifier 
  
 i32.mul 
 local.set $result ;; VARIABLE ASSIGN
@@ -46,7 +46,7 @@ br $00003
 end
 end
 ;; END WHILE 
-local.get $result ;; VARIABLE ASSIGN
+local.get $result ;; VARIABLE Expr_var_identifier 
 return
 i32.const 0  
 
@@ -57,7 +57,7 @@ i32.const 0
 (result i32) 
 (local $_temp i32)
 ;; IF statement 
-local.get $n ;; VARIABLE ASSIGN
+local.get $n ;; VARIABLE Expr_var_identifier 
  
 i32.const 0
  
@@ -68,9 +68,9 @@ if
 return
 ;; else statement 
 else
-local.get $n ;; VARIABLE ASSIGN
+local.get $n ;; VARIABLE Expr_var_identifier 
  
-local.get $n ;; VARIABLE ASSIGN
+local.get $n ;; VARIABLE Expr_var_identifier 
  
 i32.const 1
  
@@ -94,7 +94,7 @@ i32.const 0
 
 (local $num i32) 
 (local $option i32) 
-;;START WHILE 
+;;START DO 
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -303,7 +303,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $num ;; VARIABLE ASSIGN
+local.get $num ;; VARIABLE Expr_var_identifier 
 
 call $iterative_factorial
 call $printi
@@ -425,7 +425,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $num ;; VARIABLE ASSIGN
+local.get $num ;; VARIABLE Expr_var_identifier 
 
 call $recursive_factorial
 call $printi
@@ -581,7 +581,7 @@ drop
 call $reads
 local.set $option ;; VARIABLE ASSIGN
 ;; IF statement 
-local.get $option ;; VARIABLE ASSIGN
+local.get $option ;; VARIABLE Expr_var_identifier 
 
 call $size
  
@@ -595,31 +595,33 @@ i32.const 78
 local.set $option ;; VARIABLE ASSIGN
 ;; else statement 
 else
-local.get $option ;; VARIABLE ASSIGN
+local.get $option ;; VARIABLE Expr_var_identifier 
 i32.const 0
 
 call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-block $00002
-loop $00003
-local.get $option ;; VARIABLE ASSIGN
+block $00002;; Break flag: 2
+loop $00003;; LOOP flag: 3
+local.get $option ;; VARIABLE Expr_var_identifier 
  
 
 i32.const 89
  
 i32.eq 
- 
-local.get $option ;; VARIABLE ASSIGN
+if (result i32)
+i32.const 1
+else
+local.get $option ;; VARIABLE Expr_var_identifier 
  
 
 i32.const 121
  
 i32.eq 
- 
-i32.or 
-
+i32.eqz
+i32.eqz
+end
 i32.eqz
 br_if $00002
 ;; Start String: Input a number: 
@@ -830,7 +832,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $num ;; VARIABLE ASSIGN
+local.get $num ;; VARIABLE Expr_var_identifier 
 
 call $iterative_factorial
 call $printi
@@ -952,7 +954,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $num ;; VARIABLE ASSIGN
+local.get $num ;; VARIABLE Expr_var_identifier 
 
 call $recursive_factorial
 call $printi
@@ -1108,7 +1110,7 @@ drop
 call $reads
 local.set $option ;; VARIABLE ASSIGN
 ;; IF statement 
-local.get $option ;; VARIABLE ASSIGN
+local.get $option ;; VARIABLE Expr_var_identifier 
 
 call $size
  
@@ -1122,7 +1124,7 @@ i32.const 78
 local.set $option ;; VARIABLE ASSIGN
 ;; else statement 
 else
-local.get $option ;; VARIABLE ASSIGN
+local.get $option ;; VARIABLE Expr_var_identifier 
 i32.const 0
 
 call $get
@@ -1132,7 +1134,7 @@ end
 br $00003
 end
 end
-;; END WHILE 
+;; END DO 
 ;;Do Denied
 i32.const 0  
 

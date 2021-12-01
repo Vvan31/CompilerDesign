@@ -351,8 +351,7 @@ i32.const 99
 i32.eq 
 if
 ;;; Stmlist if
- br $00002
-end
+ end
 ;; IF statement 
 local.get $x ;; VARIABLE Expr_var_identifier 
  
@@ -365,7 +364,7 @@ if
 else
 i32.const 1
 local.set $j ;; VARIABLE ASSIGN
-;;START WHILE 
+;;START DO 
 (local.get $j)
 i32.const 1 
 i32.add
@@ -378,8 +377,7 @@ local.get $x ;; VARIABLE Expr_var_identifier
 i32.gt_s 
 if
 ;;; Stmlist if
- br $00006
-;; elseif statement 
+ ;; elseif statement 
 else
 local.get $x ;; VARIABLE Expr_var_identifier 
  
@@ -408,13 +406,12 @@ i32.const 0
 i32.eq 
 
 if
-br $00006
 
 end
 end
 end
-block $00004
-loop $00005
+block $00004;; Break flag: 4
+loop $00005;; LOOP flag: 5
 i32.const 2
  
 i32.const 2
@@ -424,7 +421,6 @@ i32.add
 i32.const 5
  
 i32.ne 
-
 i32.eqz
 br_if $00004
 (local.get $j)
@@ -439,7 +435,7 @@ local.get $x ;; VARIABLE Expr_var_identifier
 i32.gt_s 
 if
 ;;; Stmlist if
- br $00006
+ br $00004
 ;; elseif statement 
 else
 local.get $x ;; VARIABLE Expr_var_identifier 
@@ -469,7 +465,6 @@ i32.const 0
 i32.eq 
 
 if
-br $00006
 
 end
 end
@@ -477,11 +472,11 @@ end
 br $00005
 end
 end
-;; END WHILE 
+;; END DO 
 ;;Do Denied
 
 end
-br $00005
+br $00003
 end
 end
 ;; END WHILE 

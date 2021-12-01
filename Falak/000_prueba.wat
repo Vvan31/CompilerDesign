@@ -12,34 +12,24 @@
   (import "falak" "set" (func $set (param i32 i32 i32) (result i32)))
 
 
+ (func $owo
+    (result i32)
+(local $_temp i32)
+i32.const 0  
+
+)
+
  (func 
  $main
    (export "main")
     (result i32)
 (local $_temp i32)
 
-(local $s i32) 
-;; Start String: \u0000A1
- i32.const 0
-call $new
-
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-
-i32.const 161
- call $add
- drop
-;; End of String
-local.set $s ;; VARIABLE ASSIGN
-local.get $s ;; VARIABLE Expr_var_identifier 
-call $prints
+(local $x i32) 
+i32.const 9
+local.set $x ;; VARIABLE ASSIGN
+call $owo
 drop
-call $println
-drop
-i32.const 0
-return
 i32.const 0  
 
 )

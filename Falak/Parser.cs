@@ -248,6 +248,9 @@ namespace Falak {
                    if(CurrentToken == TokenCategory.ASSIGNMENT){
                         stmIdentifier = stmt_assign(token);
                     }else{
+                        Console.WriteLine("stm _fun call: ");
+                        Console.WriteLine(token);
+
                         stmIdentifier = stmt_fun_call(token);
                     }
 
@@ -303,6 +306,10 @@ namespace Falak {
             stmFunCall.Add(ExpressionList(token));
             Expect(TokenCategory.ENDPARENTHESIS);
             Expect(TokenCategory.SEMICOLON);
+
+            while(CurrentToken == TokenCategory.SEMICOLON){
+                Expect(TokenCategory.SEMICOLON);
+            }
             return stmFunCall;
         }
         public Node ExpressionList(Token token){

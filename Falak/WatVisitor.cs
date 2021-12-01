@@ -7,12 +7,29 @@ namespace Falak {
 
     class CodePoints {
     public IList<int> AsCodePoints(String str) {
+        //var s = "\u0000A1\u20ACste ni\u00F1o \u20ACst\u00E1 bien \u00D1o\u00F1o!\n";
         var result = new List<int>(str.Length);
+        
         for (var i = 0; i < str.Length; i++) {
-            result.Add(char.ConvertToUtf32(str, i));
-            if (char.IsHighSurrogate(str, i)) {
-                i++;
+            if(str[i] == '\\' && str.Length >= 3){
+                if(str[i+1] == 'u'){
+                    var stringHex = str.Substring(i+2 , 6);
+                    Console.WriteLine("//////////" +stringHex + "\n");
+                    int intValue = int.Parse(stringHex, System.Globalization.NumberStyles.HexNumber);
+                    result.Add(intValue);
+                    i += 7;
+                }else {
+                    result.Add(char.ConvertToUtf32(str, i));
+                }
+            } else {
+                result.Add(char.ConvertToUtf32(str, i));
             }
+
+            if (char.IsHighSurrogate(str, i)) {
+                 i++;
+            }
+             
+
         }
         return result;
         }
@@ -40,10 +57,11 @@ namespace Falak {
         int counterWhile = 0;
         int else_if = 0;
         int YeEstaElTemp = 0;
-        int doubleDo  =0;
+        int doubleDo = 0;
+        int breakFlag = 0;
 
         public String GenerateLabel() {
-            Console.WriteLine(labelCounter);
+           // Console.WriteLine(labelCounter);
             return String.Format("${0:00000}", labelCounter++);
         }
 
@@ -90,8 +108,8 @@ namespace Falak {
             // }
             
             //var refl = FGST_Table[functionFlag].refLst;
-            if(YeEstaElTemp == 0){
-                if(functionFlag != "global" && functionFlag != "main"){
+            if(functionFlag != "global" && functionFlag != "main"){
+                if(YeEstaElTemp == 0 && FGST_Table[functionFlag].arity > 0 ){
                     sb.Append("(local $_temp i32)\n");
                 }
                 YeEstaElTemp = 1;
@@ -143,11 +161,28 @@ namespace Falak {
                                 VisitChildren(node)+
                                 "i32.const 0  \n\n)\n";
             }else{
-            //POR EL AMOR A STALMAN, NO HAGAN FUNCIONES SIN PRAMETROS!!!
-                funName = "$" + node.AnchorToken.Lexeme;
-                result = "\n (func " + funName + "\n"+
-                                VisitChildren(node)+
-                                "i32.const 0  \n\n)\n";
+                //POR EL AMOR A STALMAN, NO HAGAN FUNCIONES SIN PRAMETROS!!!
+                //----UPDATE... SI LO HICIERON :(
+
+
+
+
+
+                if(FGST_Table[functionFlag].paramLst.Count > 0){
+                    funName = "$" + node.AnchorToken.Lexeme;
+                    result = "\n (func " + funName + "\n"+
+                                    VisitChildren(node)+
+                                    "i32.const 0  \n\n)\n";
+                }else{
+                    
+                    funName = "$" + node.AnchorToken.Lexeme;
+                    result = "\n (func " + funName + "\n"+
+                                      "    (result i32)\n"+
+                                      "(local $_temp i32)\n"+
+                                    VisitChildren(node)+
+                                    "i32.const 0  \n\n)\n";
+                    
+                }
             }
             
             //Ends whatever the function needed to be and returns to the default "Global"
@@ -378,57 +413,30 @@ namespace Falak {
         }
          //------------------------------------------------------
         public string Visit(Do node) {
-            // if(doubleDo == 0){
-            //     labelCounter +=2;
-            //     counterWhile++;
-            //     var varString="";
-            //     var label1 = GenerateLabel();
-            //     var label2 = GenerateLabel();
-
-            //     varString = (
-            //     ";;START WHILE \n" + 
-            //     Visit((dynamic) node[0])+
-            //     "block " + label1 + "\n"+ //break 
-            //     "loop " + label2 + "\n"+  //continue
-            //     Visit((dynamic) node[1])+ // expression  
-            //     "\ni32.eqz\n" + 
-            //     "br_if " + label1 + "\n" + //break if false 
-            //     Visit((dynamic) node[0])+  //statement  
-            //     "br " + label2 +"\n"+      //continue
-            //     "end\n"+
-            //     "end\n"+
-            //     ";; END WHILE \n"
-            //     );
-            //     counterWhile--;
-            //     labelCounter -=2;
-            //     doubleDo = 1;
-            //     return varString;
-            // } else{
-            //     doubleDo = 0;
-            //     return ";;Do Denied\n";
-            // }
             if(doubleDo == 0){
                 labelCounter +=2;
                 var varString="";
-                var label1 = GenerateLabel();
-                var label2 = GenerateLabel();
-
-                varString = (
-                ";;START WHILE \n" + 
-                Visit((dynamic) node[0])+
-                "block " + label1 + "\n"+ //break 
-                "loop " + label2 + "\n"+  //continue
-                Visit((dynamic) node[1])+ // expression  
-                "\ni32.eqz\n" + 
-                "br_if " + label1 + "\n" + //break if false 
-                Visit((dynamic) node[0])+  //statement  
-                "br " + label2 +"\n"+      //continue
-                "end\n"+
-                "end\n"+
-                ";; END WHILE \n"
+                
+                varString =  ";;START DO \n" 
+                + Visit((dynamic) node[0]);
+                //breakFlag = 1;
+                varString += (
+                "block $0000" + labelCounter + ";; Break flag: " +labelCounter +"\n"
+                +    "loop $0000" + (labelCounter+1) + ";; LOOP flag: " +(labelCounter+1) + "\n"
+                + Visit((dynamic) node[1])  //expressiowon 
+                +       "i32.eqz\n"  
+                +       "br_if $0000" + labelCounter + "\n" 
+                + Visit((dynamic) node[0]) // statement 
+                +       "br $0000" + (labelCounter+1) + "\n"
+                +    "end\n"
+                + "end\n"
+                + ";; END DO \n"
                 );
                 labelCounter -=2;
                 doubleDo = 1;
+                Console.WriteLine("Double Do: ");
+                Console.WriteLine(doubleDo);
+
                 return varString;
             } else{
                 doubleDo = 0;
@@ -438,15 +446,19 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Break node) {
-            Console.WriteLine("\nBreak: ");
-            Console.WriteLine(labelCounter);
-            Console.WriteLine("\n");
-            var label = String.Format("${0:00000}", labelCounter);
-            return "br "+ label+ "\n";
-            // var sb=new StringBuilder();
-            // sb.Append("  br $0000"+labelCounter);sb.Append("        ;;BREAK "+(labelCounter));
-            // sb.Append("\n");
-            // return sb.ToString();
+            var breakString = "";
+            if(breakFlag == 0){
+                Console.WriteLine("\nBreak: ");
+                Console.WriteLine(labelCounter);
+                Console.WriteLine("\n");
+                var label = String.Format("${0:00000}", labelCounter);
+                breakString =  "br "+ label+ "\n";
+                breakFlag = 0;
+            }
+            return breakString;
+            
+            
+            // sb.Append("  br $0000"+labelCounter);
         }
          //-----------------------------------------------------------
         public string Visit(Return node) {
@@ -634,9 +646,6 @@ namespace Falak {
         //-----------------------------------------------------------
         public string Visit(Lit_char node) {
             var lit = node.AnchorToken.Lexeme;
-
-
-
             lit = lit.Remove(lit.Length-1,1);
             lit = lit.Remove(0,1);
 
@@ -646,8 +655,8 @@ namespace Falak {
             lit = lit.Replace("\\t","\t");
 
             var uniChar =  codPoints.AsCodePoints($"{lit}");
+
             if(uniChar.Count == 2){
-                    Console.WriteLine(uniChar[1]+"\n");
                     return "\ni32.const " + uniChar[1] + "\n";
 
             } else if (uniChar.Count == 8){
@@ -669,6 +678,8 @@ namespace Falak {
         public string Visit(Lit_str node) {
 
 
+            //[\,\, u, 0,0,0,0,0,0, ...]
+
             var wantedString = node.AnchorToken.Lexeme;
             wantedString = wantedString.Remove(wantedString.Length-1,1);
             wantedString = wantedString.Remove(0,1);
@@ -676,15 +687,14 @@ namespace Falak {
             wantedString = wantedString.Replace("\\n","\n");
             wantedString = wantedString.Replace("\\r","\r");
             wantedString = wantedString.Replace("\\t","\t");
+            wantedString = wantedString.Replace( "\\\\", "\\" );
+            wantedString = wantedString.Replace( "\\\'", "\'" );
+            wantedString = wantedString.Replace( "\\\"", "\"" );
+            //wantedString = wantedString.Replace( "u00", "u" );
 
-            //TODO: Pasar un char Unicode en un string a una constante.
-            //wantedString = wantedString.Replace("\\u","\u");
 
 
-            //PUEDE O PUEDE QUE NO SE USE 
-            //wantedString = wantedString.Replace("\\\\","\\");
-            //wantedString = wantedString.Replace("\\'","\'");
-            //wantedString = wantedString.Replace("\\"","\"");
+            //s = "\u00A1\u20ACste ni\u00F1o \u20ACst\u00E1 bien \u00D1o\u00F1o!\n";
 
             var finalString =  codPoints.AsCodePoints(wantedString);
 
@@ -693,7 +703,6 @@ namespace Falak {
             code += "\n local.set $_temp\n";
             code += "\n local.get $_temp\n";
             
-            //char[] charArr = wantedString.ToCharArray();
 
             foreach (var i in finalString){
                 code += "local.get $_temp\n";

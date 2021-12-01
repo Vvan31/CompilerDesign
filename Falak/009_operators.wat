@@ -152,11 +152,15 @@ i32.const 0
 )
 
  (func $some_fun
+    (result i32)
+(local $_temp i32)
 i32.const 0  
 
 )
 
  (func $true_fun
+    (result i32)
+(local $_temp i32)
     i32.const 1
 return
 i32.const 0  
@@ -164,6 +168,8 @@ i32.const 0
 )
 
  (func $false_fun
+    (result i32)
+(local $_temp i32)
     i32.const 0
 return
 i32.const 0  
@@ -171,6 +177,8 @@ i32.const 0
 )
 
  (func $never_called
+    (result i32)
+(local $_temp i32)
     i32.const 0
     i32.const 1
 ;; Start String: error in short circuit operator
