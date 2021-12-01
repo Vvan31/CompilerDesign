@@ -17,7 +17,7 @@
 (result i32) 
 (local $_temp i32)
 ;; IF statement 
-local.get $y ;; VARIABLE ASSIGN
+local.get $y ;; VARIABLE Expr_var_identifier 
  
 i32.const 4
  
@@ -29,7 +29,7 @@ i32.eq
 if
 ;;; Stmlist if
  ;; IF statement 
-local.get $y ;; VARIABLE ASSIGN
+local.get $y ;; VARIABLE Expr_var_identifier 
  
 i32.const 100
  
@@ -41,7 +41,7 @@ i32.eq
 if
 ;;; Stmlist if
  ;; IF statement 
-local.get $y ;; VARIABLE ASSIGN
+local.get $y ;; VARIABLE Expr_var_identifier 
  
 i32.const 400
  
@@ -83,7 +83,7 @@ i32.const 0
 (local $_temp i32)
 (local $result i32) 
 ;; IF statement 
-local.get $m ;; VARIABLE ASSIGN
+local.get $m ;; VARIABLE Expr_var_identifier 
  
 i32.const 2
  
@@ -91,7 +91,7 @@ i32.eq
 if
 ;;; Stmlist if
  ;; IF statement 
-local.get $y ;; VARIABLE ASSIGN
+local.get $y ;; VARIABLE Expr_var_identifier 
 
 call $is_leap_year
 if
@@ -106,35 +106,44 @@ local.set $result ;; VARIABLE ASSIGN
 end
 ;; elseif statement 
 else
-local.get $m ;; VARIABLE ASSIGN
+local.get $m ;; VARIABLE Expr_var_identifier 
  
 i32.const 4
  
 i32.eq 
- 
-local.get $m ;; VARIABLE ASSIGN
+if (result i32)
+i32.const 1
+else
+local.get $m ;; VARIABLE Expr_var_identifier 
  
 i32.const 6
  
 i32.eq 
- 
-i32.or 
- 
-local.get $m ;; VARIABLE ASSIGN
+i32.eqz
+i32.eqz
+end
+if (result i32)
+i32.const 1
+else
+local.get $m ;; VARIABLE Expr_var_identifier 
  
 i32.const 9
  
 i32.eq 
- 
-i32.or 
- 
-local.get $m ;; VARIABLE ASSIGN
+i32.eqz
+i32.eqz
+end
+if (result i32)
+i32.const 1
+else
+local.get $m ;; VARIABLE Expr_var_identifier 
  
 i32.const 11
  
 i32.eq 
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 
 if
 i32.const 30
@@ -147,7 +156,7 @@ local.set $result ;; VARIABLE ASSIGN
 
 end
 end
-local.get $result ;; VARIABLE ASSIGN
+local.get $result ;; VARIABLE Expr_var_identifier 
 return
 i32.const 0  
 
@@ -160,10 +169,10 @@ i32.const 0
 (result i32) 
 (local $_temp i32)
 ;; IF statement 
-local.get $d ;; VARIABLE ASSIGN
+local.get $d ;; VARIABLE Expr_var_identifier 
  
-local.get $y ;; VARIABLE ASSIGN
-local.get $m ;; VARIABLE ASSIGN
+local.get $y ;; VARIABLE Expr_var_identifier 
+local.get $m ;; VARIABLE Expr_var_identifier 
 
 call $number_of_days_in_month
  
@@ -171,42 +180,87 @@ i32.eq
 if
 ;;; Stmlist if
  ;; IF statement 
-local.get $m ;; VARIABLE ASSIGN
+local.get $m ;; VARIABLE Expr_var_identifier 
  
 i32.const 12
  
 i32.eq 
 if
 ;;; Stmlist if
- local.get $y ;; VARIABLE ASSIGN
+ ;; Start Array
+ i32.const 0
+call $new
+local.set $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $y ;; VARIABLE Expr_var_identifier 
  
 i32.const 1
  
 i32.add 
+call $add
+drop
 i32.const 1
+call $add
+drop
 i32.const 1
+call $add
+drop
+;; End of Array
 return
 ;; else statement 
 else
-local.get $y ;; VARIABLE ASSIGN
-local.get $m ;; VARIABLE ASSIGN
+;; Start Array
+ i32.const 0
+call $new
+local.set $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $y ;; VARIABLE Expr_var_identifier 
+call $add
+drop
+local.get $m ;; VARIABLE Expr_var_identifier 
  
 i32.const 1
  
 i32.add 
+call $add
+drop
 i32.const 1
+call $add
+drop
+;; End of Array
 return
 
 end
 ;; else statement 
 else
-local.get $y ;; VARIABLE ASSIGN
-local.get $m ;; VARIABLE ASSIGN
-local.get $d ;; VARIABLE ASSIGN
+;; Start Array
+ i32.const 0
+call $new
+local.set $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $y ;; VARIABLE Expr_var_identifier 
+call $add
+drop
+local.get $m ;; VARIABLE Expr_var_identifier 
+call $add
+drop
+local.get $d ;; VARIABLE Expr_var_identifier 
  
 i32.const 1
  
 i32.add 
+call $add
+drop
+;; End of Array
 return
 
 end
@@ -301,21 +355,21 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $y ;; VARIABLE ASSIGN
+local.get $y ;; VARIABLE Expr_var_identifier 
 call $printi
 drop
 
 i32.const 47
 call $printc
 drop
-local.get $m ;; VARIABLE ASSIGN
+local.get $m ;; VARIABLE Expr_var_identifier 
 call $printi
 drop
 
 i32.const 47
 call $printc
 drop
-local.get $d ;; VARIABLE ASSIGN
+local.get $d ;; VARIABLE Expr_var_identifier 
 call $printi
 drop
 ;; Start String:  is 
@@ -348,13 +402,13 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $y ;; VARIABLE ASSIGN
-local.get $m ;; VARIABLE ASSIGN
-local.get $d ;; VARIABLE ASSIGN
+local.get $y ;; VARIABLE Expr_var_identifier 
+local.get $m ;; VARIABLE Expr_var_identifier 
+local.get $d ;; VARIABLE Expr_var_identifier 
 
 call $next_day
 local.set $next ;; VARIABLE ASSIGN
-local.get $next ;; VARIABLE ASSIGN
+local.get $next ;; VARIABLE Expr_var_identifier 
 i32.const 0
 
 call $get
@@ -364,7 +418,7 @@ drop
 i32.const 47
 call $printc
 drop
-local.get $next ;; VARIABLE ASSIGN
+local.get $next ;; VARIABLE Expr_var_identifier 
 i32.const 1
 
 call $get
@@ -374,7 +428,7 @@ drop
 i32.const 47
 call $printc
 drop
-local.get $next ;; VARIABLE ASSIGN
+local.get $next ;; VARIABLE Expr_var_identifier 
 i32.const 2
 
 call $get

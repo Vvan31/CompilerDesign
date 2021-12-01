@@ -27,22 +27,22 @@ call $printc
 drop
 i32.const 0
 local.set $i ;; VARIABLE ASSIGN
-local.get $a ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
 
 call $size
 local.set $n ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00002
-loop $00003
-local.get $i ;; VARIABLE ASSIGN
+block $00002;; Break flag: 2
+loop $00003;; LOOP flag: 3
+local.get $i ;; VARIABLE Expr_var_identifier 
  
-local.get $n ;; VARIABLE ASSIGN
+local.get $n ;; VARIABLE Expr_var_identifier 
  
 i32.lt_s 
 i32.eqz
-br_if  $00002
+br_if $00002
 ;; IF statement 
-local.get $first ;; VARIABLE ASSIGN
+local.get $first ;; VARIABLE Expr_var_identifier 
 if
 ;;; Stmlist if
      i32.const 0
@@ -71,8 +71,8 @@ call $prints
 drop
 
 end
-local.get $a ;; VARIABLE ASSIGN
-local.get $i ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
+local.get $i ;; VARIABLE Expr_var_identifier 
 
 call $get
 call $printi
@@ -104,24 +104,24 @@ i32.const 0
 local.set $sum ;; VARIABLE ASSIGN
 i32.const 0
 local.set $i ;; VARIABLE ASSIGN
-local.get $a ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
 
 call $size
 local.set $n ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00004
-loop $00005
-local.get $i ;; VARIABLE ASSIGN
+block $00002;; Break flag: 2
+loop $00003;; LOOP flag: 3
+local.get $i ;; VARIABLE Expr_var_identifier 
  
-local.get $n ;; VARIABLE ASSIGN
+local.get $n ;; VARIABLE Expr_var_identifier 
  
 i32.lt_s 
 i32.eqz
-br_if  $00004
-local.get $sum ;; VARIABLE ASSIGN
+br_if $00002
+local.get $sum ;; VARIABLE Expr_var_identifier 
  
-local.get $a ;; VARIABLE ASSIGN
-local.get $i ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
+local.get $i ;; VARIABLE Expr_var_identifier 
 
 call $get
  
@@ -131,11 +131,11 @@ local.set $sum ;; VARIABLE ASSIGN
 i32.const 1 
 i32.add
 (local.set $i)
-br $00005
+br $00003
 end
 end
 ;; END WHILE 
-local.get $sum ;; VARIABLE ASSIGN
+local.get $sum ;; VARIABLE Expr_var_identifier 
 return
 i32.const 0  
 
@@ -149,52 +149,52 @@ i32.const 0
 (local $i i32) 
 (local $n i32) 
 (local $x i32) 
-local.get $a ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
 i32.const 0
 
 call $get
 local.set $max ;; VARIABLE ASSIGN
 i32.const 0
 local.set $i ;; VARIABLE ASSIGN
-local.get $a ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
 
 call $size
 local.set $n ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00006
-loop $00007
-local.get $i ;; VARIABLE ASSIGN
+block $00002;; Break flag: 2
+loop $00003;; LOOP flag: 3
+local.get $i ;; VARIABLE Expr_var_identifier 
  
-local.get $n ;; VARIABLE ASSIGN
+local.get $n ;; VARIABLE Expr_var_identifier 
  
 i32.lt_s 
 i32.eqz
-br_if  $00006
-local.get $a ;; VARIABLE ASSIGN
-local.get $i ;; VARIABLE ASSIGN
+br_if $00002
+local.get $a ;; VARIABLE Expr_var_identifier 
+local.get $i ;; VARIABLE Expr_var_identifier 
 
 call $get
 local.set $x ;; VARIABLE ASSIGN
 ;; IF statement 
-local.get $x ;; VARIABLE ASSIGN
+local.get $x ;; VARIABLE Expr_var_identifier 
  
-local.get $max ;; VARIABLE ASSIGN
+local.get $max ;; VARIABLE Expr_var_identifier 
  
 i32.gt_s 
 if
 ;;; Stmlist if
- local.get $x ;; VARIABLE ASSIGN
+ local.get $x ;; VARIABLE Expr_var_identifier 
 local.set $max ;; VARIABLE ASSIGN
 end
 (local.get $i)
 i32.const 1 
 i32.add
 (local.set $i)
-br $00007
+br $00003
 end
 end
 ;; END WHILE 
-local.get $max ;; VARIABLE ASSIGN
+local.get $max ;; VARIABLE Expr_var_identifier 
 return
 i32.const 0  
 
@@ -209,18 +209,18 @@ i32.const 0
 (local $t i32) 
 (local $n i32) 
 (local $swap i32) 
-local.get $a ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
 
 call $size
 local.set $n ;; VARIABLE ASSIGN
 i32.const 0
 local.set $i ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00008
-loop $00009
-local.get $i ;; VARIABLE ASSIGN
+block $00002;; Break flag: 2
+loop $00003;; LOOP flag: 3
+local.get $i ;; VARIABLE Expr_var_identifier 
  
-local.get $n ;; VARIABLE ASSIGN
+local.get $n ;; VARIABLE Expr_var_identifier 
  
 i32.const 1
  
@@ -228,19 +228,19 @@ i32.sub
  
 i32.lt_s 
 i32.eqz
-br_if  $00008
+br_if $00002
 i32.const 0
 local.set $j ;; VARIABLE ASSIGN
     i32.const 0
 local.set $swap ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00012
-loop $00013
-local.get $j ;; VARIABLE ASSIGN
+block $00004;; Break flag: 4
+loop $00005;; LOOP flag: 5
+local.get $j ;; VARIABLE Expr_var_identifier 
  
-local.get $n ;; VARIABLE ASSIGN
+local.get $n ;; VARIABLE Expr_var_identifier 
  
-local.get $i ;; VARIABLE ASSIGN
+local.get $i ;; VARIABLE Expr_var_identifier 
  
 i32.sub 
  
@@ -250,15 +250,15 @@ i32.sub
  
 i32.lt_s 
 i32.eqz
-br_if  $00012
+br_if $00004
 ;; IF statement 
-local.get $a ;; VARIABLE ASSIGN
-local.get $j ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
+local.get $j ;; VARIABLE Expr_var_identifier 
 
 call $get
  
-local.get $a ;; VARIABLE ASSIGN
-local.get $j ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
+local.get $j ;; VARIABLE Expr_var_identifier 
  
 i32.const 1
  
@@ -269,15 +269,15 @@ call $get
 i32.gt_s 
 if
 ;;; Stmlist if
- local.get $a ;; VARIABLE ASSIGN
-local.get $j ;; VARIABLE ASSIGN
+ local.get $a ;; VARIABLE Expr_var_identifier 
+local.get $j ;; VARIABLE Expr_var_identifier 
 
 call $get
 local.set $t ;; VARIABLE ASSIGN
-local.get $a ;; VARIABLE ASSIGN
-local.get $j ;; VARIABLE ASSIGN
-local.get $a ;; VARIABLE ASSIGN
-local.get $j ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
+local.get $j ;; VARIABLE Expr_var_identifier 
+local.get $a ;; VARIABLE Expr_var_identifier 
+local.get $j ;; VARIABLE Expr_var_identifier 
  
 i32.const 1
  
@@ -286,13 +286,13 @@ i32.add
 call $get
 call $set
 drop
-local.get $a ;; VARIABLE ASSIGN
-local.get $j ;; VARIABLE ASSIGN
+local.get $a ;; VARIABLE Expr_var_identifier 
+local.get $j ;; VARIABLE Expr_var_identifier 
  
 i32.const 1
  
 i32.add 
-local.get $t ;; VARIABLE ASSIGN
+local.get $t ;; VARIABLE Expr_var_identifier 
 call $set
 drop
     i32.const 1
@@ -302,23 +302,23 @@ end
 i32.const 1 
 i32.add
 (local.set $j)
-br $00013
+br $00005
 end
 end
 ;; END WHILE 
 ;; IF statement 
-local.get $swap ;; VARIABLE ASSIGN
+local.get $swap ;; VARIABLE Expr_var_identifier 
  
 i32.eqz 
 if
 ;;; Stmlist if
- br $00010
+ br $00002
 end
 (local.get $i)
 i32.const 1 
 i32.add
 (local.set $i)
-br $00009
+br $00003
 end
 end
 ;; END WHILE 
@@ -335,26 +335,92 @@ i32.const 0
 (local $array i32) 
 (local $sum i32) 
 (local $max i32) 
+;; Start Array
+ i32.const 0
+call $new
+local.set $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
 i32.const 73
+call $add
+drop
 i32.const 77
+call $add
+drop
 i32.const 56
+call $add
+drop
 i32.const 10
+call $add
+drop
 i32.const 14
+call $add
+drop
 i32.const 54
+call $add
+drop
 i32.const 75
+call $add
+drop
 i32.const 62
+call $add
+drop
 i32.const 71
+call $add
+drop
 i32.const 10
+call $add
+drop
 i32.const 3
+call $add
+drop
 i32.const 71
+call $add
+drop
 i32.const 16
+call $add
+drop
 i32.const 49
+call $add
+drop
 i32.const 66
+call $add
+drop
 i32.const 91
+call $add
+drop
 i32.const 69
+call $add
+drop
 i32.const 62
+call $add
+drop
 i32.const 25
+call $add
+drop
 i32.const 65
+call $add
+drop
+;; End of Array
 local.set $array ;; VARIABLE ASSIGN
 ;; Start String: Original array: 
  i32.const 0
@@ -446,16 +512,16 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $array ;; VARIABLE ASSIGN
+local.get $array ;; VARIABLE Expr_var_identifier 
 call $print_array
 drop
 call $println
 drop
-local.get $array ;; VARIABLE ASSIGN
+local.get $array ;; VARIABLE Expr_var_identifier 
 
 call $sum_array
 local.set $sum ;; VARIABLE ASSIGN
-local.get $array ;; VARIABLE ASSIGN
+local.get $array ;; VARIABLE Expr_var_identifier 
 
 call $max_array
 local.set $max ;; VARIABLE ASSIGN
@@ -549,7 +615,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $sum ;; VARIABLE ASSIGN
+local.get $sum ;; VARIABLE Expr_var_identifier 
 call $printi
 drop
 call $println
@@ -644,12 +710,12 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $max ;; VARIABLE ASSIGN
+local.get $max ;; VARIABLE Expr_var_identifier 
 call $printi
 drop
 call $println
 drop
-local.get $array ;; VARIABLE ASSIGN
+local.get $array ;; VARIABLE Expr_var_identifier 
 call $sort_array
 drop
 ;; Start String: Sorted array:   
@@ -742,7 +808,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $array ;; VARIABLE ASSIGN
+local.get $array ;; VARIABLE Expr_var_identifier 
 call $print_array
 drop
 call $println

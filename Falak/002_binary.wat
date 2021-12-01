@@ -30,15 +30,15 @@ i32.const 1
 i32.sub 
 local.set $finish ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00002
-loop $00003
+block $00002;; Break flag: 2
+loop $00003;; LOOP flag: 2
 local.get $start ;; VARIABLE ASSIGN
  
 local.get $finish ;; VARIABLE ASSIGN
  
 i32.lt_s 
 i32.eqz
-br_if  $00002
+br_if $00002
 local.get $array ;; VARIABLE ASSIGN
 local.get $start ;; VARIABLE ASSIGN
 
@@ -112,15 +112,15 @@ call $new
 ;; End of String
 local.set $result ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00004
-loop $00005
+block $00002;; Break flag: 2
+loop $00003;; LOOP flag: 2
 local.get $num ;; VARIABLE ASSIGN
  
 i32.const 0
  
 i32.gt_s 
 i32.eqz
-br_if  $00004
+br_if $00002
 local.get $num ;; VARIABLE ASSIGN
  
 i32.const 2
@@ -142,7 +142,7 @@ i32.const 2
  
 i32.div_s 
 local.set $num ;; VARIABLE ASSIGN
-br $00005
+br $00003
 end
 end
 ;; END WHILE 
@@ -614,8 +614,8 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-block $00006
-loop $00007
+block $00002
+loop $00003
 local.get $option ;; VARIABLE ASSIGN
  
 
@@ -633,7 +633,7 @@ i32.eq
 i32.or 
 
 i32.eqz
-br_if $00006
+br_if $00002
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -1084,11 +1084,11 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00007
+br $00003
 end
 end
 ;; END WHILE 
-;;nope
+;;Do Denied
 i32.const 0  
 
 )

@@ -25,9 +25,9 @@ i32.const 1
 i32.add
 (global.set $asserts)
 ;; IF statement 
-local.get $value1 ;; VARIABLE ASSIGN
+local.get $value1 ;; VARIABLE Expr_var_identifier 
  
-local.get $value2 ;; VARIABLE ASSIGN
+local.get $value2 ;; VARIABLE Expr_var_identifier 
  
 i32.ne 
 if
@@ -141,7 +141,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $message ;; VARIABLE ASSIGN
+local.get $message ;; VARIABLE Expr_var_identifier 
 call $prints
 drop
 call $println
@@ -3284,10 +3284,13 @@ call $assert
 drop
 i32.const 0
     i32.const 0
- 
+if (result i32)
     i32.const 0
- 
-i32.and 
+i32.eqz
+i32.eqz
+else
+i32.const 0
+end
 ;; Start String: error in logical AND
  i32.const 0
 call $new
@@ -3400,10 +3403,13 @@ call $assert
 drop
 i32.const 0
     i32.const 1
- 
+if (result i32)
     i32.const 0
- 
-i32.and 
+i32.eqz
+i32.eqz
+else
+i32.const 0
+end
 ;; Start String: error in logical AND
  i32.const 0
 call $new
@@ -3516,10 +3522,13 @@ call $assert
 drop
 i32.const 0
     i32.const 0
- 
+if (result i32)
     i32.const 1
- 
-i32.and 
+i32.eqz
+i32.eqz
+else
+i32.const 0
+end
 ;; Start String: error in logical AND
  i32.const 0
 call $new
@@ -3632,10 +3641,13 @@ call $assert
 drop
 i32.const 1
     i32.const 1
- 
+if (result i32)
     i32.const 1
- 
-i32.and 
+i32.eqz
+i32.eqz
+else
+i32.const 0
+end
 ;; Start String: error in logical AND
  i32.const 0
 call $new
@@ -3749,11 +3761,14 @@ drop
 i32.const 0
 
 call $false_fun
- 
+if (result i32)
 
 call $never_called
- 
-i32.and 
+i32.eqz
+i32.eqz
+else
+i32.const 0
+end
 ;; Start String: error in logical AND
  i32.const 0
 call $new
@@ -3866,10 +3881,13 @@ call $assert
 drop
 i32.const 0
     i32.const 0
- 
+if (result i32)
+i32.const 1
+else
     i32.const 0
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical OR
  i32.const 0
 call $new
@@ -3977,10 +3995,13 @@ call $assert
 drop
 i32.const 1
     i32.const 1
- 
+if (result i32)
+i32.const 1
+else
     i32.const 0
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical OR
  i32.const 0
 call $new
@@ -4088,10 +4109,13 @@ call $assert
 drop
 i32.const 1
     i32.const 0
- 
+if (result i32)
+i32.const 1
+else
     i32.const 1
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical OR
  i32.const 0
 call $new
@@ -4199,10 +4223,13 @@ call $assert
 drop
 i32.const 1
     i32.const 1
- 
+if (result i32)
+i32.const 1
+else
     i32.const 1
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical OR
  i32.const 0
 call $new
@@ -4311,11 +4338,14 @@ drop
 i32.const 1
 
 call $true_fun
- 
+if (result i32)
+i32.const 1
+else
 
 call $never_called
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical OR
  i32.const 0
 call $new
@@ -4423,10 +4453,13 @@ call $assert
 drop
 i32.const 0
     i32.const 0
- 
+if (result i32)
+i32.const 1
+else
     i32.const 0
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical XOR
  i32.const 0
 call $new
@@ -4539,10 +4572,13 @@ call $assert
 drop
 i32.const 1
     i32.const 1
- 
+if (result i32)
+i32.const 1
+else
     i32.const 0
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical XOR
  i32.const 0
 call $new
@@ -4655,10 +4691,13 @@ call $assert
 drop
 i32.const 1
     i32.const 0
- 
+if (result i32)
+i32.const 1
+else
     i32.const 1
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical XOR
  i32.const 0
 call $new
@@ -4771,10 +4810,13 @@ call $assert
 drop
 i32.const 0
     i32.const 1
- 
+if (result i32)
+i32.const 1
+else
     i32.const 1
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical XOR
  i32.const 0
 call $new
@@ -4887,10 +4929,13 @@ call $assert
 drop
     i32.const 0
 i32.const 0
- 
+if (result i32)
+i32.const 1
+else
 i32.const 0
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical XOR
  i32.const 0
 call $new
@@ -5007,10 +5052,13 @@ i32.const 6
 i32.const 7
  
 i32.mul 
- 
+if (result i32)
+i32.const 1
+else
 i32.const 0
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical XOR
  i32.const 0
 call $new
@@ -5131,14 +5179,17 @@ i32.const 2
 i32.mul 
  
 i32.sub 
- 
+if (result i32)
+i32.const 1
+else
 i32.const 40
  
 i32.const 2
  
 i32.add 
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical XOR
  i32.const 0
 call $new
@@ -5251,14 +5302,17 @@ call $assert
 drop
     i32.const 0
 i32.const 7
- 
+if (result i32)
+i32.const 1
+else
 i32.const 2
  
 i32.const 21
  
 i32.mul 
- 
-i32.or 
+i32.eqz
+i32.eqz
+end
 ;; Start String: error in logical XOR
  i32.const 0
 call $new
@@ -7191,7 +7245,7 @@ i32.const 108
 ;; End of String
 call $assert
 drop
-global.get $fails ;; VARIABLE ASSIGN
+global.get $fails ;; VARIABLE Expr_var_identifier
 call $printi
 drop
 ;; Start String:  failure(s) found in 
@@ -7309,7 +7363,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-global.get $asserts ;; VARIABLE ASSIGN
+global.get $asserts ;; VARIABLE Expr_var_identifier
 call $printi
 drop
 ;; Start String:  assertion(s).

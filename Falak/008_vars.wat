@@ -118,7 +118,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-global.get $a ;; VARIABLE ASSIGN
+global.get $a ;; VARIABLE Expr_var_identifier
 call $printi
 drop
 call $println
@@ -153,7 +153,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $b ;; VARIABLE ASSIGN
+local.get $b ;; VARIABLE Expr_var_identifier 
 call $printi
 drop
 call $println
@@ -188,7 +188,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $c ;; VARIABLE ASSIGN
+local.get $c ;; VARIABLE Expr_var_identifier 
 call $printi
 drop
 call $println
@@ -212,7 +212,7 @@ i32.const 3
 global.set $c ;; VARIABLE ASSIGN
 i32.const 4
 local.set $x ;; VARIABLE ASSIGN
-local.get $x ;; VARIABLE ASSIGN
+local.get $x ;; VARIABLE Expr_var_identifier 
 call $x
 drop
 ;; Start String: Function main
@@ -326,7 +326,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-global.get $a ;; VARIABLE ASSIGN
+global.get $a ;; VARIABLE Expr_var_identifier
 call $printi
 drop
 call $println
@@ -361,7 +361,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-global.get $b ;; VARIABLE ASSIGN
+global.get $b ;; VARIABLE Expr_var_identifier
 call $printi
 drop
 call $println
@@ -396,7 +396,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-global.get $c ;; VARIABLE ASSIGN
+global.get $c ;; VARIABLE Expr_var_identifier
 call $printi
 drop
 call $println
@@ -431,7 +431,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $x ;; VARIABLE ASSIGN
+local.get $x ;; VARIABLE Expr_var_identifier 
 call $printi
 drop
 call $println

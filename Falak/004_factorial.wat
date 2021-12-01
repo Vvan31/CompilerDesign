@@ -23,15 +23,15 @@ local.set $result ;; VARIABLE ASSIGN
 i32.const 2
 local.set $i ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00002
-loop $00003
+block $00002;; Break flag: 2
+loop $00003;; LOOP flag: 2
 local.get $i ;; VARIABLE ASSIGN
  
 local.get $n ;; VARIABLE ASSIGN
  
 i32.le_s 
 i32.eqz
-br_if  $00002
+br_if $00002
 local.get $result ;; VARIABLE ASSIGN
  
 local.get $i ;; VARIABLE ASSIGN
@@ -602,8 +602,8 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-block $00004
-loop $00005
+block $00002
+loop $00003
 local.get $option ;; VARIABLE ASSIGN
  
 
@@ -621,7 +621,7 @@ i32.eq
 i32.or 
 
 i32.eqz
-br_if $00004
+br_if $00002
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -1129,7 +1129,7 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00005
+br $00003
 end
 end
 ;; END WHILE 
