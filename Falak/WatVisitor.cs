@@ -13,7 +13,6 @@ namespace Falak {
             if (char.IsHighSurrogate(str, i)) {
                 i++;
             }
-
         }
         return result;
         }
@@ -36,44 +35,14 @@ namespace Falak {
         }
 
         public CodePoints codPoints =  new CodePoints();      
-        //-----------------------------------------------------------
-        // public string Visit(Assignment node) {
-        //     return Visit((dynamic) node[0])
-        //         + $"    local.set ${node.AnchorToken.Lexeme}\n";
-        // }
-
-        //-----------------------------------------------------------
-        // public string Visit(Identifier node) {
-        //     return $"    local.get ${node.AnchorToken.Lexeme}\n";
-        // }
-
-        //-----------------------------------------------------------
-        // public string Visit(IntLiteral node) {
-        //     return $"    i32.const {node.AnchorToken.Lexeme}\n";
-        // }
-
-        //-----------------------------------------------------------
-        // public string Visit(True node) {
-        //     return "    i32.const 1\n";
-        // }
-
-        //-----------------------------------------------------------
-        // public string Visit(False node) { 
-        //     return "    i32.const 0\n";
-        // }
         ///=========
         int labelCounter = 0;
         int counterWhile = 0;
         int else_if = 0;
-
         int YeEstaElTemp = 0;
-
-
-        
 
         public String GenerateLabel() {
             return String.Format("${0:00000}", labelCounter++);
-
         }
 
         public string Visit(Program node) {
@@ -105,7 +74,6 @@ namespace Falak {
         //-----------------------------------------------------------
         public string Visit(Var_def node) {
             return (VisitChildren(node));
-            //return "(global $" + VisitChildren(node) + "(mut i32) (i32.const 0))";
         }
 
         //-----------------------------------------------------------
@@ -129,9 +97,6 @@ namespace Falak {
                 //sb.Append("(local $_temp i32)\n");
             
             if(functionFlag != "global"){
-                //var issues;
-
-                //sb.Append("(local $_temp i32)\n");
 
                 foreach (var localVar in node){
                     sb.Append("(local $" + localVar.AnchorToken.Lexeme + " i32) \n");
@@ -154,7 +119,6 @@ namespace Falak {
          //----------------------------------------------------------
         public string Visit(Var_identifier node) {
             return VisitChildren(node);
-
         }
         //-----------------------------------------------------------
         public string Visit(Expr_funcall_identifier node) {
@@ -343,23 +307,23 @@ namespace Falak {
          //-----------------------------------------------------------
         public string Visit(While node) {
             labelCounter +=2;
-           counterWhile++;
+            counterWhile++;
             var varString="";
             var label1 = GenerateLabel();
             var label2 = GenerateLabel();
 
             varString = (
-            ";;START WHILE \n" + 
-            "block " + label1 + "\n"+
-            "loop " + label2 + "\n"+
-            Visit((dynamic) node[0])+  //expressiowon 
-            "  \n i32.eqz\n" + 
-            $"br_if  " + label1 + "\n" +
-            Visit((dynamic) node[1])+ // statement 
-            "br " + label2 +"\n"+
-            "end\n"+
-            "end\n"+
-            ";; END WHILE \n"
+            ";;START WHILE \n" 
+            + "block " + label1 + "\n"
+            +    "loop " + label2 + "\n"
+            + Visit((dynamic) node[0])  //expressiowon 
+            +       "i32.eqz\n"  
+            +       "br_if  " + label1 + "\n" 
+            + Visit((dynamic) node[1]) // statement 
+            +       "br " + label2 + "\n"
+            +    "end\n"
+            + "end\n"
+            + ";; END WHILE \n"
             );
             counterWhile--;
             labelCounter -=2;
@@ -368,21 +332,20 @@ namespace Falak {
          //------------------------------------------------------
         public string Visit(Do node) {
             labelCounter +=2;
-           counterWhile++;
+            counterWhile++;
             var varString="";
             var label1 = GenerateLabel();
             var label2 = GenerateLabel();
 
             varString = (
             ";;START WHILE \n" + 
-            "block " + label1 + "\n"+
-            "loop " + label2 + "\n"+
-            Visit((dynamic) node[0])+  //expressioon 
-            "br " + label2 +"\n"+
-
-            Visit((dynamic) node[1])+ // statement 
-            "  \n i32.eqz\n" + 
-            $"br_if  " + label1 + "\n" +
+            "block " + label1 + "\n"+ //break 
+            "loop " + label2 + "\n"+  //continue
+            Visit((dynamic) node[1])+ // expression  
+            "\ni32.eqz\n" + 
+            "br_if " + label1 + "\n" + //break if false 
+            Visit((dynamic) node[0])+  //statement  
+            "br " + label2 +"\n"+      //continue
             "end\n"+
             "end\n"+
             ";; END WHILE \n"

@@ -45,9 +45,9 @@ i32.const 121
 i32.eq 
  
 i32.or 
-  
- i32.eqz
-br_if  $00002
+
+i32.eqz
+br_if $00002
 ;; Start String: owo
  i32.const 0
 call $new
@@ -73,6 +73,13 @@ i32.const 111
 ;; End of String
 call $prints
 drop
+call $println
+drop
+local.get $option ;; VARIABLE ASSIGN
+call $printc
+drop
+call $println
+drop
 
 call $reads
 local.set $option ;; VARIABLE ASSIGN
@@ -97,6 +104,152 @@ i32.const 0
 call $get
 local.set $option ;; VARIABLE ASSIGN
 
+end
+;; IF statement 
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 89
+ 
+i32.eq 
+ 
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 121
+ 
+i32.eq 
+ 
+i32.or 
+if
+;;; Stmlist if
+ ;; Start String: option es y so ta bien?
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 112
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 121
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 63
+ call $add
+ drop
+;; End of String
+call $prints
+drop
+call $println
+drop
 end
 br $00003
 end
@@ -120,9 +273,9 @@ i32.const 121
 i32.eq 
  
 i32.or 
-  
- i32.eqz
-br_if  $00004
+
+i32.eqz
+br_if $00004
 ;; Start String: owo
  i32.const 0
 call $new
@@ -148,6 +301,13 @@ i32.const 111
 ;; End of String
 call $prints
 drop
+call $println
+drop
+local.get $option ;; VARIABLE ASSIGN
+call $printc
+drop
+call $println
+drop
 
 call $reads
 local.set $option ;; VARIABLE ASSIGN
@@ -172,6 +332,152 @@ i32.const 0
 call $get
 local.set $option ;; VARIABLE ASSIGN
 
+end
+;; IF statement 
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 89
+ 
+i32.eq 
+ 
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 121
+ 
+i32.eq 
+ 
+i32.or 
+if
+;;; Stmlist if
+ ;; Start String: option es y so ta bien?
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 112
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 121
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 63
+ call $add
+ drop
+;; End of String
+call $prints
+drop
+call $println
+drop
 end
 br $00005
 end
