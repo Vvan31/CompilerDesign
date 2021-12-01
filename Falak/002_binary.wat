@@ -85,7 +85,7 @@ local.get $num ;; VARIABLE ASSIGN
  
 i32.const 0
  
-i32.lt_s 
+i32.le_s 
 if
 ;;; Stmlist if
  ;; Start String: 0
@@ -168,22 +168,6 @@ i32.const 0
 ;;START WHILE 
 block $00006
 loop $00007
-local.get $option ;; VARIABLE ASSIGN
- 
-
-i32.const 89
- 
-i32.eq 
- 
-local.get $option ;; VARIABLE ASSIGN
- 
-
-i32.const 121
- 
-i32.eq 
- 
-i32.or 
-br_if  $00007
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -634,29 +618,31 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00006
+br $00007
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 89
+ 
+i32.eq 
+ 
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 121
+ 
+i32.eq 
+ 
+i32.or 
+  
+ i32.eqz
+br_if  $00006
 end
 end
 ;; END WHILE 
 ;;START WHILE 
 block $00008
 loop $00009
-local.get $option ;; VARIABLE ASSIGN
- 
-
-i32.const 89
- 
-i32.eq 
- 
-local.get $option ;; VARIABLE ASSIGN
- 
-
-i32.const 121
- 
-i32.eq 
- 
-i32.or 
-br_if  $00009
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -1107,7 +1093,25 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00008
+br $00009
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 89
+ 
+i32.eq 
+ 
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 121
+ 
+i32.eq 
+ 
+i32.or 
+  
+ i32.eqz
+br_if  $00008
 end
 end
 ;; END WHILE 

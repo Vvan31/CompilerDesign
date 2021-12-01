@@ -20,7 +20,35 @@
     (result i32)
 (local $_temp i32)
 
-;; Start String: E we paro
+(local $n i32) 
+(local $option i32) 
+i32.const 1
+local.set $n ;; VARIABLE ASSIGN
+
+i32.const 121
+local.set $option ;; VARIABLE ASSIGN
+;;START WHILE 
+block $00002
+loop $00003
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 89
+ 
+i32.eq 
+ 
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 121
+ 
+i32.eq 
+ 
+i32.or 
+  
+ i32.eqz
+br_if  $00002
+;; Start String: owo
  i32.const 0
 call $new
 
@@ -30,42 +58,12 @@ call $new
 local.get $_temp
 local.get $_temp
 local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
 
-i32.const 69
- call $add
- drop
-
-i32.const 32
+i32.const 111
  call $add
  drop
 
 i32.const 119
- call $add
- drop
-
-i32.const 101
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 112
- call $add
- drop
-
-i32.const 97
- call $add
- drop
-
-i32.const 114
  call $add
  drop
 
@@ -75,16 +73,57 @@ i32.const 111
 ;; End of String
 call $prints
 drop
+
+call $reads
+local.set $option ;; VARIABLE ASSIGN
 ;; IF statement 
-i32.const 49
+local.get $option ;; VARIABLE ASSIGN
+
+call $size
  
-i32.const 48
+i32.const 0
  
-i32.gt_s 
+i32.eq 
 if
 ;;; Stmlist if
- ;; Start String: 1 > 0 
+ 
+i32.const 78
+local.set $option ;; VARIABLE ASSIGN
+;; else statement 
+else
+local.get $option ;; VARIABLE ASSIGN
+i32.const 0
 
+call $get
+local.set $option ;; VARIABLE ASSIGN
+
+end
+br $00003
+end
+end
+;; END WHILE 
+;;START WHILE 
+block $00004
+loop $00005
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 89
+ 
+i32.eq 
+ 
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 121
+ 
+i32.eq 
+ 
+i32.or 
+  
+ i32.eqz
+br_if  $00004
+;; Start String: owo
  i32.const 0
 call $new
 
@@ -94,98 +133,51 @@ call $new
 local.get $_temp
 local.get $_temp
 local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
 
-i32.const 49
+i32.const 111
  call $add
  drop
 
-i32.const 32
+i32.const 119
  call $add
  drop
 
-i32.const 62
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 48
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 10
+i32.const 111
  call $add
  drop
 ;; End of String
 call $prints
 drop
-end
+
+call $reads
+local.set $option ;; VARIABLE ASSIGN
 ;; IF statement 
-i32.const 48
+local.get $option ;; VARIABLE ASSIGN
+
+call $size
  
-i32.const 49
+i32.const 0
  
-i32.lt_s 
+i32.eq 
 if
 ;;; Stmlist if
- ;; Start String: 0 < 1 
+ 
+i32.const 78
+local.set $option ;; VARIABLE ASSIGN
+;; else statement 
+else
+local.get $option ;; VARIABLE ASSIGN
+i32.const 0
 
- i32.const 0
-call $new
+call $get
+local.set $option ;; VARIABLE ASSIGN
 
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-
-i32.const 48
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 60
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 49
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 10
- call $add
- drop
-;; End of String
-call $prints
-drop
 end
-i32.const 54
+br $00005
+end
+end
+;; END WHILE 
+i32.const 69
 return
 i32.const 0  
 

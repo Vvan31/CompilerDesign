@@ -343,8 +343,6 @@ namespace Falak {
          //-----------------------------------------------------------
         public string Visit(While node) {
             labelCounter +=2;
-
-
            counterWhile++;
             var varString="";
             var label1 = GenerateLabel();
@@ -354,10 +352,10 @@ namespace Falak {
             ";;START WHILE \n" + 
             "block " + label1 + "\n"+
             "loop " + label2 + "\n"+
-            Visit((dynamic) node[0])+ 
+            Visit((dynamic) node[0])+  //expressiowon 
             "  \n i32.eqz\n" + 
             $"br_if  " + label1 + "\n" +
-            Visit((dynamic) node[1])+ //The Conditional
+            Visit((dynamic) node[1])+ // statement 
             "br " + label2 +"\n"+
             "end\n"+
             "end\n"+
@@ -370,21 +368,21 @@ namespace Falak {
          //------------------------------------------------------
         public string Visit(Do node) {
             labelCounter +=2;
-
-
-            counterWhile++;
-
+           counterWhile++;
             var varString="";
             var label1 = GenerateLabel();
             var label2 = GenerateLabel();
+
             varString = (
             ";;START WHILE \n" + 
             "block " + label1 + "\n"+
             "loop " + label2 + "\n"+
-            Visit((dynamic) node[1])+ 
-            $"br_if  " + label2 + "\n" +
-            Visit((dynamic) node[0])+ //The Conditional
-            "br " + label1 +"\n"+
+            Visit((dynamic) node[0])+  //expressioon 
+            "br " + label2 +"\n"+
+
+            Visit((dynamic) node[1])+ // statement 
+            "  \n i32.eqz\n" + 
+            $"br_if  " + label1 + "\n" +
             "end\n"+
             "end\n"+
             ";; END WHILE \n"

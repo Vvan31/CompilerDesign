@@ -6,16 +6,19 @@
 var owo;
 var ewe;
 main() {
-
-   prints("E we paro");
-   
-   if (1 > 0){
-       prints("1 > 0 \n");
-   }
-
-   if (0 < 1){
-       prints("0 < 1 \n");
-   }
+    var n,option;
+    n = 1;
+    option = 'y'; 
+    do{
+       prints("owo");
+       option = reads();
+        if (size(option) == 0) {
+            option = 'N';
+        } else {
+            option = get(option, 0);
+        }
+    } while (option == 'Y' || option == 'y');
+  
  
    return 69; 
 
