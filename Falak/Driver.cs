@@ -44,7 +44,7 @@ namespace Falak {
                 var parser = new Parser(
                     new Scanner(input).Scan().GetEnumerator());
                 var program = parser.Program();
-                Console.Write(program.ToStringTree());
+                //Console.Write(program.ToStringTree());
 
                 //Semantic visitor First pass
                 var semantic = new SemanticVisitor();

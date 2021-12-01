@@ -37,8 +37,7 @@ local.get $start ;; VARIABLE ASSIGN
 local.get $finish ;; VARIABLE ASSIGN
  
 i32.lt_s 
-  
- i32.eqz
+i32.eqz
 br_if  $00002
 local.get $array ;; VARIABLE ASSIGN
 local.get $start ;; VARIABLE ASSIGN
@@ -120,8 +119,7 @@ local.get $num ;; VARIABLE ASSIGN
 i32.const 0
  
 i32.gt_s 
-  
- i32.eqz
+i32.eqz
 br_if  $00004
 local.get $num ;; VARIABLE ASSIGN
  
@@ -166,8 +164,476 @@ i32.const 0
 (local $option i32) 
 (local $num i32) 
 ;;START WHILE 
+;; Start String: Input a number: 
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 73
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 112
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 109
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+;; End of String
+call $prints
+drop
+
+call $readi
+local.set $num ;; VARIABLE ASSIGN
+;; Start String: Conversion to binary of that number: 
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 118
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 105
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 121
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 102
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 104
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 109
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+;; End of String
+call $prints
+drop
+local.get $num ;; VARIABLE ASSIGN
+
+call $binary
+call $prints
+drop
+call $println
+drop
+;; Start String: Convert another number? 
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 67
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 118
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 104
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 110
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 109
+ call $add
+ drop
+
+i32.const 98
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 63
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+;; End of String
+call $prints
+drop
+
+call $reads
+local.set $option ;; VARIABLE ASSIGN
+;; IF statement 
+local.get $option ;; VARIABLE ASSIGN
+
+call $size
+ 
+i32.const 0
+ 
+i32.eq 
+if
+;;; Stmlist if
+ 
+i32.const 78
+local.set $option ;; VARIABLE ASSIGN
+;; else statement 
+else
+local.get $option ;; VARIABLE ASSIGN
+i32.const 0
+
+call $get
+local.set $option ;; VARIABLE ASSIGN
+
+end
 block $00006
 loop $00007
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 89
+ 
+i32.eq 
+ 
+local.get $option ;; VARIABLE ASSIGN
+ 
+
+i32.const 121
+ 
+i32.eq 
+ 
+i32.or 
+
+i32.eqz
+br_if $00006
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -619,502 +1085,10 @@ local.set $option ;; VARIABLE ASSIGN
 
 end
 br $00007
-local.get $option ;; VARIABLE ASSIGN
- 
-
-i32.const 89
- 
-i32.eq 
- 
-local.get $option ;; VARIABLE ASSIGN
- 
-
-i32.const 121
- 
-i32.eq 
- 
-i32.or 
-  
- i32.eqz
-br_if  $00006
 end
 end
 ;; END WHILE 
-;;START WHILE 
-block $00008
-loop $00009
-;; Start String: Input a number: 
- i32.const 0
-call $new
-
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-
-i32.const 73
- call $add
- drop
-
-i32.const 110
- call $add
- drop
-
-i32.const 112
- call $add
- drop
-
-i32.const 117
- call $add
- drop
-
-i32.const 116
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 97
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 110
- call $add
- drop
-
-i32.const 117
- call $add
- drop
-
-i32.const 109
- call $add
- drop
-
-i32.const 98
- call $add
- drop
-
-i32.const 101
- call $add
- drop
-
-i32.const 114
- call $add
- drop
-
-i32.const 58
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-;; End of String
-call $prints
-drop
-
-call $readi
-local.set $num ;; VARIABLE ASSIGN
-;; Start String: Conversion to binary of that number: 
- i32.const 0
-call $new
-
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-
-i32.const 67
- call $add
- drop
-
-i32.const 111
- call $add
- drop
-
-i32.const 110
- call $add
- drop
-
-i32.const 118
- call $add
- drop
-
-i32.const 101
- call $add
- drop
-
-i32.const 114
- call $add
- drop
-
-i32.const 115
- call $add
- drop
-
-i32.const 105
- call $add
- drop
-
-i32.const 111
- call $add
- drop
-
-i32.const 110
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 116
- call $add
- drop
-
-i32.const 111
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 98
- call $add
- drop
-
-i32.const 105
- call $add
- drop
-
-i32.const 110
- call $add
- drop
-
-i32.const 97
- call $add
- drop
-
-i32.const 114
- call $add
- drop
-
-i32.const 121
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 111
- call $add
- drop
-
-i32.const 102
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 116
- call $add
- drop
-
-i32.const 104
- call $add
- drop
-
-i32.const 97
- call $add
- drop
-
-i32.const 116
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 110
- call $add
- drop
-
-i32.const 117
- call $add
- drop
-
-i32.const 109
- call $add
- drop
-
-i32.const 98
- call $add
- drop
-
-i32.const 101
- call $add
- drop
-
-i32.const 114
- call $add
- drop
-
-i32.const 58
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-;; End of String
-call $prints
-drop
-local.get $num ;; VARIABLE ASSIGN
-
-call $binary
-call $prints
-drop
-call $println
-drop
-;; Start String: Convert another number? 
- i32.const 0
-call $new
-
- local.set $_temp
-
- local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-local.get $_temp
-
-i32.const 67
- call $add
- drop
-
-i32.const 111
- call $add
- drop
-
-i32.const 110
- call $add
- drop
-
-i32.const 118
- call $add
- drop
-
-i32.const 101
- call $add
- drop
-
-i32.const 114
- call $add
- drop
-
-i32.const 116
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 97
- call $add
- drop
-
-i32.const 110
- call $add
- drop
-
-i32.const 111
- call $add
- drop
-
-i32.const 116
- call $add
- drop
-
-i32.const 104
- call $add
- drop
-
-i32.const 101
- call $add
- drop
-
-i32.const 114
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-
-i32.const 110
- call $add
- drop
-
-i32.const 117
- call $add
- drop
-
-i32.const 109
- call $add
- drop
-
-i32.const 98
- call $add
- drop
-
-i32.const 101
- call $add
- drop
-
-i32.const 114
- call $add
- drop
-
-i32.const 63
- call $add
- drop
-
-i32.const 32
- call $add
- drop
-;; End of String
-call $prints
-drop
-
-call $reads
-local.set $option ;; VARIABLE ASSIGN
-;; IF statement 
-local.get $option ;; VARIABLE ASSIGN
-
-call $size
- 
-i32.const 0
- 
-i32.eq 
-if
-;;; Stmlist if
- 
-i32.const 78
-local.set $option ;; VARIABLE ASSIGN
-;; else statement 
-else
-local.get $option ;; VARIABLE ASSIGN
-i32.const 0
-
-call $get
-local.set $option ;; VARIABLE ASSIGN
-
-end
-br $00009
-local.get $option ;; VARIABLE ASSIGN
- 
-
-i32.const 89
- 
-i32.eq 
- 
-local.get $option ;; VARIABLE ASSIGN
- 
-
-i32.const 121
- 
-i32.eq 
- 
-i32.or 
-  
- i32.eqz
-br_if  $00008
-end
-end
-;; END WHILE 
+;;nope
 i32.const 0  
 
 )

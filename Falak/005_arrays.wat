@@ -39,8 +39,7 @@ local.get $i ;; VARIABLE ASSIGN
 local.get $n ;; VARIABLE ASSIGN
  
 i32.lt_s 
-  
- i32.eqz
+i32.eqz
 br_if  $00002
 ;; IF statement 
 local.get $first ;; VARIABLE ASSIGN
@@ -117,8 +116,7 @@ local.get $i ;; VARIABLE ASSIGN
 local.get $n ;; VARIABLE ASSIGN
  
 i32.lt_s 
-  
- i32.eqz
+i32.eqz
 br_if  $00004
 local.get $sum ;; VARIABLE ASSIGN
  
@@ -170,8 +168,7 @@ local.get $i ;; VARIABLE ASSIGN
 local.get $n ;; VARIABLE ASSIGN
  
 i32.lt_s 
-  
- i32.eqz
+i32.eqz
 br_if  $00006
 local.get $a ;; VARIABLE ASSIGN
 local.get $i ;; VARIABLE ASSIGN
@@ -230,8 +227,7 @@ i32.const 1
 i32.sub 
  
 i32.lt_s 
-  
- i32.eqz
+i32.eqz
 br_if  $00008
 i32.const 0
 local.set $j ;; VARIABLE ASSIGN
@@ -253,8 +249,7 @@ i32.const 1
 i32.sub 
  
 i32.lt_s 
-  
- i32.eqz
+i32.eqz
 br_if  $00012
 ;; IF statement 
 local.get $a ;; VARIABLE ASSIGN

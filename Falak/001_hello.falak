@@ -8,7 +8,6 @@ var ewe;
 main() {
     var n,option;
     n = 1;
-    option = 'y'; 
     do{
        prints("owo");
        println();
@@ -24,9 +23,24 @@ main() {
             prints("option es y so ta bien?");
             println();
         }
+            do{
+                prints("double do");
+                println();
+                printc(option);
+                println();
+                option = reads();
+                    if (size(option) == 0) {
+                        option = 'N';
+                    } else {
+                        option = get(option, 0);
+                    }
+                    if (option == 'Y' || option == 'y') {
+                        prints("option es y so ta bien?");
+                        println();
+                    }
+        } while (option == 'Y' || option == 'y');
     } while (option == 'Y' || option == 'y');
   
- 
    return 69; 
 
 }

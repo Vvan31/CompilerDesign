@@ -40,6 +40,7 @@ namespace Falak {
         int counterWhile = 0;
         int else_if = 0;
         int YeEstaElTemp = 0;
+        int doubleDo  =0;
 
         public String GenerateLabel() {
             return String.Format("${0:00000}", labelCounter++);
@@ -331,34 +332,46 @@ namespace Falak {
         }
          //------------------------------------------------------
         public string Visit(Do node) {
-            labelCounter +=2;
-            counterWhile++;
-            var varString="";
-            var label1 = GenerateLabel();
-            var label2 = GenerateLabel();
+            if(doubleDo == 0){
+                labelCounter +=2;
+                counterWhile++;
+                var varString="";
+                var label1 = GenerateLabel();
+                var label2 = GenerateLabel();
 
-            varString = (
-            ";;START WHILE \n" + 
-            "block " + label1 + "\n"+ //break 
-            "loop " + label2 + "\n"+  //continue
-            Visit((dynamic) node[1])+ // expression  
-            "\ni32.eqz\n" + 
-            "br_if " + label1 + "\n" + //break if false 
-            Visit((dynamic) node[0])+  //statement  
-            "br " + label2 +"\n"+      //continue
-            "end\n"+
-            "end\n"+
-            ";; END WHILE \n"
-            );
-            counterWhile--;
-            labelCounter -=2;
-            return varString;
+                varString = (
+                ";;START WHILE \n" + 
+                Visit((dynamic) node[0])+
+                "block " + label1 + "\n"+ //break 
+                "loop " + label2 + "\n"+  //continue
+                Visit((dynamic) node[1])+ // expression  
+                "\ni32.eqz\n" + 
+                "br_if " + label1 + "\n" + //break if false 
+                Visit((dynamic) node[0])+  //statement  
+                "br " + label2 +"\n"+      //continue
+                "end\n"+
+                "end\n"+
+                ";; END WHILE \n"
+                );
+                counterWhile--;
+                labelCounter -=2;
+                doubleDo = 1;
+                return varString;
+            } else{
+                doubleDo = 0;
+                return ";;Do Denied\n";
+            }
+ 
         }
          //-----------------------------------------------------------
         public string Visit(Break node) {
             var label = String.Format("${0:00000}", labelCounter + (2*(counterWhile -1)-2));
             counterWhile--;
             return "br "+ label+ "\n";
+            // var sb=new StringBuilder();
+            // sb.Append("  br $0000"+labelCounter);sb.Append("        ;;BREAK "+(labelCounter));
+            // sb.Append("\n");
+            // return sb.ToString();
         }
          //-----------------------------------------------------------
         public string Visit(Return node) {
@@ -427,11 +440,9 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Multiplication node) {
-            Console.WriteLine("MUL");
             return $"{Visit((dynamic) node[0])} \n" +  
                    $"{Visit((dynamic) node[1])} \n" +
                    "i32.mul \n";
-
         }
          //-----------------------------------------------------------
         public string Visit(Division node) {
@@ -465,8 +476,6 @@ namespace Falak {
             var sb = new StringBuilder();
             var varName = node.AnchorToken.Lexeme;
             
-
-         
             if(FGST_Table[functionFlag].refLst.Contains(varName) || FGST_Table[functionFlag].paramLst.Contains(varName) ){ //Es una variable local
                 var varAssign = "";
                 varAssign += VisitChildren(node);
