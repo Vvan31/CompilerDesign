@@ -23,8 +23,8 @@ local.set $result ;; VARIABLE ASSIGN
 i32.const 2
 local.set $i ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00000
-loop $00001
+block $00002
+loop $00003
 local.get $i
  
 local.get $n
@@ -32,7 +32,7 @@ local.get $n
 i32.le_s 
   
  i32.eqz
-br_if  $00000
+br_if  $00002
 local.get $result
  
 local.get $i
@@ -43,7 +43,7 @@ local.set $result ;; VARIABLE ASSIGN
 i32.const 1 
 i32.add
 (local.set $i)
-br $00001
+br $00003
 end
 end
 ;; END WHILE 
@@ -96,24 +96,24 @@ i32.const 0
 (local $num i32) 
 (local $option i32) 
 ;;START WHILE 
-block $00000
-loop $00001
+block $00004
+loop $00005
 local.get $option
  
 
-i32.const 39
+i32.const 89
  
 i32.eq 
  
 local.get $option
  
 
-i32.const 39
+i32.const 121
  
 i32.eq 
  
 i32.or 
-br_if  $00000
+br_if  $00004
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -610,7 +610,7 @@ i32.eq
 if
 ;;; Stmlist if
  
-i32.const 39
+i32.const 78
 local.set $option ;; VARIABLE ASSIGN
 ;; else statement 
 else
@@ -621,29 +621,29 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00001
+br $00005
 end
 end
 ;; END WHILE 
 ;;START WHILE 
-block $00000
-loop $00001
+block $00006
+loop $00007
 local.get $option
  
 
-i32.const 39
+i32.const 89
  
 i32.eq 
  
 local.get $option
  
 
-i32.const 39
+i32.const 121
  
 i32.eq 
  
 i32.or 
-br_if  $00000
+br_if  $00006
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -1140,7 +1140,7 @@ i32.eq
 if
 ;;; Stmlist if
  
-i32.const 39
+i32.const 78
 local.set $option ;; VARIABLE ASSIGN
 ;; else statement 
 else
@@ -1151,7 +1151,7 @@ call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00001
+br $00007
 end
 end
 ;; END WHILE 

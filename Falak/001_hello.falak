@@ -7,9 +7,16 @@ var owo;
 var ewe;
 main() {
 
-    prints("E we paro\n")
-   #nice
-   return 69; 
+   prints("E we paro");
+   
+   if (1 > 0){
+       prints("1 > 0 \n");
+   }
 
+   if (0 < 1){
+       prints("0 < 1 \n");
+   }
+ 
+   return 69; 
 
 }

@@ -16,9 +16,9 @@
 (param $x i32)
 (result i32) 
 (local $_temp i32)
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
 i32.mul 
 return
@@ -242,20 +242,20 @@ local.set $sum ;; VARIABLE ASSIGN
 i32.const 0
 local.set $i ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00000
-loop $00001
-local.get $i
+block $00002
+loop $00003
+local.get $i ;; VARIABLE ASSIGN
  
-local.get $array
+local.get $array ;; VARIABLE ASSIGN
 
 call $size
  
 i32.lt_s 
   
  i32.eqz
-br_if  $00000
-local.get $array
-local.get $i
+br_if  $00002
+local.get $array ;; VARIABLE ASSIGN
+local.get $i ;; VARIABLE ASSIGN
 
 call $get
 local.set $x ;; VARIABLE ASSIGN
@@ -264,17 +264,17 @@ i32.const 1
 i32.add
 (local.set $i)
 ;; IF statement 
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
 i32.const 99
  
 i32.eq 
 if
 ;;; Stmlist if
- br $00000
+ br $00002
 end
 ;; IF statement 
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
 i32.const 2
  
@@ -286,8 +286,8 @@ else
 i32.const 1
 local.set $j ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00002
-loop $00003
+block $00006
+loop $00007
 i32.const 2
  
 i32.const 2
@@ -297,41 +297,41 @@ i32.add
 i32.const 5
  
 i32.ne 
-br_if  $00002
+br_if  $00006
 (local.get $j)
 i32.const 1 
 i32.add
 (local.set $j)
 ;; IF statement 
-local.get $j
+local.get $j ;; VARIABLE ASSIGN
  
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
 i32.gt_s 
 if
 ;;; Stmlist if
- br $00002
+ br $00006
 ;; elseif statement 
 else
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
-local.get $j
+local.get $j ;; VARIABLE ASSIGN
  
 i32.eq 
 
 if
-local.get $sum
+local.get $sum ;; VARIABLE ASSIGN
  
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
 i32.add 
 local.set $sum ;; VARIABLE ASSIGN
 
 ;; elseif statement 
 else
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
-local.get $j
+local.get $j ;; VARIABLE ASSIGN
  
 i32.rem_s 
  
@@ -340,18 +340,18 @@ i32.const 0
 i32.eq 
 
 if
-br $00000
+br $00004
 
 end
 end
 end
-br $00003
+br $00007
 end
 end
 ;; END WHILE 
 ;;START WHILE 
-block $00002
-loop $00003
+block $00008
+loop $00009
 i32.const 2
  
 i32.const 2
@@ -361,41 +361,41 @@ i32.add
 i32.const 5
  
 i32.ne 
-br_if  $00002
+br_if  $00008
 (local.get $j)
 i32.const 1 
 i32.add
 (local.set $j)
 ;; IF statement 
-local.get $j
+local.get $j ;; VARIABLE ASSIGN
  
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
 i32.gt_s 
 if
 ;;; Stmlist if
- br $-00002
+ br $00004
 ;; elseif statement 
 else
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
-local.get $j
+local.get $j ;; VARIABLE ASSIGN
  
 i32.eq 
 
 if
-local.get $sum
+local.get $sum ;; VARIABLE ASSIGN
  
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
 i32.add 
 local.set $sum ;; VARIABLE ASSIGN
 
 ;; elseif statement 
 else
-local.get $x
+local.get $x ;; VARIABLE ASSIGN
  
-local.get $j
+local.get $j ;; VARIABLE ASSIGN
  
 i32.rem_s 
  
@@ -404,23 +404,23 @@ i32.const 0
 i32.eq 
 
 if
-br $-00004
+br $00002
 
 end
 end
+end
+br $00009
+end
+end
+;; END WHILE 
+
 end
 br $00003
 end
 end
 ;; END WHILE 
-
-end
-br $00001
-end
-end
-;; END WHILE 
 ;; IF statement 
-local.get $sum
+local.get $sum ;; VARIABLE ASSIGN
  
 i32.const 88
  

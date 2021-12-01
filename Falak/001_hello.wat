@@ -20,28 +20,7 @@
     (result i32)
 (local $_temp i32)
 
-(local $start i32) 
-(local $finish i32) 
-(local $owo i32) 
-i32.const 5
-local.set $owo ;; VARIABLE ASSIGN
-i32.const 4
-global.set $ewe 
-i32.const 0
-local.set $start ;; VARIABLE ASSIGN
-i32.const 6
-local.set $finish ;; VARIABLE ASSIGN
-i32.const 3
-local.set $owo ;; VARIABLE ASSIGN
-;; IF statement 
-local.get $start
- 
-local.get $finish
- 
-i32.lt_s 
-if
-;;; Stmlist if
- ;; Start String: a
+;; Start String: E we paro
  i32.const 0
 call $new
 
@@ -49,28 +28,63 @@ call $new
 
  local.get $_temp
 local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 69
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 119
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 112
+ call $add
+ drop
 
 i32.const 97
  call $add
  drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 111
+ call $add
+ drop
 ;; End of String
 call $prints
 drop
-call $println
-drop
-end
-;;START WHILE 
-block $00000
-loop $00001
-local.get $start
+;; IF statement 
+i32.const 49
  
-local.get $finish
+i32.const 48
  
-i32.lt_s 
-  
- i32.eqz
-br_if  $00000
-;; Start String: b
+i32.gt_s 
+if
+;;; Stmlist if
+ ;; Start String: 1 > 0 
+
  i32.const 0
 call $new
 
@@ -78,27 +92,101 @@ call $new
 
  local.get $_temp
 local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
 
-i32.const 98
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 62
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 10
  call $add
  drop
 ;; End of String
 call $prints
 drop
-call $println
+end
+;; IF statement 
+i32.const 48
+ 
+i32.const 49
+ 
+i32.lt_s 
+if
+;;; Stmlist if
+ ;; Start String: 0 < 1 
+
+ i32.const 0
+call $new
+
+ local.set $_temp
+
+ local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 60
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 49
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 10
+ call $add
+ drop
+;; End of String
+call $prints
 drop
-(local.get $start)
-i32.const 1 
-i32.add
-(local.set $start)
-(local.get $finish)
-i32.const 1 
-i32.sub
-(local.set $finish)
-br $00001
 end
-end
-;; END WHILE 
+i32.const 54
+return
 i32.const 0  
 
 )

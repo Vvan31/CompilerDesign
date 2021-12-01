@@ -38,7 +38,7 @@ never_called() {
 
 main() {
 
-    fails = 01111111111111111111111111;
+    fails = 0;
     asserts = 0;
 
     assert(-0, 0, "error in unary minus");
@@ -119,4 +119,3 @@ main() {
     printi(asserts);
     prints(" assertion(s).\n");
 }
-

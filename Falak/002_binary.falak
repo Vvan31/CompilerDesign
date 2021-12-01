@@ -20,9 +20,13 @@ reverse(array) {
 # Converts num to a string with its binary representation.
 binary(num) {
     var result, remainder;
-    if (num <= 0) {
+
+
+    if (num < 0) {
         return "0";
     }
+
+
     result = "";
     while (num > 0) {
         remainder = num % 2;

@@ -21,7 +21,7 @@
 (local $temp i32) 
 i32.const 0
 local.set $start ;; VARIABLE ASSIGN
-local.get $array
+local.get $array ;; VARIABLE ASSIGN
 
 call $size
  
@@ -30,32 +30,32 @@ i32.const 1
 i32.sub 
 local.set $finish ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00000
-loop $00001
-local.get $start
+block $00002
+loop $00003
+local.get $start ;; VARIABLE ASSIGN
  
-local.get $finish
+local.get $finish ;; VARIABLE ASSIGN
  
 i32.lt_s 
   
  i32.eqz
-br_if  $00000
-local.get $array
-local.get $start
+br_if  $00002
+local.get $array ;; VARIABLE ASSIGN
+local.get $start ;; VARIABLE ASSIGN
 
 call $get
 local.set $temp ;; VARIABLE ASSIGN
-local.get $array
-local.get $start
-local.get $array
-local.get $finish
+local.get $array ;; VARIABLE ASSIGN
+local.get $start ;; VARIABLE ASSIGN
+local.get $array ;; VARIABLE ASSIGN
+local.get $finish ;; VARIABLE ASSIGN
 
 call $get
 call $set
 drop
-local.get $array
-local.get $finish
-local.get $temp
+local.get $array ;; VARIABLE ASSIGN
+local.get $finish ;; VARIABLE ASSIGN
+local.get $temp ;; VARIABLE ASSIGN
 call $set
 drop
 (local.get $start)
@@ -66,7 +66,7 @@ i32.add
 i32.const 1 
 i32.sub
 (local.set $finish)
-br $00001
+br $00003
 end
 end
 ;; END WHILE 
@@ -81,11 +81,11 @@ i32.const 0
 (local $result i32) 
 (local $remainder i32) 
 ;; IF statement 
-local.get $num
+local.get $num ;; VARIABLE ASSIGN
  
 i32.const 0
  
-i32.le_s 
+i32.lt_s 
 if
 ;;; Stmlist if
  ;; Start String: 0
@@ -113,24 +113,24 @@ call $new
 ;; End of String
 local.set $result ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00000
-loop $00001
-local.get $num
+block $00004
+loop $00005
+local.get $num ;; VARIABLE ASSIGN
  
 i32.const 0
  
 i32.gt_s 
   
  i32.eqz
-br_if  $00000
-local.get $num
+br_if  $00004
+local.get $num ;; VARIABLE ASSIGN
  
 i32.const 2
  
 i32.rem_s 
 local.set $remainder ;; VARIABLE ASSIGN
-local.get $result
-local.get $remainder
+local.get $result ;; VARIABLE ASSIGN
+local.get $remainder ;; VARIABLE ASSIGN
  
 
 i32.const 48
@@ -138,20 +138,20 @@ i32.const 48
 i32.add 
 call $add
 drop
-local.get $num
+local.get $num ;; VARIABLE ASSIGN
  
 i32.const 2
  
 i32.div_s 
 local.set $num ;; VARIABLE ASSIGN
-br $00001
+br $00005
 end
 end
 ;; END WHILE 
-local.get $result
+local.get $result ;; VARIABLE ASSIGN
 call $reverse
 drop
-local.get $result
+local.get $result ;; VARIABLE ASSIGN
 return
 i32.const 0  
 
@@ -166,24 +166,24 @@ i32.const 0
 (local $option i32) 
 (local $num i32) 
 ;;START WHILE 
-block $00000
-loop $00001
-local.get $option
+block $00006
+loop $00007
+local.get $option ;; VARIABLE ASSIGN
  
 
-i32.const 39
+i32.const 89
  
 i32.eq 
  
-local.get $option
+local.get $option ;; VARIABLE ASSIGN
  
 
-i32.const 39
+i32.const 121
  
 i32.eq 
  
 i32.or 
-br_if  $00000
+br_if  $00007
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -472,7 +472,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $num
+local.get $num ;; VARIABLE ASSIGN
 
 call $binary
 call $prints
@@ -613,7 +613,7 @@ drop
 call $reads
 local.set $option ;; VARIABLE ASSIGN
 ;; IF statement 
-local.get $option
+local.get $option ;; VARIABLE ASSIGN
 
 call $size
  
@@ -623,40 +623,40 @@ i32.eq
 if
 ;;; Stmlist if
  
-i32.const 39
+i32.const 78
 local.set $option ;; VARIABLE ASSIGN
 ;; else statement 
 else
-local.get $option
+local.get $option ;; VARIABLE ASSIGN
 i32.const 0
 
 call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00001
+br $00006
 end
 end
 ;; END WHILE 
 ;;START WHILE 
-block $00000
-loop $00001
-local.get $option
+block $00008
+loop $00009
+local.get $option ;; VARIABLE ASSIGN
  
 
-i32.const 39
+i32.const 89
  
 i32.eq 
  
-local.get $option
+local.get $option ;; VARIABLE ASSIGN
  
 
-i32.const 39
+i32.const 121
  
 i32.eq 
  
 i32.or 
-br_if  $00000
+br_if  $00009
 ;; Start String: Input a number: 
  i32.const 0
 call $new
@@ -945,7 +945,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $num
+local.get $num ;; VARIABLE ASSIGN
 
 call $binary
 call $prints
@@ -1086,7 +1086,7 @@ drop
 call $reads
 local.set $option ;; VARIABLE ASSIGN
 ;; IF statement 
-local.get $option
+local.get $option ;; VARIABLE ASSIGN
 
 call $size
  
@@ -1096,18 +1096,18 @@ i32.eq
 if
 ;;; Stmlist if
  
-i32.const 39
+i32.const 78
 local.set $option ;; VARIABLE ASSIGN
 ;; else statement 
 else
-local.get $option
+local.get $option ;; VARIABLE ASSIGN
 i32.const 0
 
 call $get
 local.set $option ;; VARIABLE ASSIGN
 
 end
-br $00001
+br $00008
 end
 end
 ;; END WHILE 

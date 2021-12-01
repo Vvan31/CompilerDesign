@@ -4,14 +4,16 @@ using System.Text;
 using System.Collections.Generic;
 
 namespace Falak {
+
     class CodePoints {
-    public static IList<int> AsCodePoints(String str) {
+    public IList<int> AsCodePoints(String str) {
         var result = new List<int>(str.Length);
         for (var i = 0; i < str.Length; i++) {
             result.Add(char.ConvertToUtf32(str, i));
             if (char.IsHighSurrogate(str, i)) {
                 i++;
             }
+
         }
         return result;
         }
@@ -71,6 +73,7 @@ namespace Falak {
 
         public String GenerateLabel() {
             return String.Format("${0:00000}", labelCounter++);
+
         }
 
         public string Visit(Program node) {
@@ -194,7 +197,6 @@ namespace Falak {
             var sb = new StringBuilder();
             sb.Append(VisitChildren(node) + "(result i32) \n");
             if(YeEstaElTemp == 0){
-                Console.WriteLine("Param no tiene temp");
                 if(functionFlag != "global" && functionFlag != "main"){
                     sb.Append("(local $_temp i32)\n");
                 }
@@ -263,8 +265,7 @@ namespace Falak {
         public string Visit(Stm_Inc node) {
             var varName = Visit((dynamic) node[0]);
             var scopeString = "";
-
-            if(FGST_Table[functionFlag].refLst.Contains(varName)){ //Es una variable local
+            if(FGST_Table[functionFlag].refLst.Contains(varName)|| FGST_Table[functionFlag].paramLst.Contains(varName) ){ //Es una variable local
                 scopeString =  "local";
 
             }else if (VGST.ContainsKey(varName)){
@@ -287,7 +288,7 @@ namespace Falak {
             var varName = Visit((dynamic) node[0]);
             var scopeString = "";
 
-            if(FGST_Table[functionFlag].refLst.Contains(varName)){ //Es una variable local
+            if(FGST_Table[functionFlag].refLst.Contains(varName) || FGST_Table[functionFlag].paramLst.Contains(varName) ){ //Es una variable local
                 scopeString =  "local";
 
             }else if (VGST.ContainsKey(varName)){
@@ -341,6 +342,9 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(While node) {
+            labelCounter +=2;
+
+
            counterWhile++;
             var varString="";
             var label1 = GenerateLabel();
@@ -365,6 +369,9 @@ namespace Falak {
         }
          //------------------------------------------------------
         public string Visit(Do node) {
+            labelCounter +=2;
+
+
             counterWhile++;
 
             var varString="";
@@ -375,9 +382,9 @@ namespace Falak {
             "block " + label1 + "\n"+
             "loop " + label2 + "\n"+
             Visit((dynamic) node[1])+ 
-            $"br_if  " + label1 + "\n" +
+            $"br_if  " + label2 + "\n" +
             Visit((dynamic) node[0])+ //The Conditional
-            "br " + label2 +"\n"+
+            "br " + label1 +"\n"+
             "end\n"+
             "end\n"+
             ";; END WHILE \n"
@@ -467,8 +474,6 @@ namespace Falak {
         }
          //-----------------------------------------------------------
         public string Visit(Division node) {
-            Console.WriteLine("DIV");
-            Console.WriteLine(Visit((dynamic)node[0]));
 
             return $"{Visit((dynamic) node[0])} \n" +  
                    $"{Visit((dynamic) node[1])} \n" +
@@ -495,19 +500,39 @@ namespace Falak {
 
         
         public string Visit(Expr_var_identifier node) {
-            var idName = node.AnchorToken.Lexeme;
-            var finalVarId = "";            
-            if(functionFlag != "global"){ 
-                if (VGST.ContainsKey(idName)){
-                    finalVarId ="global.get $" + idName + "\n" + ";;expr_var_identifier";
-                }else{
-                    
-                    finalVarId =  "local.get $" + idName+  "\n";
-                }
-            }else{ // Not in a function
-                finalVarId = "global.get $" + idName + "\n";
+
+            var sb = new StringBuilder();
+            var varName = node.AnchorToken.Lexeme;
+            
+
+         
+            if(FGST_Table[functionFlag].refLst.Contains(varName) || FGST_Table[functionFlag].paramLst.Contains(varName) ){ //Es una variable local
+                var varAssign = "";
+                varAssign += VisitChildren(node);
+                varAssign += $"local.get ${varName} ;; VARIABLE ASSIGN\n";
+                sb.Append(varAssign);
+            }else if (VGST.ContainsKey(varName)){
+                sb.Append(VisitChildren (node));
+                sb.Append($"global.get ${varName} ;; VARIABLE ASSIGN\n");
             }
-            return finalVarId;
+            
+            return sb.ToString();
+
+
+            // var idName = node.AnchorToken.Lexeme;
+            // var finalVarId = "";            
+            
+            // if(functionFlag != "global"){ 
+            //     if (VGST.ContainsKey(idName)){
+            //         finalVarId ="global.get $" + idName + "\n" + ";;expr_var_identifier\n";
+            //     }else{
+                    
+            //         finalVarId =  "local.get $" + idName+  "\n";
+            //     }
+            // }else{ // Not in a function
+            //     finalVarId = "global.get $" + idName + "\n";
+            // }
+            // return finalVarId;
 
         } 
         //-----------------------------------------------------------
@@ -533,15 +558,18 @@ namespace Falak {
         //-----------------------------------------------------------
         public string Visit(Lit_char node) {
             var lit = node.AnchorToken.Lexeme;
+
+            lit = lit.Remove(lit.Length-1,1);
+            lit = lit.Remove(0,1);
             
             //PRIMERO DIOS, PERO OJALA NUNCA ALLA UN UNICODE
             lit = lit.Replace("\\n","\n");
             lit = lit.Replace("\\r","\r");
             lit = lit.Replace("\\t","\t");
 
-            char[] charArr = lit.ToCharArray();
+            var uniChar =  codPoints.AsCodePoints($"{lit}");
 
-            return "\ni32.const " + (short)charArr[0] + "\n";
+            return "\ni32.const " + uniChar[0] + "\n";
         }
         //-----------------------------------------------------------
         public string Visit(Lit_str node) {
@@ -566,8 +594,6 @@ namespace Falak {
 
             var finalString =  codPoints.AsCodePoints(wantedString);
 
-            Console.WriteLine(finalString);
-
             var code = ";; Start String: " + wantedString;
             code += "\n i32.const 0\ncall $new\n";
             code += "\n local.set $_temp\n";
@@ -581,7 +607,7 @@ namespace Falak {
 
             var specialCharFlag = 0;
             foreach (var i in finalString){ 
-                code += "\ni32.const " + c  + 
+                code += "\ni32.const " + i  + 
                         "\n call $add"+
                         "\n drop\n";
             }
@@ -590,7 +616,7 @@ namespace Falak {
         }
         //-----------------------------------------------------------
         public string Visit(Lit_int node) {
-            return "i32.const " + node.AnchorToken.Lexeme + "\n";
+           return "i32.const " + node.AnchorToken.Lexeme + "\n";
         }
 
         string VisitChildren(Node node) {

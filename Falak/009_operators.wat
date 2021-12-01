@@ -25,9 +25,9 @@ i32.const 1
 i32.add
 (global.set $asserts)
 ;; IF statement 
-local.get $value1
+local.get $value1 ;; VARIABLE ASSIGN
  
-local.get $value2
+local.get $value2 ;; VARIABLE ASSIGN
  
 i32.ne 
 if
@@ -141,7 +141,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $message
+local.get $message ;; VARIABLE ASSIGN
 call $prints
 drop
 call $println
@@ -348,10 +348,10 @@ i32.const 0
     (result i32)
 (local $_temp i32)
 
-i32.const 01111111111111111111111111
-global.set $fails 
 i32.const 0
-global.set $asserts 
+global.set $fails ;; VARIABLE ASSIGN
+i32.const 0
+global.set $asserts ;; VARIABLE ASSIGN
 i32.const -0
 i32.const 0
 ;; Start String: error in unary minus
@@ -7191,7 +7191,7 @@ i32.const 108
 ;; End of String
 call $assert
 drop
-global.get $fails
+global.get $fails ;; VARIABLE ASSIGN
 call $printi
 drop
 ;; Start String:  failure(s) found in 
@@ -7309,7 +7309,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-global.get $asserts
+global.get $asserts ;; VARIABLE ASSIGN
 call $printi
 drop
 ;; Start String:  assertion(s).

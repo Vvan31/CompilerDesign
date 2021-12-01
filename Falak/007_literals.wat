@@ -20,9 +20,9 @@
 (result i32) 
 (local $_temp i32)
 ;; IF statement 
-local.get $value1
+local.get $value1 ;; VARIABLE ASSIGN
  
-local.get $value2
+local.get $value2 ;; VARIABLE ASSIGN
  
 i32.ne 
 if
@@ -136,7 +136,7 @@ i32.const 32
 ;; End of String
 call $prints
 drop
-local.get $message
+local.get $message ;; VARIABLE ASSIGN
 call $prints
 drop
 call $println
@@ -159,7 +159,7 @@ i32.const 0
 i32.const 0
 global.set $fails ;; VARIABLE ASSIGN
 
-i32.const 39
+i32.const 10
 i32.const 10
 ;; Start String: error in newline literal
  i32.const 0
@@ -292,7 +292,7 @@ i32.const 108
 call $assert
 drop
 
-i32.const 39
+i32.const 13
 i32.const 13
 ;; Start String: error in carriage return literal
  i32.const 0
@@ -465,7 +465,7 @@ i32.const 108
 call $assert
 drop
 
-i32.const 39
+i32.const 9
 i32.const 9
 ;; Start String: error in tab literal
  i32.const 0
@@ -578,7 +578,7 @@ i32.const 108
 call $assert
 drop
 
-i32.const 39
+i32.const 92
 i32.const 92
 ;; Start String: error in backslash literal
  i32.const 0
@@ -721,7 +721,7 @@ i32.const 108
 call $assert
 drop
 
-i32.const 39
+i32.const 92
 i32.const 39
 ;; Start String: error in single quote literal
  i32.const 0
@@ -879,7 +879,7 @@ i32.const 108
 call $assert
 drop
 
-i32.const 39
+i32.const 92
 i32.const 34
 ;; Start String: error in double quote literal
  i32.const 0
@@ -1037,9 +1037,9 @@ i32.const 108
 call $assert
 drop
 
-i32.const 39
+i32.const 92
 
-i32.const 39
+i32.const 65
 ;; Start String: error in letter A literal code point
  i32.const 0
 call $new
@@ -1231,7 +1231,7 @@ i32.const 116
 call $assert
 drop
 
-i32.const 39
+i32.const 92
 i32.const 8364
 ;; Start String: error in euro literal code point
  i32.const 0
@@ -1823,27 +1823,27 @@ i32.const 10
 local.set $a ;; VARIABLE ASSIGN
 i32.const 0
 local.set $i ;; VARIABLE ASSIGN
-local.get $s
+local.get $s ;; VARIABLE ASSIGN
 
 call $size
 local.set $n ;; VARIABLE ASSIGN
 ;;START WHILE 
-block $00000
-loop $00001
-local.get $i
+block $00002
+loop $00003
+local.get $i ;; VARIABLE ASSIGN
  
-local.get $n
+local.get $n ;; VARIABLE ASSIGN
  
 i32.lt_s 
   
  i32.eqz
-br_if  $00000
-local.get $a
-local.get $i
+br_if  $00002
+local.get $a ;; VARIABLE ASSIGN
+local.get $i ;; VARIABLE ASSIGN
 
 call $get
-local.get $s
-local.get $i
+local.get $s ;; VARIABLE ASSIGN
+local.get $i ;; VARIABLE ASSIGN
 
 call $get
 ;; Start String: error in string literal
@@ -1975,12 +1975,12 @@ drop
 i32.const 1 
 i32.add
 (local.set $i)
-br $00001
+br $00003
 end
 end
 ;; END WHILE 
-global.get $fails
-;;expr_var_identifiercall $printi
+global.get $fails ;; VARIABLE ASSIGN
+call $printi
 drop
 ;; Start String:  assertion failure(s) found.
  i32.const 0
@@ -2134,7 +2134,7 @@ call $prints
 drop
 call $println
 drop
-local.get $a
+local.get $a ;; VARIABLE ASSIGN
 call $prints
 drop
 i32.const 0  
