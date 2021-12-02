@@ -351,7 +351,8 @@ i32.const 99
 i32.eq 
 if
 ;;; Stmlist if
- end
+ br $00002
+end
 ;; IF statement 
 local.get $x ;; VARIABLE Expr_var_identifier 
  
@@ -377,7 +378,8 @@ local.get $x ;; VARIABLE Expr_var_identifier
 i32.gt_s 
 if
 ;;; Stmlist if
- ;; elseif statement 
+ br $00004
+;; elseif statement 
 else
 local.get $x ;; VARIABLE Expr_var_identifier 
  
@@ -406,6 +408,7 @@ i32.const 0
 i32.eq 
 
 if
+br $00004
 
 end
 end
@@ -465,6 +468,7 @@ i32.const 0
 i32.eq 
 
 if
+br $00004
 
 end
 end
@@ -488,7 +492,9 @@ i32.const 88
 i32.eq 
 if
 ;;; Stmlist if
- ;; Start String: The program works fine!
+ call $prints
+drop
+;; Start String: The program works fine!
 
  i32.const 0
 call $new

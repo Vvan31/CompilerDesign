@@ -157,6 +157,8 @@ namespace Falak {
         public void Visit(Return node) {}
          //-----------------------------------------------------------
         public void Visit(Or node) {}
+        public void Visit(Xor node) {}
+
          //-----------------------------------------------------------
         public void Visit(AND node) {}
          //-----------------------------------------------------------

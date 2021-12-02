@@ -87,15 +87,15 @@ main() {
     assert(1, true || true, "error in logical OR");
     assert(1, true_fun() || never_called(), "error in logical OR");
 
-    assert(0, false ^ false, "error in logical XOR");
-    assert(1, true ^ false, "error in logical XOR");
-    assert(1, false ^ true, "error in logical XOR");
-    assert(0, true ^ true, "error in logical XOR");
+    assert(0, false ^ false, "error in logical XOR: false ^ false");
+    assert(1, true ^ false, "error in logical XOR: true ^ false");
+    assert(1, false ^ true, "error in logical XOR: false ^ true");
+    assert(0, true ^ true, "error in logical XOR: true ^ true");
 
-    assert(false, 0 ^ 0, "error in logical XOR");
-    assert(true, 6 * 7 ^ 0, "error in logical XOR");
-    assert(true, 6 - 3 * 2 ^ 40 + 2, "error in logical XOR");
-    assert(false, 7 ^ 2 * 21, "error in logical XOR");
+    assert(false, 0 ^ 0, "error in logical XOR:0 ^ 0");
+    assert(true, 6 * 7 ^ 0, "error in logical XOR: 6 * 7 ^ 0");
+    assert(true, 6 - 3 * 2 ^ 40 + 2, "error in logical XOR: 6 - 3 * 2 ^ 40 + 2");
+    assert(false, 7 ^ 2 * 21, "error in logical XOR:  7 ^ 2 * 21");
 
     assert(1, 42 == 42, "error in equal to");
     assert(0, 42 == 43, "error in equal to");

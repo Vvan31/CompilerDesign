@@ -447,7 +447,7 @@ namespace Falak {
         public Node Expression() {
             var expr = Expression_and();
             while (firstofOr.Contains(CurrentToken)) {
-                var exprOr = new Or();
+                Node exprOr =null;
                 switch (CurrentToken){
                 case TokenCategory.OR:
                     exprOr = new Or(){
@@ -459,7 +459,7 @@ namespace Falak {
                     break;
 
                 case TokenCategory.CIRCUMFLEX:
-                    exprOr = new Or(){
+                    exprOr = new Xor(){
                            AnchorToken = Expect(TokenCategory.CIRCUMFLEX)
                     };
                     exprOr.Add(expr);

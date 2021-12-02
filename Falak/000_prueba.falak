@@ -1,11 +1,10 @@
 
 
-owo(){
-
-}
-
 main(){
-    var x;
-    x = 9;
-    owo();
+    var x,y;
+    x = 2;
+    y = 1;
+    if(6 * 7 ^ 0 ){
+        prints("Xor");
+    }
 }

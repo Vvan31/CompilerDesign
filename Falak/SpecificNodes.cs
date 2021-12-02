@@ -36,6 +36,7 @@
                 class Return:Node{}
 //--------------------Expr-------------------------------------------
         class Or : Node {}
+        class Xor : Node {}
             class AND : Node {}
                 class Equals : Node {}
                 class Difequals : Node {}

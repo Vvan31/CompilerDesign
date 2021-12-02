@@ -477,11 +477,30 @@ namespace Falak {
             sb.Append("end\n");
             return sb.ToString();
         }
+
+
             
             // return $"{Visit((dynamic) node[0])} \n" +  
             //        $"{Visit((dynamic) node[1])} \n" +
             //        "i32.or \n";                }
          //-----------------------------------------------------------
+        public string Visit(Xor node) {
+            var sb = new StringBuilder();
+            sb.Append(Visit((dynamic) node[0]));
+            sb.Append("if (result i32)\n");
+            sb.Append("i32.const 1\n");            
+            sb.Append("i32.eqz\n");
+            sb.Append("else\n");
+            sb.Append(Visit((dynamic) node[1]));
+            sb.Append("i32.eqz\n");
+            sb.Append("i32.eqz\n");
+            sb.Append("end\n");
+            return sb.ToString();
+            // return $"{Visit((dynamic) node[0])} \n" +  
+            //        $"{Visit((dynamic) node[1])} \n" +
+            //        "i32.xor \n";        
+                   
+            }
         public string Visit(AND node) {
             var sb = new StringBuilder();
             sb.Append(Visit((dynamic) node[0]));

@@ -203,6 +203,8 @@ namespace Falak {
         public new void Visit(Return node) {}
          //-----------------------------------------------------------
         public new void Visit(Or node) {}
+        public new void Visit(Xor node) {}
+
          //-----------------------------------------------------------
         public new void Visit(AND node) {}
          //-----------------------------------------------------------

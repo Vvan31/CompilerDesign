@@ -4463,18 +4463,34 @@ i32.const 0
     i32.const 0
 if (result i32)
 i32.const 1
+i32.eqz
 else
     i32.const 0
 i32.eqz
 i32.eqz
 end
-;; Start String: error in logical XOR
+;; Start String: error in logical XOR: false ^ false
  i32.const 0
 call $new
 
  local.set $_temp
 
  local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -4573,6 +4589,66 @@ i32.const 79
  drop
 
 i32.const 82
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 102
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 94
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 102
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 101
  call $add
  drop
 ;; End of String
@@ -4582,18 +4658,33 @@ i32.const 1
     i32.const 1
 if (result i32)
 i32.const 1
+i32.eqz
 else
     i32.const 0
 i32.eqz
 i32.eqz
 end
-;; Start String: error in logical XOR
+;; Start String: error in logical XOR: true ^ false
  i32.const 0
 call $new
 
  local.set $_temp
 
  local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -4692,6 +4783,62 @@ i32.const 79
  drop
 
 i32.const 82
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 94
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 102
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 101
  call $add
  drop
 ;; End of String
@@ -4701,18 +4848,33 @@ i32.const 1
     i32.const 0
 if (result i32)
 i32.const 1
+i32.eqz
 else
     i32.const 1
 i32.eqz
 i32.eqz
 end
-;; Start String: error in logical XOR
+;; Start String: error in logical XOR: false ^ true
  i32.const 0
 call $new
 
  local.set $_temp
 
  local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -4811,6 +4973,62 @@ i32.const 79
  drop
 
 i32.const 82
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 102
+ call $add
+ drop
+
+i32.const 97
+ call $add
+ drop
+
+i32.const 108
+ call $add
+ drop
+
+i32.const 115
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 94
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 101
  call $add
  drop
 ;; End of String
@@ -4820,18 +5038,32 @@ i32.const 0
     i32.const 1
 if (result i32)
 i32.const 1
+i32.eqz
 else
     i32.const 1
 i32.eqz
 i32.eqz
 end
-;; Start String: error in logical XOR
+;; Start String: error in logical XOR: true ^ true
  i32.const 0
 call $new
 
  local.set $_temp
 
  local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -4930,6 +5162,58 @@ i32.const 79
  drop
 
 i32.const 82
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 101
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 94
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 116
+ call $add
+ drop
+
+i32.const 114
+ call $add
+ drop
+
+i32.const 117
+ call $add
+ drop
+
+i32.const 101
  call $add
  drop
 ;; End of String
@@ -4939,18 +5223,25 @@ drop
 i32.const 0
 if (result i32)
 i32.const 1
+i32.eqz
 else
 i32.const 0
 i32.eqz
 i32.eqz
 end
-;; Start String: error in logical XOR
+;; Start String: error in logical XOR:0 ^ 0
  i32.const 0
 call $new
 
  local.set $_temp
 
  local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -5049,6 +5340,30 @@ i32.const 79
  drop
 
 i32.const 82
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 94
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 48
  call $add
  drop
 ;; End of String
@@ -5062,18 +5377,30 @@ i32.const 7
 i32.mul 
 if (result i32)
 i32.const 1
+i32.eqz
 else
 i32.const 0
 i32.eqz
 i32.eqz
 end
-;; Start String: error in logical XOR
+;; Start String: error in logical XOR: 6 * 7 ^ 0
  i32.const 0
 call $new
 
  local.set $_temp
 
  local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -5172,6 +5499,50 @@ i32.const 79
  drop
 
 i32.const 82
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 54
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 42
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 55
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 94
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 48
  call $add
  drop
 ;; End of String
@@ -5189,6 +5560,7 @@ i32.mul
 i32.sub 
 if (result i32)
 i32.const 1
+i32.eqz
 else
 i32.const 40
  
@@ -5198,13 +5570,33 @@ i32.add
 i32.eqz
 i32.eqz
 end
-;; Start String: error in logical XOR
+;; Start String: error in logical XOR: 6 - 3 * 2 ^ 40 + 2
  i32.const 0
 call $new
 
  local.set $_temp
 
  local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -5303,6 +5695,86 @@ i32.const 79
  drop
 
 i32.const 82
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 54
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 45
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 51
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 42
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 94
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 52
+ call $add
+ drop
+
+i32.const 48
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 43
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 50
  call $add
  drop
 ;; End of String
@@ -5312,6 +5784,7 @@ drop
 i32.const 7
 if (result i32)
 i32.const 1
+i32.eqz
 else
 i32.const 2
  
@@ -5321,13 +5794,26 @@ i32.mul
 i32.eqz
 i32.eqz
 end
-;; Start String: error in logical XOR
+;; Start String: error in logical XOR:  7 ^ 2 * 21
  i32.const 0
 call $new
 
  local.set $_temp
 
  local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
+local.get $_temp
 local.get $_temp
 local.get $_temp
 local.get $_temp
@@ -5426,6 +5912,58 @@ i32.const 79
  drop
 
 i32.const 82
+ call $add
+ drop
+
+i32.const 58
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 55
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 94
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 42
+ call $add
+ drop
+
+i32.const 32
+ call $add
+ drop
+
+i32.const 50
+ call $add
+ drop
+
+i32.const 49
  call $add
  drop
 ;; End of String
