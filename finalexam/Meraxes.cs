@@ -106,8 +106,9 @@ namespace Meraxes{
         }
         public override string ToString() {
             
-            return GetType().Name + AnchorToken;
+            return GetType().Name;
         }
+
         public string ToStringTree() {
             var sb = new StringBuilder();
             TreeTraversal(this, "", sb);
@@ -181,45 +182,92 @@ namespace Meraxes{
             }
         }
         public Node Program() {
-            var e = new Program() { Exp() };
+            var e = new Program();
+            while(firstOfExpression.Contains(CurrentToken)){
+                switch (CurrentToken){
+                    case Token.STAR:
+                        //Console.WriteLine(CurrentToken);
+                        e.Add(Dup());
+                        break;
+                    case Token.OPEN_CORCHETE:
+                        //Console.WriteLine(CurrentToken);
+                        e.Add(Sum());
+                        break;
+                    case Token.OPEN_BRAKET:
+                    //Console.WriteLine(CurrentToken);
+                        e.Add(Mul());
+                        break;
+                    case Token.INT:
+                    //Console.WriteLine(CurrentToken);
+                        var literalInt = new Literal_int(){
+                            AnchorToken = Expect(Token.INT)
+                        };
+                        e.Add(literalInt);
+                        break;
+                    default:
+                        throw new SyntaxError();    
+                }
+            }
             Expect(Token.EOF);
             return e;
         }
-        public Node Exp() {
-            var expr = new Expr();
-            //Console.WriteLine(CurrentToken);
+        // public Node Exp() {
+        //     var expr = new Expr();
+        //     //Console.WriteLine(CurrentToken);
 
-            switch (CurrentToken){
-                case Token.STAR:
-                    //Console.WriteLine(CurrentToken);
-                    expr.Add(Dup());
-                    break;
-                case Token.OPEN_CORCHETE:
-                    //Console.WriteLine(CurrentToken);
-                    expr.Add(Sum());
-                    break;
-                case Token.OPEN_BRAKET:
-                //Console.WriteLine(CurrentToken);
-                    expr.Add(Mul());
-                    break;
-                case Token.INT:
-                //Console.WriteLine(CurrentToken);
-                    var literalInt = new Literal_int(){
-                        AnchorToken = Expect(Token.INT)
-                    };
-                    expr.Add(literalInt);
-                    break;
-                default:
-                    throw new SyntaxError();    
-            }
-            return expr;
-        }
+        //     switch (CurrentToken){
+        //         case Token.STAR:
+        //             //Console.WriteLine(CurrentToken);
+        //             expr.Add(Dup());
+        //             break;
+        //         case Token.OPEN_CORCHETE:
+        //             //Console.WriteLine(CurrentToken);
+        //             expr.Add(Sum());
+        //             break;
+        //         case Token.OPEN_BRAKET:
+        //         //Console.WriteLine(CurrentToken);
+        //             expr.Add(Mul());
+        //             break;
+        //         case Token.INT:
+        //         //Console.WriteLine(CurrentToken);
+        //             var literalInt = new Literal_int(){
+        //                 AnchorToken = Expect(Token.INT)
+        //             };
+        //             expr.Add(literalInt);
+        //             break;
+        //         default:
+        //             throw new SyntaxError();    
+        //     }
+        //     return expr;
+        // }
         public Node Dup(){
-            var Dup = new Dup(){
+            var DupNode = new Dup(){
                 AnchorToken = Expect(Token.STAR)
             };
-            Dup.Add(Exp());
-            return Dup;
+            switch (CurrentToken){
+                    case Token.STAR:
+                        //Console.WriteLine(CurrentToken);
+                        DupNode.Add(Dup());
+                        break;
+                    case Token.OPEN_CORCHETE:
+                        //Console.WriteLine(CurrentToken);
+                        DupNode.Add(Sum());
+                        break;
+                    case Token.OPEN_BRAKET:
+                    //Console.WriteLine(CurrentToken);
+                        DupNode.Add(Mul());
+                        break;
+                    case Token.INT:
+                    //Console.WriteLine(CurrentToken);
+                        var literalInt = new Literal_int(){
+                            AnchorToken = Expect(Token.INT)
+                        };
+                        DupNode.Add(literalInt);
+                        break;
+                    default:
+                        throw new SyntaxError();    
+                }
+            return DupNode;
         }
         public Node Sum(){
             var sum = new Sum(){
@@ -239,15 +287,81 @@ namespace Meraxes{
         }
         public Node List(){
             var listNode = new List();
-            listNode.Add(Exp());
+             switch (CurrentToken){
+                    case Token.STAR:
+                        //Console.WriteLine(CurrentToken);
+                        listNode.Add(Dup());
+                        break;
+                    case Token.OPEN_CORCHETE:
+                        //Console.WriteLine(CurrentToken);
+                        listNode.Add(Sum());
+                        break;
+                    case Token.OPEN_BRAKET:
+                    //Console.WriteLine(CurrentToken);
+                        listNode.Add(Mul());
+                        break;
+                    case Token.INT:
+                    //Console.WriteLine(CurrentToken);
+                        var literalInt = new Literal_int(){
+                            AnchorToken = Expect(Token.INT)
+                        };
+                        listNode.Add(literalInt);
+                        break;
+                    default:
+                        throw new SyntaxError();    
+                }
             if(firstOfExpression.Contains(CurrentToken)){
-                listNode.Add(Exp());
+                 switch (CurrentToken){
+                    case Token.STAR:
+                        //Console.WriteLine(CurrentToken);
+                        listNode.Add(Dup());
+                        break;
+                    case Token.OPEN_CORCHETE:
+                        //Console.WriteLine(CurrentToken);
+                        listNode.Add(Sum());
+                        break;
+                    case Token.OPEN_BRAKET:
+                    //Console.WriteLine(CurrentToken);
+                        listNode.Add(Mul());
+                        break;
+                    case Token.INT:
+                    //Console.WriteLine(CurrentToken);
+                        var literalInt = new Literal_int(){
+                            AnchorToken = Expect(Token.INT)
+                        };
+                        listNode.Add(literalInt);
+                        break;
+                    default:
+                        throw new SyntaxError();    
+                }
                 return listNode;
             }else{
                 while (CurrentToken == Token.COMA)
                 {
                      Expect(Token.COMA);
-                     listNode.Add(Exp());
+                      switch (CurrentToken){
+                        case Token.STAR:
+                            //Console.WriteLine(CurrentToken);
+                            listNode.Add(Dup());
+                            break;
+                        case Token.OPEN_CORCHETE:
+                            //Console.WriteLine(CurrentToken);
+                            listNode.Add(Sum());
+                            break;
+                        case Token.OPEN_BRAKET:
+                        //Console.WriteLine(CurrentToken);
+                            listNode.Add(Mul());
+                            break;
+                        case Token.INT:
+                        //Console.WriteLine(CurrentToken);
+                            var literalInt = new Literal_int(){
+                                AnchorToken = Expect(Token.INT)
+                            };
+                            listNode.Add(literalInt);
+                            break;
+                        default:
+                            throw new SyntaxError();    
+                    }
                 }
                 return listNode;
             }
@@ -269,19 +383,30 @@ namespace Meraxes{
         }
 
         public string Visit(Dup node){
-            return (VisitChildren(node) + 
+            return ( Visit((dynamic)node) + 
             "i64.const 2" + 
             "i64.mul");
         }
 
         public String Visit(Sum node){
-            return (VisitChildren(node) + "\n"+
-                    "i64.add");
+            var sb = new StringBuilder();
+
+            foreach(var n in Visit((dynamic) node)){
+                sb.Append("i64.const " + n.ToString());
+                sb.Append("i64.const " + n.ToString());
+                sb.Append("i64.sum");
+            }
+            return sb.ToString();
         }
 
         public string Visit(Mul node){
-            return (VisitChildren( node) + 
-                    "i64.mul");
+            var sb = new StringBuilder();
+            foreach(var n in Visit((dynamic) node)){
+                sb.Append("i64.const " + n.ToString());
+                sb.Append("i64.const " + n.ToString());
+                sb.Append("i64.mul");
+            }
+            return sb.ToString();
         }
 
         public string Visit(List node){
@@ -318,9 +443,9 @@ namespace Meraxes{
                     new Scanner(args[0]).Start().GetEnumerator());
                 var ast = p.Program();
                 Console.Write(ast.ToStringTree());
-                File.WriteAllText(
-                    "output.wat",
-                    new WebAssemblyVisitor().Visit((dynamic) ast));
+                // File.WriteAllText(
+                //     "output.wat",
+                //     new WebAssemblyVisitor().Visit((dynamic) ast));
             } catch (SyntaxError e) {
                 Console.Error.WriteLine(e.Message);
             }
